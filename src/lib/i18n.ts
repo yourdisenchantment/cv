@@ -1,6 +1,6 @@
 // UI-строки интерфейса резюме. Плоский словарь, без pluralization/интерполяции.
-// ru заполнен; en - этап 6. Закладка под i18n: компоненты берут строки через
-// t(lang, key), добавление en = дополнение словаря без правки компонентов.
+// ru/en заполнены. Компоненты берут строки через t(lang, key); добавление
+// языка = дополнение словаря без правки компонентов.
 
 import type { Locale } from "./format";
 
@@ -29,10 +29,16 @@ type Dict = {
     // публикации: level (для ВКР)
     levelBachelor: string;
     levelMaster: string;
-    // публикации: слово "курс" (для ВКР, "2 курс")
+    // публикации: слово "курс" (для ВКР, "2 курс" / "Year 2")
     course: string;
     // проекты: текст ссылки на репозиторий
     sourceLink: string;
+    // док-бар: aria/тултипы
+    dockNav: string;
+    themeToggle: string;
+    downloadPdf: string;
+    print: string;
+    sourceCode: string;
 };
 
 const ui: Record<Locale, Dict> = {
@@ -57,35 +63,44 @@ const ui: Record<Locale, Dict> = {
         levelMaster: "Магистратура",
         course: "курс",
         sourceLink: "Код",
+        dockNav: "Управление резюме",
+        themeToggle: "Сменить тему",
+        downloadPdf: "Скачать PDF",
+        print: "Печать",
+        sourceCode: "Исходный код резюме",
     },
-    // этап 6: заполнить en-значениями.
     en: {
-        about: "",
-        contacts: "",
-        skills: "",
-        experience: "",
-        education: "",
-        courses: "",
-        projects: "",
-        publications: "",
-        birthDate: "",
-        city: "",
-        archived: "",
-        kindArticle: "",
-        kindThesis: "",
-        kindPatent: "",
-        kindVkr: "",
-        kindDataset: "",
-        levelBachelor: "",
-        levelMaster: "",
-        course: "",
-        sourceLink: "",
+        about: "About",
+        contacts: "Contacts",
+        skills: "Skills",
+        experience: "Experience",
+        education: "Education",
+        courses: "Professional development",
+        projects: "Projects",
+        publications: "Publications",
+        birthDate: "Date of birth",
+        city: "City",
+        archived: "archived",
+        kindArticle: "Article",
+        kindThesis: "Conference paper",
+        kindPatent: "Patent",
+        kindVkr: "Graduation thesis",
+        kindDataset: "Dataset",
+        levelBachelor: "Bachelor",
+        levelMaster: "Master",
+        course: "Year",
+        sourceLink: "Code",
+        dockNav: "Resume controls",
+        themeToggle: "Toggle theme",
+        downloadPdf: "Download PDF",
+        print: "Print",
+        sourceCode: "Resume source code",
     },
 };
 
 /**
- * Возвращает UI-строку для языка и ключа. Для незаполненного en падает обратно
- * на ru (пока en-словарь не заполнен на этапе 6).
+ * Возвращает UI-строку для языка и ключа. Для пустого en-значения падает
+ * обратно на ru (страховка).
  *
  * Args:
  *   lang: язык страницы.

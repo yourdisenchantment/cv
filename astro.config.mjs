@@ -7,10 +7,11 @@ export default defineConfig({
     // финализируется на этапе 10 (деплой). base не задаем, чтобы dev жил на '/'.
     site: "https://yourdisenchantment.github.io",
     i18n: {
-        defaultLocale: "ru",
+        // en -> '/', ru -> '/ru/'. Английский по умолчанию (модель B): все
+        // попадают на en, русский - переключением. См. ROADMAP этап 6.
+        defaultLocale: "en",
         locales: ["ru", "en"],
         routing: {
-            // ru -> '/', en -> '/en/'
             prefixDefaultLocale: false,
         },
     },

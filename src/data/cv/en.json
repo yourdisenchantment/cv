@@ -1,11 +1,11 @@
 {
     "meta": {
-        "title": "Pavel Mikheev - CV",
+        "title": "Pavel Mikheyev - CV",
         "description": "CV of Pavel Mikheev, Fullstack developer and Data Scientist."
     },
     "about": {
         "photo": "/images/my-face.jpg",
-        "name": "Pavel Olegovich Mikheev",
+        "name": "Mikheyev Pavel Olegovich",
         "role": "Fullstack Developer, Data Scientist",
         "birthDate": "2002-11-06",
         "city": "Simferopol, Russia",
@@ -30,7 +30,7 @@
             "group": "contact"
         },
         {
-            "label": "Website",
+            "label": "Site",
             "value": "yourdisenchantment.github.io/cv",
             "href": "https://yourdisenchantment.github.io/cv",
             "group": "contact"

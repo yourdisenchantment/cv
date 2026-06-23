@@ -1,0 +1,45 @@
+---
+import type { Cv } from "../../data/cv/schema";
+import { type Locale } from "../../lib/format";
+import About from "./About.astro";
+import Contacts from "./Contacts.astro";
+import Skills from "./Skills.astro";
+import Experience from "./Experience.astro";
+import Education from "./Education.astro";
+import Courses from "./Courses.astro";
+import Projects from "./Projects.astro";
+import Publications from "./Publications.astro";
+
+// Тело резюме (обёртка + секции) для обоих локалей. Страницы (/ и /ru/) грузят
+// свой entry и передают cv.data; метаданные (title/description) страница
+// отдаёт в BaseLayout. Порядок секций - единый источник правды.
+interface Props {
+    lang: Locale;
+    data: Cv;
+}
+
+const { lang, data } = Astro.props;
+const {
+    about,
+    contacts,
+    skills,
+    experience,
+    education,
+    courses,
+    projects,
+    publications,
+} = data;
+---
+
+<div class="wrapper">
+    <main class="main">
+        <About lang={lang} about={about} />
+        <Contacts lang={lang} contacts={contacts} />
+        <Skills lang={lang} skills={skills} />
+        <Experience lang={lang} experience={experience} />
+        <Education lang={lang} education={education} />
+        <Courses lang={lang} courses={courses} />
+        <Publications lang={lang} publications={publications} />
+        <Projects lang={lang} projects={projects} />
+    </main>
+</div>

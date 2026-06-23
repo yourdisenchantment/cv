@@ -1,6 +1,4 @@
-// Форматирование периодов и дат резюме.
-// ru-таблицы заполнены; en-таблицы пустые (заполняются на этапе 6 i18n).
-// Сигнатура с locale-параметром заложена заранее, вызовы переписывать не придется.
+// Форматирование периодов и дат резюме. ru/en-таблицы заполнены.
 
 export type Locale = "ru" | "en";
 
@@ -20,10 +18,24 @@ const MONTHS_NOMINATIVE: Record<Locale, string[]> = {
         "Ноябрь",
         "Декабрь",
     ],
-    en: [], // этап 6
+    en: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ],
 };
 
 // Месяцы в родительном падеже - для даты рождения ("6 ноября 2002").
+// В английском падеж не выражается, используем те же имена ("6 November 2002").
 const MONTHS_GENITIVE: Record<Locale, string[]> = {
     ru: [
         "января",
@@ -39,13 +51,26 @@ const MONTHS_GENITIVE: Record<Locale, string[]> = {
         "ноября",
         "декабря",
     ],
-    en: [], // этап 6
+    en: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ],
 };
 
 // Метка "настоящее время" для открытого периода (end: null).
 const PRESENT: Record<Locale, string> = {
     ru: "настоящее время",
-    en: "", // этап 6
+    en: "present",
 };
 
 // "YYYY-MM" -> "Месяц YYYY" (именительный). Бросает при невалидном формате.
@@ -57,9 +82,7 @@ function formatMonthNominative(value: string, locale: Locale): string {
     }
     const label = MONTHS_NOMINATIVE[locale][idx];
     if (!label) {
-        throw new Error(
-            `Month names for locale "${locale}" not filled (этап 6)`,
-        );
+        throw new Error(`Month names for locale "${locale}" not filled`);
     }
     return `${label} ${year}`;
 }
@@ -69,7 +92,7 @@ function formatMonthNominative(value: string, locale: Locale): string {
  *
  * Args:
  *   period: { start: "YYYY-MM", end: "YYYY-MM" | null }. end: null - настоящее.
- *   locale: "ru" | "en" (дефолт "ru"; en - этап 6).
+ *   locale: "ru" | "en" (дефолт "ru").
  *
  * Returns:
  *   Отформатированную строку периода.
@@ -90,7 +113,7 @@ export function formatPeriod(
  *
  * Args:
  *   iso: дата в формате "YYYY-MM-DD".
- *   locale: "ru" | "en" (дефолт "ru"; en - этап 6).
+ *   locale: "ru" | "en" (дефолт "ru").
  *
  * Returns:
  *   Отформатированную дату.
@@ -110,9 +133,7 @@ export function formatBirthDate(iso: string, locale: Locale = "ru"): string {
     }
     const label = MONTHS_GENITIVE[locale][idx];
     if (!label) {
-        throw new Error(
-            `Month names for locale "${locale}" not filled (этап 6)`,
-        );
+        throw new Error(`Month names for locale "${locale}" not filled`);
     }
     return `${dayNum} ${label} ${year}`;
 }

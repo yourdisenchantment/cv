@@ -1,10 +1,10 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Resume from "../components/cv/Resume.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Resume from "../../components/cv/Resume.astro";
 import { getEntry } from "astro:content";
 
-// Английская версия - корневой маршрут '/' (модель B: en по умолчанию).
-const lang = "en";
+// Русская версия - маршрут '/ru/' (модель B: en по умолчанию на '/', ru вручную).
+const lang = "ru";
 const cv = await getEntry("cv", lang);
 if (!cv) throw new Error(`CV entry '${lang}' not found in collection 'cv'`);
 ---

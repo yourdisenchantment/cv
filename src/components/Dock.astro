@@ -1,56 +1,63 @@
 ---
-// Док-бар управления резюме. Рабочие на этапе A: тема (toggle), code (ссылка
-// на GitHub-репо резюме). Язык/печать/PDF - заглушки (disabled) до этапов 6/5.
+import { type Locale } from "../lib/format";
+import { t } from "../lib/i18n";
 import "../styles/dock.css";
 
+// Док-бар управления резюме. Рабочие: тема (toggle), code (ссылка на GitHub-
+// репо), печать/PDF (window.print - временно, стилизация печати - этап E),
+// язык (ссылка на другой локаль-маршрут). Модель B: en на '/', ru на '/ru/'.
+interface Props {
+    lang: Locale;
+}
+
+const { lang } = Astro.props;
+
 const repoUrl = "https://github.com/yourdisenchantment/cv";
+
+// Кнопка языка - ссылка на другой локаль. Тултип - автоним целевого языка
+// (узнаваем пользователем): на en-странице -> "Русский", на ru -> "English".
+const langHref = lang === "en" ? "/ru/" : "/";
+const langLabel = lang === "en" ? "Русский" : "English";
 ---
 
-<nav class="dock" aria-label="Управление резюме">
-    <button
-        class="dock-button is-pending"
-        type="button"
-        data-action="language"
-        data-tooltip="Сменить язык (скоро)"
-        aria-disabled="true"
-        tabindex="-1"
-        aria-label="Сменить язык"
+<nav class="dock" aria-label={t(lang, "dockNav")}>
+    <a
+        class="dock-button"
+        href={langHref}
+        data-tooltip={langLabel}
+        aria-label={langLabel}
     >
         <span class="material-symbols-outlined" aria-hidden="true"
             >language</span
         >
-    </button>
+    </a>
     <button
         class="dock-button"
         type="button"
         data-action="theme"
-        data-tooltip="Сменить тему"
-        aria-label="Сменить тему"
+        data-tooltip={t(lang, "themeToggle")}
+        aria-label={t(lang, "themeToggle")}
     >
         <span class="material-symbols-outlined" aria-hidden="true">routine</span
         >
     </button>
     <button
-        class="dock-button is-pending"
+        class="dock-button"
         type="button"
         data-action="download"
-        data-tooltip="Скачать PDF (скоро)"
-        aria-disabled="true"
-        tabindex="-1"
-        aria-label="Скачать PDF"
+        data-tooltip={t(lang, "downloadPdf")}
+        aria-label={t(lang, "downloadPdf")}
     >
         <span class="material-symbols-outlined" aria-hidden="true"
             >download</span
         >
     </button>
     <button
-        class="dock-button is-pending"
+        class="dock-button"
         type="button"
         data-action="print"
-        data-tooltip="Печать (скоро)"
-        aria-disabled="true"
-        tabindex="-1"
-        aria-label="Печать"
+        data-tooltip={t(lang, "print")}
+        aria-label={t(lang, "print")}
     >
         <span class="material-symbols-outlined" aria-hidden="true">print</span>
     </button>
@@ -59,8 +66,8 @@ const repoUrl = "https://github.com/yourdisenchantment/cv";
         href={repoUrl}
         target="_blank"
         rel="noopener noreferrer"
-        data-tooltip="Исходный код резюме"
-        aria-label="Исходный код резюме"
+        data-tooltip={t(lang, "sourceCode")}
+        aria-label={t(lang, "sourceCode")}
     >
         <span class="material-symbols-outlined" aria-hidden="true">code</span>
     </a>
@@ -79,6 +86,22 @@ const repoUrl = "https://github.com/yourdisenchantment/cv";
             var next = cur === "dark" ? "light" : "dark";
             document.documentElement.setAttribute("data-theme", next);
             localStorage.setItem("theme", next);
+        });
+    })();
+</script>
+
+<!-- Печать и скачивание PDF: пока оба вызывают window.print() (диалог браузера,
+     "Сохранить как PDF"). Временная реализация - стилизация печати (print.css,
+     @page A4) на этапе E. -->
+<script is:inline>
+    (function () {
+        var buttons = document.querySelectorAll(
+            '.dock-button[data-action="print"], .dock-button[data-action="download"]',
+        );
+        buttons.forEach(function (b) {
+            b.addEventListener("click", function () {
+                window.print();
+            });
         });
     })();
 </script>

@@ -23,12 +23,18 @@ const levelKey = {
     master: "levelMaster",
 } as const;
 
-// Метка публикации: для ВКР - "ВКР (Магистратура), 2 курс"; иначе - просто kind.
+// Метка публикации: для ВКР - "ВКР (Магистратура), 2 курс" / "Graduation
+// thesis (Master), Year 2"; иначе - просто kind. Порядок слова "курс/Year"
+// зависит от локали: ru "2 курс", en "Year 2".
 function meta(pub: Cv["publications"][number]): string {
     const kind = t(lang, kindKey[pub.kind]);
     if (pub.kind === "vkr" && pub.level) {
         const level = t(lang, levelKey[pub.level]);
-        const course = pub.course ? `, ${pub.course} ${t(lang, "course")}` : "";
+        const course = pub.course
+            ? lang === "en"
+                ? `, ${t(lang, "course")} ${pub.course}`
+                : `, ${pub.course} ${t(lang, "course")}`
+            : "";
         return `${kind} (${level})${course}`;
     }
     return kind;

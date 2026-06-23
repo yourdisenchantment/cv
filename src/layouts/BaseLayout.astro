@@ -44,6 +44,6 @@ const isDev = import.meta.env.DEV;
     </head>
     <body class:list={[isDev && "debug-boxes"]}>
         <slot />
-        <Dock />
+        <Dock lang={lang} />
     </body>
 </html>
