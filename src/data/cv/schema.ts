@@ -66,7 +66,7 @@ const project = z.object({
 
 // level/course - только для kind: "vkr" (ВКР бакалавра/магистра).
 const publication = z.object({
-    kind: z.enum(["article", "thesis", "patent", "vkr"]),
+    kind: z.enum(["article", "thesis", "patent", "vkr", "dataset"]),
     title: z.string(),
     level: z.enum(["bachelor", "master"]).optional(),
     course: z.number().optional(),

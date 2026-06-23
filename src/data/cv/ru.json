@@ -70,7 +70,9 @@
         "SQL",
         "Linux",
         "Docker",
-        "FastAPI"
+        "FastAPI",
+        "PyTorch",
+        "MLX"
     ],
     "experience": [
         {
@@ -200,7 +202,8 @@
                 "datasets",
                 "Polars",
                 "NumPy",
-                "HuggingFace"
+                "HuggingFace",
+                "MLX"
             ]
         },
         {
@@ -300,6 +303,11 @@
                 "https://build-pro.press/ru/nauka/journal/275/view",
                 "https://www.elibrary.ru/title_about_new.asp?id=73740"
             ]
+        },
+        {
+            "kind": "dataset",
+            "title": "CC3M Semantic Subset with WCAG 2.2 Captions (Russian)",
+            "urls": ["https://doi.org/10.6084/m9.figshare.32258007"]
         },
         {
             "kind": "vkr",

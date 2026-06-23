@@ -16,6 +16,7 @@ const kindKey = {
     thesis: "kindThesis",
     patent: "kindPatent",
     vkr: "kindVkr",
+    dataset: "kindDataset",
 } as const;
 const levelKey = {
     bachelor: "levelBachelor",
@@ -33,9 +34,11 @@ function meta(pub: Cv["publications"][number]): string {
     return kind;
 }
 
-// Текст ссылки - домен: без нумерации, информативно, не зависит от i18n.
-function host(url: string): string {
-    return new URL(url).hostname;
+// Текст ссылки: для датасета - полный путь (hostname + pathname), чтобы виден
+// DOI-идентификатор; для остальных - только домен.
+function linkText(url: string, kind: string): string {
+    const u = new URL(url);
+    return kind === "dataset" ? u.hostname + u.pathname : u.hostname;
 }
 ---
 
@@ -58,7 +61,7 @@ function host(url: string): string {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    {host(u)}
+                                    {linkText(u, pub.kind)}
                                 </a>
                             </li>
                         ))}

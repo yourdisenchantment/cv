@@ -25,6 +25,7 @@ type Dict = {
     kindThesis: string;
     kindPatent: string;
     kindVkr: string;
+    kindDataset: string;
     // публикации: level (для ВКР)
     levelBachelor: string;
     levelMaster: string;
@@ -51,6 +52,7 @@ const ui: Record<Locale, Dict> = {
         kindThesis: "Тезисы",
         kindPatent: "Патент",
         kindVkr: "ВКР",
+        kindDataset: "Датасет",
         levelBachelor: "Бакалавриат",
         levelMaster: "Магистратура",
         course: "курс",
@@ -73,6 +75,7 @@ const ui: Record<Locale, Dict> = {
         kindThesis: "",
         kindPatent: "",
         kindVkr: "",
+        kindDataset: "",
         levelBachelor: "",
         levelMaster: "",
         course: "",
