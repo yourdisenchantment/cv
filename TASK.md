@@ -1,107 +1,79 @@
-# TASK — Этап 0: Инструментарий (форматтер, линтер, git-хуки)
+# TASK - Этап 1: Фундамент Astro и i18n
 
-Цель этапа — настроить автоматическое форматирование и линтинг, чтобы код
-в репозитории всегда был единообразным, а ошибки ловились до коммита/пуша.
+Цель - настроить базовую конфигурацию Astro (i18n, site), завести
+структуру каталогов и каркас страницы-обертки резюме. Контент резюме
+появляется на следующих этапах; здесь - только скелет.
 
-Подробный план этапа — в ROADMAP.md, секция "Этапы -> 0".
+Подробный план - в ROADMAP.md, секция "Этапы -> 1".
 
 ## Задачи
 
-### 0.1 Prettier (форматтер)
+### 1.1 astro.config.mjs: site + i18n
 
-- Установить `prettier` и `prettier-plugin-astro` (dev-зависимости).
-- Конфиг `.prettierrc.json`: регистрирует плагин для `.astro`.
-- `.prettierignore`: исключить `dist/`, `.astro/`, `node_modules/`, `legacy/`
-  (legacy не форматируем — это референс, его не трогаем).
-- Скрипты в package.json: `format` (`prettier --write .`), `format:check`.
-- Проверка: `bunx prettier --check .` проходит без ошибок.
+- `site`: 'https://yourdisenchantment.github.io' (по владельцу remote;
+  provisorio, финализируется на этапе 10).
+- `i18n`: defaultLocale 'ru', locales ['ru', 'en'],
+  routing.prefixDefaultLocale = false (ru на '/', en на '/en/').
+- `base` НЕ задаем (этап 10, деплой) - чтобы dev жил на '/'.
+- Проверка: `bun run build` собирается без ошибок.
 
-### 0.2 ESLint (линтер)
+### 1.2 Структура каталогов
 
-- Установить `eslint@^9`, `@eslint/js@^9`, `eslint-plugin-astro@^1`,
-  `eslint-plugin-jsx-a11y@^6` (dev-зависимости).
-- Flat config `eslint.config.mjs`: @eslint/js recommended + astro recommended
-    - astro jsx-a11y-recommended. Игноры: dist, .astro, node_modules, legacy.
-- Скрипт `lint` в package.json.
-- Проверка: `bunx eslint .` проходит.
+- `src/layouts/BaseLayout.astro` - каркас страницы (Astro-конвенция: layouts
+  в src/layouts/, не в src/components/).
+- `src/components/.gitkeep` - каталог под компоненты секций резюме (этап 3).
+- `src/data/.gitkeep` - каталог под zod-схему и JSON-контент (этап 2).
 
-### 0.3 husky + lint-staged (git-хуки)
+### 1.3 BaseLayout.astro (каркас страницы)
 
-- Установить `husky`, `lint-staged`.
-- Скрипт `prepare: husky` в package.json (хуки ставятся автоматически после
-  `bun install`).
-- `.husky/pre-commit`: `bunx lint-staged` (форматирует и линтит staged-файлы).
-- `.husky/pre-push`: `bunx astro check` (полная проверка типов проекта).
-- Конфиг lint-staged в package.json:
-    - `*.{astro,js,mjs,cjs,ts,css,json,md}` -> `prettier --write`
-    - `*.{astro,js,mjs,cjs}` -> `eslint --fix`
-      (eslint --fix идёт после prettier, чтобы финальное форматирование было
-      за prettier).
-- Проверка: хук срабатывает при `git commit`/`git push`.
+- Props: lang ('ru'|'en'), title, description?.
+- `<html lang={lang}>`, head: charset, viewport, description, title, favicon.
+- `<body><slot /></body>` - контент вставляют страницы через slot.
+- Минимум: шрифты, тема, печать, a11y - следующие этапы.
 
-### 0.4 .gitignore под husky
+### 1.4 index.astro (скелет ru-страницы)
 
-- Добавить `.husky/_/` (внутренняя служебная папка husky 9, генерируется
-  скриптом prepare; коммитить её не нужно).
+- Использует BaseLayout с lang="ru", заголовок/описание резюме.
+- Внутри - комментарий-заглушка: контент появится на этапах 2-3.
+- Проверка: `bunx astro check` зелено, `bun run build` генерирует '/'.
 
-### 0.5 Итоговая проверка
+### 1.5 Итоговая проверка
 
-- `bunx prettier --check .` — зелёно.
-- `bunx eslint .` — зелёно.
-- `bunx astro check` — зелёно.
-- Прогнать хук вручную.
+- `bunx astro check` - зелено.
+- `bun run build` - зелено, в dist/ есть index.html.
+- `bun run lint` / `bun run format:check` - зелено.
 
 ## Результаты
 
-### 0.1 Prettier
+### 1.1 astro.config.mjs: site + i18n
 
-- Установлены `prettier@3.8.4`, `prettier-plugin-astro@0.14.1`.
-- `.prettierrc.json`: `plugins` + `tabWidth: 4` (парсер `astro` плагин
-  регистрирует сам; отступ 4 пробела — по предпочтению владельца).
-- `.prettierignore`: `dist/`, `.astro/`, `node_modules/`, `legacy/`, `bun.lock`, `.husky/_/`.
-- Скрипты `format`, `format:check`.
-- Проверка: `bun run format:check` — все файлы соответствуют стилю.
+- `site: "https://yourdisenchantment.github.io"` (по владельцу remote; provisorio,
+  финализируется на этапе 10). `base` не задан (этап 10) - dev живет на '/'.
+- `i18n`: defaultLocale `ru`, locales `["ru","en"]`, `prefixDefaultLocale: false`
+  (ru -> '/', en -> '/en/').
+- Проверка: `bun run build` собирается, генерирует `dist/index.html`.
 
-### 0.2 ESLint
+### 1.2 Структура каталогов
 
-- Установлены `eslint@9.39.4`, `@eslint/js@9.39.4`, `eslint-plugin-astro@1.7.0`,
-  `eslint-plugin-jsx-a11y@6.10.2`.
-- `eslint.config.mjs` (flat config): игноры + `@eslint/js` recommended +
-  `astro.configs['flat/recommended']` + `astro.configs['flat/jsx-a11y-recommended']`.
-- Важно: у плагина v1 flat-конфиги лежат под ключами `flat/*` (непрефиксованные —
-  старый eslintrc-формат, для ESLint 9 не годятся).
-- Скрипт `lint`.
-- Проверка: `bun run lint` — 0 ошибок; для `.astro` активны 42 правила `astro/*`.
+- `src/layouts/BaseLayout.astro` (Astro-конвенция: layouts отдельно от components).
+- `src/components/.gitkeep`, `src/data/.gitkeep` - под будущие этапы (3 и 2).
 
-### 0.3 husky + lint-staged
+### 1.3 BaseLayout.astro
 
-- Установлены `husky@9.1.7`, `lint-staged@17.0.8`.
-- `bunx husky init` -> `.husky/_/`, `prepare: husky` в package.json.
-- `.husky/pre-commit` = `bunx lint-staged`; `.husky/pre-push` = `bunx astro check`.
-- `lint-staged` в package.json с непересекающимися глобами (во избежание гонки
-  записи в один файл): код через массив `[eslint --fix, prettier --write]`,
-  остальное через `prettier --write`.
-- Проверка: ручной прогон pre-commit на staged-файлах — exit 0, eslint+prettier
-  отработали по цепочке.
+- Props: `lang: "ru"|"en"`, `title`, `description?`.
+- head: charset, viewport, description, favicon (svg+ico), title; body через `<slot />`.
 
-### 0.4 .gitignore под husky
+### 1.4 index.astro
 
-- Добавлен `.husky/_/`.
+- Использует BaseLayout с `lang="ru"`, заголовок/описание резюме; контент -
+  заглушка-комментарий (этапы 2-3).
 
-### 0.5 Итоговая проверка
+### 1.5 Итоговая проверка
 
-- `bun run format:check` — зелёно.
-- `bun run lint` — зелёно.
-- `bunx astro check` — 0 errors / 0 warnings / 0 hints.
-- Попутно установлены `@astrojs/check@0.9.9` и `typescript@6.0.3` — без них
-  `astro check` интерактивно просит установить и виснет в неинтерактивном
-  шелле. Теперь запускается без запросов.
-
-### 0.6 commitlint (добавлено по запросу владельца)
-
-- Установлены `@commitlint/cli@21.0.2`, `@commitlint/config-conventional@21.0.2`.
-- `commitlint.config.mjs`: extends `@commitlint/config-conventional`.
-- `.husky/commit-msg`: `bunx commitlint --edit "$1"` (проверяет стиль коммита).
-- Проверка: плохое сообщение отклоняется (`type-empty`), `chore: ...` проходит.
-- Стиль коммитов зафиксирован и в памяти ассистента: английский, Conventional
-  Commits.
+- `bunx astro check` - 0 errors.
+- `bun run build` - 1 page built, `dist/index.html` с `lang="ru"`.
+- `bun run lint` / `bun run format:check` - зелено.
+- Попутно: добавлен `@typescript-eslint/parser@8.62.0` и подключен в
+  `eslint.config.mjs` как вложенный парсер фронтматтера `.astro` (без него
+  eslint падал на `interface` - espree не понимает TS). Опция `project`
+  (type-aware lint) не подключена - типы проверяет `astro check`.

@@ -1,6 +1,7 @@
 // @ts-check
 import js from "@eslint/js";
 import astro from "eslint-plugin-astro";
+import tsParser from "@typescript-eslint/parser";
 
 // ESLint 9 flat config: массив конфигов, применяемых последовательно.
 // Каждый конфиг может фильтровать по files/ignores и добавлять правила/плагины.
@@ -15,4 +16,21 @@ export default [
     ...astro.configs["flat/recommended"],
     // Правила доступности для .astro (требует eslint-plugin-jsx-a11y).
     ...astro.configs["flat/jsx-a11y-recommended"],
+    // TypeScript во фронтматтере .astro: вложенный парсер @typescript-eslint/parser.
+    // (без опции project/type-aware линтинга - типы проверяет astro check)
+    {
+        files: ["**/*.astro"],
+        languageOptions: {
+            parserOptions: {
+                parser: tsParser,
+            },
+        },
+    },
+    // .ts-файлы (zod-схема и пр., этап 2) парсим TS-парсером.
+    {
+        files: ["**/*.ts"],
+        languageOptions: {
+            parser: tsParser,
+        },
+    },
 ];
