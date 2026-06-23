@@ -1,0 +1,270 @@
+{
+    "meta": {
+        "title": "Pavel Mikheev - CV",
+        "description": "CV of Pavel Mikheev, Fullstack developer and Data Scientist."
+    },
+    "about": {
+        "photo": "/images/my-face.jpg",
+        "name": "Pavel Olegovich Mikheev",
+        "role": "Fullstack Developer, Data Scientist",
+        "birthDate": "2002-11-06",
+        "city": "Simferopol, Russia",
+        "summary": "Researcher and developer focused on R&D and academic work. What matters most to me is developing skills and applying scientific methods to engineering problems. I do research in DS, try new technologies, and am growing toward an ML engineer role. I value teamwork and open communication, always ready to discuss workflows and share experience. I follow the principle of \"quality over speed\", building robust and clear architecture. I actively use AI tools to delegate routine work and focus on high-level tasks.",
+        "availability": "Open to relocation and remote work"
+    },
+    "contacts": [
+        { "label": "Email", "value": "mpavel@duck.com" },
+        { "label": "Email", "value": "p.idisenchantment@gmail.com" },
+        {
+            "label": "Telegram",
+            "value": "t.me/yourdisenchantment",
+            "href": "https://t.me/yourdisenchantment"
+        },
+        {
+            "label": "GitHub",
+            "value": "github.com/yourdisenchantment",
+            "href": "https://github.com/yourdisenchantment"
+        },
+        {
+            "label": "GitLab",
+            "value": "gitlab.com/yourdisenchantment",
+            "href": "https://gitlab.com/yourdisenchantment"
+        },
+        {
+            "label": "GitHub",
+            "value": "github.com/azzalie",
+            "href": "https://github.com/azzalie",
+            "archived": true
+        },
+        {
+            "label": "CodePen",
+            "value": "codepen.io/yourdisenchantment",
+            "href": "https://codepen.io/yourdisenchantment"
+        },
+        {
+            "label": "Website",
+            "value": "yourdisenchantment.github.io/cv",
+            "href": "https://yourdisenchantment.github.io/cv"
+        }
+    ],
+    "skills": [
+        "Python",
+        "Java",
+        "JavaScript",
+        "C/C++",
+        "HTML/CSS",
+        "SQL",
+        "Linux",
+        "Docker",
+        "FastAPI"
+    ],
+    "experience": [
+        {
+            "period": { "start": "2025-07", "end": "2026-02" },
+            "company": "Thrive.io",
+            "role": "Fullstack Developer (Junior)",
+            "achievements": [
+                "Data collection and processing",
+                "Building and maintaining a FastAPI application",
+                "Working with SAM-family AI models"
+            ],
+            "skills": [
+                "Python",
+                "Git",
+                "FastAPI",
+                "Pandas",
+                "Data mining",
+                "Web development"
+            ]
+        },
+        {
+            "period": { "start": "2026-02", "end": "2026-05" },
+            "company": "Thrive.io",
+            "role": "Fullstack Developer (Junior)",
+            "achievements": [
+                "Maintaining and extending active projects",
+                "Data collection and processing",
+                "Supporting and developing a FastAPI application"
+            ],
+            "skills": [
+                "Python",
+                "Git",
+                "FastAPI",
+                "Pandas",
+                "Data analysis",
+                "Web development",
+                "Adaptive layout"
+            ]
+        },
+        {
+            "period": { "start": "2024-04", "end": "2024-06" },
+            "company": "Strong Artificial Intelligence",
+            "role": "Intern",
+            "achievements": [
+                "Training VisualBERT on the Conceptual Captions dataset"
+            ],
+            "skills": ["Python", "Machine learning"]
+        },
+        {
+            "period": { "start": "2023-04", "end": "2023-06" },
+            "company": "Voda Kryma",
+            "role": "Intern",
+            "achievements": [
+                "Editing the corporate city map to improve informativeness"
+            ],
+            "skills": ["JavaScript", "Yandex Maps API", "Python"]
+        }
+    ],
+    "education": [
+        {
+            "period": { "start": "2024-09", "end": "2026-07" },
+            "institution": "V.I. Vernadsky Crimean Federal University",
+            "faculty": "Faculty of Mathematics and Informatics",
+            "degree": "Master's",
+            "honors": "Red diploma"
+        },
+        {
+            "period": { "start": "2020-09", "end": "2024-07" },
+            "institution": "V.I. Vernadsky Crimean Federal University",
+            "faculty": "Faculty of Mathematics and Informatics",
+            "degree": "Bachelor's",
+            "honors": "Red diploma"
+        }
+    ],
+    "courses": [
+        {
+            "period": { "start": "2023-12", "end": "2024-04" },
+            "institution": "V.I. Vernadsky Crimean Federal University",
+            "course": "Mathematics and Computer Science Teacher",
+            "skills": ["Python", "Algorithms and data structures"]
+        },
+        {
+            "period": { "start": "2022-12", "end": "2023-06" },
+            "institution": "V.I. Vernadsky Crimean Federal University",
+            "course": "AI and data analysis technologies",
+            "skills": ["Python", "Data analysis", "Machine learning"]
+        }
+    ],
+    "projects": [
+        {
+            "name": "intelliant",
+            "url": "https://github.com/yourdisenchantment/intelliant",
+            "description": "example description",
+            "stack": ["example"]
+        },
+        {
+            "name": "wcag-caption-research",
+            "url": "https://github.com/yourdisenchantment/wcag-caption-research",
+            "description": "example description",
+            "stack": ["example"]
+        },
+        {
+            "name": "logic-compute-env",
+            "url": "https://github.com/yourdisenchantment/logic-compute-env",
+            "description": "example description",
+            "stack": ["example"]
+        },
+        {
+            "name": "sam-3d-body",
+            "url": "https://github.com/yourdisenchantment/sam-3d-body",
+            "description": "example description",
+            "stack": ["example"]
+        },
+        {
+            "name": "ThermalVis-of-Indoor-Environments",
+            "url": "https://github.com/yourdisenchantment/ThermalVis-of-Indoor-Environments",
+            "description": "example description",
+            "stack": ["example"]
+        },
+        {
+            "name": "simple-pizza",
+            "url": "https://github.com/yourdisenchantment/simple-pizza",
+            "description": "example description",
+            "stack": ["example"]
+        },
+        {
+            "name": "Untitled-Text-Game",
+            "url": "https://github.com/azzalie/Untitled-Text-Game",
+            "description": "example description",
+            "stack": ["example"]
+        },
+        {
+            "name": "mathphysics",
+            "url": "https://github.com/azzalie/mathphysics",
+            "description": "example description",
+            "stack": ["example"]
+        },
+        {
+            "name": "italian-listing-viewer",
+            "url": "https://gitlab.com/yourdisenchantment/italian-listing-viewer",
+            "description": "example description",
+            "stack": ["example"]
+        },
+        {
+            "name": "sam-3d-viewer",
+            "url": "https://gitlab.com/yourdisenchantment/sam-3d-viewer",
+            "description": "example description",
+            "stack": ["example"]
+        }
+    ],
+    "publications": [
+        {
+            "kind": "article",
+            "title": "РАЗРАБОТКА АЛЬТЕРНАТИВНОГО ТЕКСТА С ИСПОЛЬЗОВАНИЕМ НЕЙРОННЫХ СЕТЕЙ ДЛЯ ГЕНЕРАЦИИ ИЗОБРАЖЕНИЙ",
+            "urls": [
+                "https://openedu.rea.ru/jour/article/view/1008/617",
+                "https://www.elibrary.ru/item.asp?id=67355328"
+            ]
+        },
+        {
+            "kind": "thesis",
+            "title": "ИСПОЛЬЗОВАНИЕ НЕЙРОННОЙ СЕТИ ДЛЯ ГЕНЕРИРОВАНИЯ ИЗОБРАЖЕНИЙ ПРИ ОБУЧЕНИИ СТУДЕНТОВ РАЗРАБОТКЕ АЛЬТЕРНАТИВНОГО ТЕКСТА",
+            "urls": ["https://www.elibrary.ru/item.asp?id=67952551"]
+        },
+        {
+            "kind": "patent",
+            "title": "ПРОГРАММА ДЛЯ ЭВМ \"THERMALVIS OF INDOOR ENVIRONMENTS\"",
+            "urls": ["https://www.elibrary.ru/item.asp?id=80653653"]
+        },
+        {
+            "kind": "article",
+            "title": "МЕЖДИСЦИПЛИНАРНЫЕ АСПЕКТЫ РАЗВИТИЯ ТРАНСФОРМАЦИОННЫХ ТЕХНОЛОГИЙ",
+            "urls": [
+                "https://publishing.intelgr.com/index.php/component/content/article.html?id=1002",
+                "https://www.elibrary.ru/item.asp?id=82948136"
+            ]
+        },
+        {
+            "kind": "thesis",
+            "title": "МИКМО-2025",
+            "urls": [
+                "https://www.elibrary.ru/item.asp?id=82443605",
+                "https://www.elibrary.ru/item.asp?id=82476665"
+            ]
+        },
+        {
+            "kind": "article",
+            "title": "СТРОИТЕЛЬНОЕ ПРОИЗВОДСТВО",
+            "urls": [
+                "https://build-pro.press/ru/nauka/journal/275/view",
+                "https://www.elibrary.ru/title_about_new.asp?id=73740"
+            ]
+        },
+        {
+            "kind": "vkr",
+            "title": "Bachelor's Thesis",
+            "level": "bachelor",
+            "course": 4,
+            "urls": [
+                "https://drive.google.com/drive/folders/1XIryHSUB5WmKyUc0KSMQjhq0HJz9D9BU"
+            ]
+        },
+        {
+            "kind": "vkr",
+            "title": "Master's Thesis",
+            "level": "master",
+            "course": 2,
+            "urls": ["https://example.com/vkr-master"]
+        }
+    ]
+}

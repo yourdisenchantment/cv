@@ -1,11 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getEntry } from "astro:content";
+
+// Данные резюме: src/data/cv/ru.json, валидируется zod (src/data/cv/schema.ts).
+const cv = await getEntry("cv", "ru");
+if (!cv) throw new Error("CV entry 'ru' not found in collection 'cv'");
+const { meta } = cv.data;
 ---
 
-<BaseLayout
-    lang="ru"
-    title="Павел Михеев - резюме"
-    description="Резюме Павла Михеева, Frontend/Backend-разработчика."
->
-    <!-- Контент резюме появится на этапах 2 (данные) и 3 (верстка). -->
+<BaseLayout lang="ru" title={meta.title} description={meta.description}>
+    <!-- Верстка секций резюме - этап 3. -->
 </BaseLayout>
