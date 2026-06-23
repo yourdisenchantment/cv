@@ -1,0 +1,9 @@
+/* Отладка отступов: красная граница элемента при наведении. Видно границы
+   блока; зазор до соседей - margin, зазор до вложенного (наведи на него) -
+   padding. Включается классом body.debug-boxes (ставится только в DEV из
+   BaseLayout, в продакшен не попадает). Выключить в devtools:
+   document.body.classList.remove('debug-boxes'). */
+.debug-boxes *:hover {
+    outline: 1px solid red;
+    outline-offset: 0;
+}

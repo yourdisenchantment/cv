@@ -25,7 +25,7 @@
         },
         {
             "label": "Telegram",
-            "value": "t.me/yourdisenchantment",
+            "value": "yourdisenchantment",
             "href": "https://t.me/yourdisenchantment",
             "group": "contact"
         },
@@ -37,25 +37,19 @@
         },
         {
             "label": "GitHub",
-            "value": "github.com/yourdisenchantment",
+            "value": "yourdisenchantment",
             "href": "https://github.com/yourdisenchantment",
             "group": "resource"
         },
         {
             "label": "GitLab",
-            "value": "gitlab.com/yourdisenchantment",
+            "value": "yourdisenchantment",
             "href": "https://gitlab.com/yourdisenchantment",
             "group": "resource"
         },
         {
-            "label": "CodePen",
-            "value": "codepen.io/yourdisenchantment",
-            "href": "https://codepen.io/yourdisenchantment",
-            "group": "resource"
-        },
-        {
             "label": "GitHub",
-            "value": "github.com/azzalie",
+            "value": "azzalie",
             "href": "https://github.com/azzalie",
             "archived": true,
             "group": "resource"

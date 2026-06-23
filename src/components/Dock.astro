@@ -1,0 +1,84 @@
+---
+// Док-бар управления резюме. Рабочие на этапе A: тема (toggle), code (ссылка
+// на GitHub-репо резюме). Язык/печать/PDF - заглушки (disabled) до этапов 6/5.
+import "../styles/dock.css";
+
+const repoUrl = "https://github.com/yourdisenchantment/cv";
+---
+
+<nav class="dock" aria-label="Управление резюме">
+    <button
+        class="dock-button is-pending"
+        type="button"
+        data-action="language"
+        data-tooltip="Сменить язык (скоро)"
+        aria-disabled="true"
+        tabindex="-1"
+        aria-label="Сменить язык"
+    >
+        <span class="material-symbols-outlined" aria-hidden="true"
+            >language</span
+        >
+    </button>
+    <button
+        class="dock-button"
+        type="button"
+        data-action="theme"
+        data-tooltip="Сменить тему"
+        aria-label="Сменить тему"
+    >
+        <span class="material-symbols-outlined" aria-hidden="true">routine</span
+        >
+    </button>
+    <button
+        class="dock-button is-pending"
+        type="button"
+        data-action="download"
+        data-tooltip="Скачать PDF (скоро)"
+        aria-disabled="true"
+        tabindex="-1"
+        aria-label="Скачать PDF"
+    >
+        <span class="material-symbols-outlined" aria-hidden="true"
+            >download</span
+        >
+    </button>
+    <button
+        class="dock-button is-pending"
+        type="button"
+        data-action="print"
+        data-tooltip="Печать (скоро)"
+        aria-disabled="true"
+        tabindex="-1"
+        aria-label="Печать"
+    >
+        <span class="material-symbols-outlined" aria-hidden="true">print</span>
+    </button>
+    <a
+        class="dock-button"
+        href={repoUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-tooltip="Исходный код резюме"
+        aria-label="Исходный код резюме"
+    >
+        <span class="material-symbols-outlined" aria-hidden="true">code</span>
+    </a>
+</nav>
+
+<!-- Переключатель темы: toggles data-theme на <html>, пишет в localStorage.
+     Инлайн-скрипт в BaseLayout уже применил тему до покраски; здесь только
+     переключение по клику. -->
+<script is:inline>
+    (function () {
+        var btn = document.querySelector('.dock-button[data-action="theme"]');
+        if (!btn) return;
+        btn.addEventListener("click", function () {
+            var cur =
+                document.documentElement.getAttribute("data-theme") || "light";
+            var next = cur === "dark" ? "light" : "dark";
+            document.documentElement.setAttribute("data-theme", next);
+            localStorage.setItem("theme", next);
+        });
+    })();
+</script>

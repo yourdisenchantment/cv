@@ -1,8 +1,11 @@
 ---
 import "../styles/reset.css";
+import "../styles/fonts.css";
 import "../styles/variables.css";
 import "../styles/styles.css";
 import "../styles/cv-layout.css";
+import "../styles/debug.css";
+import Dock from "../components/Dock.astro";
 
 interface Props {
     lang: "ru" | "en";
@@ -11,6 +14,9 @@ interface Props {
 }
 
 const { lang, title, description } = Astro.props;
+
+// debug-boxes - только в dev: красная граница при наведении (см. debug.css).
+const isDev = import.meta.env.DEV;
 ---
 
 <!doctype html>
@@ -34,15 +40,10 @@ const { lang, title, description } = Astro.props;
         </script>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
-            rel="stylesheet"
-        />
         <title>{title}</title>
     </head>
-    <body>
+    <body class:list={[isDev && "debug-boxes"]}>
         <slot />
+        <Dock />
     </body>
 </html>

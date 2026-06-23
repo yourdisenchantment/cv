@@ -18,7 +18,7 @@ const { lang, education } = Astro.props;
     <div class="container education-container">
         {
             education.map((e) => (
-                <div class="block edu-block">
+                <div class="edu-block">
                     <p class="timestamp">{formatPeriod(e.period, lang)}</p>
                     <div class="edu-info">
                         <h3>{e.institution}</h3>

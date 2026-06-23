@@ -14,26 +14,53 @@ const { lang, about } = Astro.props;
 <section aria-labelledby="about-heading" id="about">
     <h2 class="container-heading" id="about-heading">{t(lang, "about")}</h2>
     <div class="about-container">
-        <div class="about-header">
-            <div class="about-info">
-                <h2>{about.name}</h2>
-                <h3>{about.role}</h3>
-                <p>
-                    <strong>{t(lang, "birthDate")}:</strong>
-                    {formatBirthDate(about.birthDate, lang)}
-                </p>
-                <p>
-                    <strong>{t(lang, "city")}:</strong>
-                    {about.city}
-                </p>
-                {
-                    about.availability && (
-                        <p class="availability">{about.availability}</p>
-                    )
-                }
-            </div>
-            <img alt={about.name} src={about.photo} />
+        <img alt={about.name} src={about.photo} />
+        <div class="about-info">
+            <h2>{about.name}</h2>
+            <h3>{about.role}</h3>
+            <p>
+                <strong>{t(lang, "birthDate")}:</strong>
+                {formatBirthDate(about.birthDate, lang)}
+            </p>
+            <p>
+                <strong>{t(lang, "city")}:</strong>
+                {about.city}
+            </p>
+            {
+                about.availability && (
+                    <p class="availability">{about.availability}</p>
+                )
+            }
         </div>
         <p class="summary">{about.summary}</p>
     </div>
 </section>
+
+<!-- Пасхалка: каждые 10 кликов по фото переключают easter <-> исходное
+     (public/images/easter.png). Без cursor:pointer - скрытая. Печать/PDF
+     (beforeprint) - всегда с исходной фоткой, afterprint - возвращает то,
+     что было до печати. -->
+<script is:inline>
+    (function () {
+        var img = document.querySelector("#about .about-container img");
+        if (!img) return;
+        var original = img.src;
+        var egg = "/images/easter.png";
+        var clicks = 0;
+        var onEgg = false; // сейчас показана easter
+        img.addEventListener("click", function () {
+            clicks++;
+            if (clicks < 10) return;
+            clicks = 0; // сброс: каждые 10 кликов - переключение
+            onEgg = !onEgg;
+            img.src = onEgg ? egg : original;
+        });
+        // Печать и PDF - всегда с исходной фоткой.
+        window.addEventListener("beforeprint", function () {
+            img.src = original;
+        });
+        window.addEventListener("afterprint", function () {
+            img.src = onEgg ? egg : original;
+        });
+    })();
+</script>

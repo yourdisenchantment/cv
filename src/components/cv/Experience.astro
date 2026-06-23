@@ -24,7 +24,7 @@ const sorted = [...experience].sort((a, b) =>
     <div class="container experience-container">
         {
             sorted.map((job) => (
-                <div class="block job-block">
+                <div class="job-block">
                     <p class="timestamp">{formatPeriod(job.period, lang)}</p>
                     <div class="job-info">
                         <h3>{job.company}</h3>

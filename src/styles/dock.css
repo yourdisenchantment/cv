@@ -1,0 +1,101 @@
+/* Док-бар управления: тема, язык, PDF, печать, исходник резюме. Плавающий,
+   снизу по центру, над листом резюме. В печать/PDF не попадает. */
+
+/* Material Symbols Outlined: статичный font, оси зафиксированы в URL
+   (opsz=24, wght=400, FILL=0, GRAD=0), font-variation-settings не нужен. */
+.material-symbols-outlined {
+    font-family: "Material Symbols Outlined";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: "liga";
+    font-feature-settings: "liga";
+    -webkit-font-smoothing: antialiased;
+}
+
+.dock {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    padding: 6px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 10px var(--shadow);
+    z-index: 100;
+}
+
+/* Кнопка дока: иконка-глиф, цвет через семантический токен (авто с темой).
+   Фон дока (bg-surface) дает контраст иконкам в обеих темах. */
+.dock-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    color: var(--text-strong);
+    background-color: transparent;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background-color var(--transition),
+        color var(--transition-fast);
+}
+
+.dock-button:hover {
+    background-color: var(--bg-muted);
+}
+
+/* Нерабочие кнопки (язык/печать/PDF до своих этапов): приглушены. Не
+   disabled, а aria-disabled - на disabled не срабатывает hover, tooltip бы
+   не показывался. tabindex="-1" убирает из таб-порядка. */
+.dock-button.is-pending {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Всплывающая подсказка над кнопкой (data-tooltip): что произойдет по клику.
+   Sans-serif, чтобы отличаться от моно-дока. */
+.dock-button[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    background-color: var(--bg-muted);
+    color: var(--text-strong);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-main);
+    font-size: var(--fs-small);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition);
+    z-index: 101;
+}
+
+.dock-button:hover[data-tooltip]::after,
+.dock-button:focus-visible[data-tooltip]::after {
+    opacity: 1;
+}
+
+/* Печать/PDF: док не попадает в документ. */
+@media print {
+    .dock {
+        display: none;
+    }
+}
