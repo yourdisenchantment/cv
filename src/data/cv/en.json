@@ -10,11 +10,17 @@
         "birthDate": "2002-11-06",
         "city": "Simferopol, Russia",
         "summary": "Researcher and developer focused on R&D and academic work. What matters most to me is developing skills and applying scientific methods to engineering problems. I do research in DS, try new technologies, and am growing toward an ML engineer role. I value teamwork and open communication, always ready to discuss workflows and share experience. I follow the principle of \"quality over speed\", building robust and clear architecture. I actively use AI tools to delegate routine work and focus on high-level tasks.",
-        "availability": "Open to relocation and remote work"
+        "availability": "Open to remote work"
     },
     "contacts": [
-        { "label": "Email", "value": "mpavel@duck.com" },
-        { "label": "Email", "value": "p.idisenchantment@gmail.com" },
+        {
+            "label": "Email",
+            "value": "mpavel@duck.com"
+        },
+        {
+            "label": "Email",
+            "value": "p.idisenchantment@gmail.com"
+        },
         {
             "label": "Telegram",
             "value": "t.me/yourdisenchantment",
@@ -60,7 +66,10 @@
     ],
     "experience": [
         {
-            "period": { "start": "2025-07", "end": "2026-02" },
+            "period": {
+                "start": "2025-07",
+                "end": "2026-02"
+            },
             "company": "Thrive.io",
             "role": "Fullstack Developer (Junior)",
             "achievements": [
@@ -78,7 +87,10 @@
             ]
         },
         {
-            "period": { "start": "2026-02", "end": "2026-05" },
+            "period": {
+                "start": "2026-02",
+                "end": "2026-05"
+            },
             "company": "Thrive.io",
             "role": "Fullstack Developer (Junior)",
             "achievements": [
@@ -97,7 +109,10 @@
             ]
         },
         {
-            "period": { "start": "2024-04", "end": "2024-06" },
+            "period": {
+                "start": "2024-04",
+                "end": "2024-06"
+            },
             "company": "Strong Artificial Intelligence",
             "role": "Intern",
             "achievements": [
@@ -106,7 +121,10 @@
             "skills": ["Python", "Machine learning"]
         },
         {
-            "period": { "start": "2023-04", "end": "2023-06" },
+            "period": {
+                "start": "2023-04",
+                "end": "2023-06"
+            },
             "company": "Voda Kryma",
             "role": "Intern",
             "achievements": [
@@ -117,14 +135,20 @@
     ],
     "education": [
         {
-            "period": { "start": "2024-09", "end": "2026-07" },
+            "period": {
+                "start": "2024-09",
+                "end": "2026-07"
+            },
             "institution": "V.I. Vernadsky Crimean Federal University",
             "faculty": "Faculty of Mathematics and Informatics",
             "degree": "Master's",
             "honors": "Red diploma"
         },
         {
-            "period": { "start": "2020-09", "end": "2024-07" },
+            "period": {
+                "start": "2020-09",
+                "end": "2024-07"
+            },
             "institution": "V.I. Vernadsky Crimean Federal University",
             "faculty": "Faculty of Mathematics and Informatics",
             "degree": "Bachelor's",
@@ -133,13 +157,19 @@
     ],
     "courses": [
         {
-            "period": { "start": "2023-12", "end": "2024-04" },
+            "period": {
+                "start": "2023-12",
+                "end": "2024-04"
+            },
             "institution": "V.I. Vernadsky Crimean Federal University",
             "course": "Mathematics and Computer Science Teacher",
             "skills": ["Python", "Algorithms and data structures"]
         },
         {
-            "period": { "start": "2022-12", "end": "2023-06" },
+            "period": {
+                "start": "2022-12",
+                "end": "2023-06"
+            },
             "institution": "V.I. Vernadsky Crimean Federal University",
             "course": "AI and data analysis technologies",
             "skills": ["Python", "Data analysis", "Machine learning"]
@@ -147,64 +177,78 @@
     ],
     "projects": [
         {
-            "name": "intelliant",
+            "name": "Intelliant",
             "url": "https://github.com/yourdisenchantment/intelliant",
-            "description": "example description",
-            "stack": ["example"]
+            "description": "A clustering algorithm based on ant colony optimization: maps high-dimensional data (embeddings) to a nearest-neighbor graph and finds dense semantic cores. Optimized with Numba and sparse matrices.",
+            "stack": ["Python", "NumPy", "SciPy", "scikit-learn"]
         },
         {
-            "name": "wcag-caption-research",
+            "name": "WCAG Caption Research",
             "url": "https://github.com/yourdisenchantment/wcag-caption-research",
-            "description": "example description",
-            "stack": ["example"]
+            "description": "Data-centric training of a compact VLM to generate WCAG 2.2 image captions in Russian: semantic dataset clustering, Teacher-VLM relabeling, and LoRA fine-tuning.",
+            "stack": [
+                "Python",
+                "intelliant",
+                "PyTorch",
+                "datasets",
+                "Polars",
+                "NumPy",
+                "HuggingFace"
+            ]
         },
         {
-            "name": "logic-compute-env",
+            "name": "Logic and architecture of compute environments",
             "url": "https://github.com/yourdisenchantment/logic-compute-env",
-            "description": "example description",
-            "stack": ["example"]
+            "description": "Course tasks on parallel computing in C/C++: single- and multi-threaded matrix multiplication, producer-consumer synchronization, recursive parallelism.",
+            "stack": ["C/C++"]
         },
         {
-            "name": "sam-3d-body",
-            "url": "https://github.com/yourdisenchantment/sam-3d-body",
-            "description": "example description",
-            "stack": ["example"]
-        },
-        {
-            "name": "ThermalVis-of-Indoor-Environments",
+            "name": "ThermalVis of Indoor Environments",
             "url": "https://github.com/yourdisenchantment/ThermalVis-of-Indoor-Environments",
-            "description": "example description",
-            "stack": ["example"]
+            "description": "3D visualization of indoor temperature distribution from wall temperatures: two value sets with a shared color range and adjustable surface opacity.",
+            "stack": ["Python", "NumPy", "SciPy"]
         },
         {
-            "name": "simple-pizza",
+            "name": "Simple Pizza",
             "url": "https://github.com/yourdisenchantment/simple-pizza",
-            "description": "example description",
-            "stack": ["example"]
+            "description": "Console app for managing a pizzeria: menu, ingredients, recipes and orders, with automatic stock deduction and pizza visibility control.",
+            "stack": ["Python", "SQLite"]
         },
         {
-            "name": "Untitled-Text-Game",
+            "name": "Untitled Text Game",
             "url": "https://github.com/azzalie/Untitled-Text-Game",
-            "description": "example description",
-            "stack": ["example"]
+            "description": "A text-based game in Java: moving between locations, items, inventory, and NPC interaction.",
+            "stack": ["Java"]
         },
         {
-            "name": "mathphysics",
+            "name": "Computer Networks",
+            "url": "https://github.com/azzalie/computer-networks",
+            "description": "Course tasks on networking and concurrency in Java: quadratic equations, UDP sockets, chat, and client-server applications.",
+            "stack": ["Java"]
+        },
+        {
+            "name": "Numerical methods for equations of mathematical physics",
             "url": "https://github.com/azzalie/mathphysics",
-            "description": "example description",
-            "stack": ["example"]
+            "description": "Numerical solution of wave equations of mathematical physics.",
+            "stack": ["Python", "NumPy"]
         },
         {
-            "name": "italian-listing-viewer",
+            "name": "Italian Listings Viewer",
             "url": "https://gitlab.com/yourdisenchantment/italian-listing-viewer",
-            "description": "example description",
-            "stack": ["example"]
+            "description": "Web app for browsing Italian real-estate listings: Google Drive sync, location hierarchy, filters, and autocomplete.",
+            "stack": ["Python", "FastAPI", "Polars"]
         },
         {
-            "name": "sam-3d-viewer",
+            "name": "SAM 3D Body",
+            "url": "https://github.com/yourdisenchantment/sam-3d-body",
+            "description": "Tooling for running the SAM 3D Body model (Meta) locally: CLI for batch dataset processing, a Gradio demo, and setup/debug scripts. Fork of the original repo.",
+            "stack": ["Python", "PyTorch", "trimesh", "Gradio", "OpenCV"]
+        },
+        {
+            "name": "SAM 3D Viewer",
             "url": "https://gitlab.com/yourdisenchantment/sam-3d-viewer",
-            "description": "example description",
-            "stack": ["example"]
+            "description": "Desktop app for viewing 3D body reconstruction results from the SAM 3D Body neural network: synchronized RGB frames, meshes, and skeletons in Rerun.",
+            "stack": ["Python", "PySide6", "Rerun", "trimesh", "NumPy"]
         }
     ],
     "publications": [
@@ -256,7 +300,7 @@
             "level": "bachelor",
             "course": 4,
             "urls": [
-                "https://drive.google.com/drive/folders/1XIryHSUB5WmKyUc0KSMQjhq0HJz9D9BU"
+                "https://drive.google.com/drive/folders/1i2vL2TaXcO8BqrWcIU7o9WCZsannGDEB"
             ]
         },
         {
@@ -264,7 +308,9 @@
             "title": "Master's Thesis",
             "level": "master",
             "course": 2,
-            "urls": ["https://example.com/vkr-master"]
+            "urls": [
+                "https://drive.google.com/drive/folders/1r0yBQ5TlCrQ-29R-wYSrz8CzdGz_ULGC"
+            ]
         }
     ]
 }

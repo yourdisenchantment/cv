@@ -9,12 +9,18 @@
         "role": "Fullstack-разработчик, Data Scientist",
         "birthDate": "2002-11-06",
         "city": "Симферополь, Россия",
-        "summary": "Исследователь и разработчик с фокусом на R&D и академическую деятельность. Для меня важнее развитие навыков и применение научных методов для решения инженерных задач. Занимаюсь научными исследованиями в области DS. Стараюсь пробовать новые технологии и развиваюсь в сторону ML-инженера. Ценю командную работу и открытую коммуникацию; всегда готов обсуждать рабочие процессы и делиться опытом. В работе придерживаюсь принципа \"качество важнее скорости\", создавая устойчивую и понятную архитектуру. Активно использую AI-инструменты для делегирования рутины и концентрации на верхнеуровневых задачах.",
-        "availability": "Готов к переезду и удаленной работе"
+        "summary": "Исследователь и разработчик с фокусом на R&D и академическую деятельность. Для меня важнее развитие навыков и применение научных методов для решения инженерных задач. Занимаюсь научными исследованиями в области DS. Стараюсь пробовать новые технологии и развиваюсь в сторону ML-инженера. Ценю командную работу и открытую коммуникацию; всегда готов обсуждать рабочие процессы и делиться опытом. В работе придерживаюсь принципа \"качество важнее скорости\", создавая устойчивую и понятную архитектуру. Активно использую AI-инструменты для делегирования рутины и концентрации на глобальных задачах.",
+        "availability": "Готов к удаленной работе"
     },
     "contacts": [
-        { "label": "Email", "value": "mpavel@duck.com" },
-        { "label": "Email", "value": "p.idisenchantment@gmail.com" },
+        {
+            "label": "Email",
+            "value": "mpavel@duck.com"
+        },
+        {
+            "label": "Email",
+            "value": "p.idisenchantment@gmail.com"
+        },
         {
             "label": "Telegram",
             "value": "t.me/yourdisenchantment",
@@ -60,7 +66,10 @@
     ],
     "experience": [
         {
-            "period": { "start": "2025-07", "end": "2026-02" },
+            "period": {
+                "start": "2025-07",
+                "end": "2026-02"
+            },
             "company": "Thrive.io",
             "role": "Fullstack-разработчик (Junior)",
             "achievements": [
@@ -78,7 +87,10 @@
             ]
         },
         {
-            "period": { "start": "2026-02", "end": "2026-05" },
+            "period": {
+                "start": "2026-02",
+                "end": "2026-05"
+            },
             "company": "Thrive.io",
             "role": "Fullstack-разработчик (Junior)",
             "achievements": [
@@ -97,7 +109,10 @@
             ]
         },
         {
-            "period": { "start": "2024-04", "end": "2024-06" },
+            "period": {
+                "start": "2024-04",
+                "end": "2024-06"
+            },
             "company": "Сильный Искусственный Интеллект",
             "role": "Практикант",
             "achievements": [
@@ -106,7 +121,10 @@
             "skills": ["Python", "Машинное обучение"]
         },
         {
-            "period": { "start": "2023-04", "end": "2023-06" },
+            "period": {
+                "start": "2023-04",
+                "end": "2023-06"
+            },
             "company": "Вода Крыма",
             "role": "Практикант",
             "achievements": [
@@ -117,14 +135,20 @@
     ],
     "education": [
         {
-            "period": { "start": "2024-09", "end": "2026-07" },
+            "period": {
+                "start": "2024-09",
+                "end": "2026-07"
+            },
             "institution": "КФУ им. В.И. Вернадского",
             "faculty": "Факультет математики и информатики",
             "degree": "Магистратура",
             "honors": "Красный диплом"
         },
         {
-            "period": { "start": "2020-09", "end": "2024-07" },
+            "period": {
+                "start": "2020-09",
+                "end": "2024-07"
+            },
             "institution": "КФУ им. В.И. Вернадского",
             "faculty": "Факультет математики и информатики",
             "degree": "Бакалавриат",
@@ -133,13 +157,19 @@
     ],
     "courses": [
         {
-            "period": { "start": "2023-12", "end": "2024-04" },
+            "period": {
+                "start": "2023-12",
+                "end": "2024-04"
+            },
             "institution": "КФУ им. В.И. Вернадского",
             "course": "Учитель математики и информатики",
             "skills": ["Python", "Алгоритмы и структуры данных"]
         },
         {
-            "period": { "start": "2022-12", "end": "2023-06" },
+            "period": {
+                "start": "2022-12",
+                "end": "2023-06"
+            },
             "institution": "КФУ им. В.И. Вернадского",
             "course": "Технологии ИИ и анализа данных",
             "skills": ["Python", "Анализ данных", "Машинное обучение"]
@@ -147,64 +177,78 @@
     ],
     "projects": [
         {
-            "name": "intelliant",
+            "name": "Intelliant",
             "url": "https://github.com/yourdisenchantment/intelliant",
-            "description": "example description",
-            "stack": ["example"]
+            "description": "Алгоритм кластеризации на основе муравьиной колонии: переводит многомерные данные (эмбеддинги) в граф ближайших соседей и ищет плотные семантические ядра. Оптимизирован через Numba и разреженные матрицы.",
+            "stack": ["Python", "NumPy", "SciPy", "scikit-learn"]
         },
         {
-            "name": "wcag-caption-research",
+            "name": "WCAG Caption Research",
             "url": "https://github.com/yourdisenchantment/wcag-caption-research",
-            "description": "example description",
-            "stack": ["example"]
+            "description": "Data-Centric обучение компактной VLM генерировать WCAG 2.2 описания изображений на русском: семантическая кластеризация датасета, переразметка через Teacher VLM и LoRA-дообучение.",
+            "stack": [
+                "Python",
+                "intelliant",
+                "PyTorch",
+                "datasets",
+                "Polars",
+                "NumPy",
+                "HuggingFace"
+            ]
         },
         {
-            "name": "logic-compute-env",
+            "name": "Логика и архитектура вычислительных сред",
             "url": "https://github.com/yourdisenchantment/logic-compute-env",
-            "description": "example description",
-            "stack": ["example"]
+            "description": "Учебные задачи по параллельным вычислениям на C/C++: матричное умножение в один и несколько потоков, синхронизация производитель-потребитель, рекурсивный параллелизм.",
+            "stack": ["C/C++"]
         },
         {
-            "name": "sam-3d-body",
-            "url": "https://github.com/yourdisenchantment/sam-3d-body",
-            "description": "example description",
-            "stack": ["example"]
-        },
-        {
-            "name": "ThermalVis-of-Indoor-Environments",
+            "name": "ThermalVis of Indoor Environments",
             "url": "https://github.com/yourdisenchantment/ThermalVis-of-Indoor-Environments",
-            "description": "example description",
-            "stack": ["example"]
+            "description": "Визуализация 3D-распределения температуры в помещении по температурам стен: два набора значений с общим цветовым диапазоном и регулируемой прозрачностью поверхностей.",
+            "stack": ["Python", "NumPy", "SciPy"]
         },
         {
-            "name": "simple-pizza",
+            "name": "Simple Pizza",
             "url": "https://github.com/yourdisenchantment/simple-pizza",
-            "description": "example description",
-            "stack": ["example"]
+            "description": "Консольное приложение для управления пиццерией: меню, ингредиенты, рецепты и заказы, с автоматическим списанием и управлением видимостью пицц.",
+            "stack": ["Python", "SQLite"]
         },
         {
-            "name": "Untitled-Text-Game",
+            "name": "Untitled Text Game",
             "url": "https://github.com/azzalie/Untitled-Text-Game",
-            "description": "example description",
-            "stack": ["example"]
+            "description": "Текстовая игра на Java: перемещение между локациями, предметы, инвентарь и взаимодействие с NPC.",
+            "stack": ["Java"]
         },
         {
-            "name": "mathphysics",
+            "name": "Computer Networks",
+            "url": "https://github.com/azzalie/computer-networks",
+            "description": "Учебные задания по сетям и многопоточности на Java: квадратные уравнения, UDP-сокеты, чат и клиент-серверные приложения.",
+            "stack": ["Java"]
+        },
+        {
+            "name": "Численные методы уравнений мат. физики",
             "url": "https://github.com/azzalie/mathphysics",
-            "description": "example description",
-            "stack": ["example"]
+            "description": "Численное решение волновых уравнений математической физики.",
+            "stack": ["Python", "NumPy"]
         },
         {
-            "name": "italian-listing-viewer",
+            "name": "Italian Listings Viewer",
             "url": "https://gitlab.com/yourdisenchantment/italian-listing-viewer",
-            "description": "example description",
-            "stack": ["example"]
+            "description": "Веб-приложение для просмотра объявлений о недвижимости в Италии: синхронизация с Google Drive, иерархия локаций, фильтры и автодополнение.",
+            "stack": ["Python", "FastAPI", "Polars"]
         },
         {
-            "name": "sam-3d-viewer",
+            "name": "SAM 3D Body",
+            "url": "https://github.com/yourdisenchantment/sam-3d-body",
+            "description": "Обвязка для локального запуска модели SAM 3D Body (Meta): пакетная обработка датасета через CLI, Gradio-демо и скрипты установки и отладки. Форк оригинального репозитория.",
+            "stack": ["Python", "PyTorch", "trimesh", "Gradio", "OpenCV"]
+        },
+        {
+            "name": "SAM 3D Viewer",
             "url": "https://gitlab.com/yourdisenchantment/sam-3d-viewer",
-            "description": "example description",
-            "stack": ["example"]
+            "description": "Десктоп-приложение для просмотра результатов 3D-реконструкции тела нейросетью SAM 3D Body: синхронизированные RGB-кадры, меши и скелеты в Rerun.",
+            "stack": ["Python", "PySide6", "Rerun", "trimesh", "NumPy"]
         }
     ],
     "publications": [
@@ -256,7 +300,7 @@
             "level": "bachelor",
             "course": 4,
             "urls": [
-                "https://drive.google.com/drive/folders/1XIryHSUB5WmKyUc0KSMQjhq0HJz9D9BU"
+                "https://drive.google.com/drive/folders/1i2vL2TaXcO8BqrWcIU7o9WCZsannGDEB"
             ]
         },
         {
@@ -264,7 +308,9 @@
             "title": "ВКР (Магистратура)",
             "level": "master",
             "course": 2,
-            "urls": ["https://example.com/vkr-master"]
+            "urls": [
+                "https://drive.google.com/drive/folders/1r0yBQ5TlCrQ-29R-wYSrz8CzdGz_ULGC"
+            ]
         }
     ]
 }
