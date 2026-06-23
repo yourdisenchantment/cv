@@ -1,13 +1,46 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getEntry } from "astro:content";
+import About from "../components/cv/About.astro";
+import Contacts from "../components/cv/Contacts.astro";
+import Skills from "../components/cv/Skills.astro";
+import Experience from "../components/cv/Experience.astro";
+import Education from "../components/cv/Education.astro";
+import Courses from "../components/cv/Courses.astro";
+import Projects from "../components/cv/Projects.astro";
+import Publications from "../components/cv/Publications.astro";
 
 // Данные резюме: src/data/cv/ru.json, валидируется zod (src/data/cv/schema.ts).
 const cv = await getEntry("cv", "ru");
 if (!cv) throw new Error("CV entry 'ru' not found in collection 'cv'");
-const { meta } = cv.data;
+
+const {
+    meta,
+    about,
+    contacts,
+    skills,
+    experience,
+    education,
+    courses,
+    projects,
+    publications,
+} = cv.data;
+
+// lang вынесен в переменную: этап 6 (i18n) заменит на "en" для маршрута /en/.
+const lang = "ru";
 ---
 
-<BaseLayout lang="ru" title={meta.title} description={meta.description}>
-    <!-- Верстка секций резюме - этап 3. -->
+<BaseLayout lang={lang} title={meta.title} description={meta.description}>
+    <div class="wrapper">
+        <main class="main">
+            <About lang={lang} about={about} />
+            <Contacts lang={lang} contacts={contacts} />
+            <Skills lang={lang} skills={skills} />
+            <Experience lang={lang} experience={experience} />
+            <Education lang={lang} education={education} />
+            <Courses lang={lang} courses={courses} />
+            <Publications lang={lang} publications={publications} />
+            <Projects lang={lang} projects={projects} />
+        </main>
+    </div>
 </BaseLayout>

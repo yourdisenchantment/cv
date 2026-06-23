@@ -1,0 +1,70 @@
+---
+import type { Cv } from "../../data/cv/schema";
+import { type Locale } from "../../lib/format";
+import { t } from "../../lib/i18n";
+
+interface Props {
+    lang: Locale;
+    publications: Cv["publications"];
+}
+
+const { lang, publications } = Astro.props;
+
+// kind -> ключ i18n-метки. level -> ключ i18n-метки (только для ВКР).
+const kindKey = {
+    article: "kindArticle",
+    thesis: "kindThesis",
+    patent: "kindPatent",
+    vkr: "kindVkr",
+} as const;
+const levelKey = {
+    bachelor: "levelBachelor",
+    master: "levelMaster",
+} as const;
+
+// Метка публикации: для ВКР - "ВКР (Магистратура), 2 курс"; иначе - просто kind.
+function meta(pub: Cv["publications"][number]): string {
+    const kind = t(lang, kindKey[pub.kind]);
+    if (pub.kind === "vkr" && pub.level) {
+        const level = t(lang, levelKey[pub.level]);
+        const course = pub.course ? `, ${pub.course} ${t(lang, "course")}` : "";
+        return `${kind} (${level})${course}`;
+    }
+    return kind;
+}
+
+// Текст ссылки - домен: без нумерации, информативно, не зависит от i18n.
+function host(url: string): string {
+    return new URL(url).hostname;
+}
+---
+
+<section aria-labelledby="publications-heading" id="publications">
+    <h2 class="container-heading" id="publications-heading">
+        {t(lang, "publications")}
+    </h2>
+    <div class="publications">
+        {
+            publications.map((pub) => (
+                <div class="publication-item">
+                    <span class="publication-meta">{meta(pub)}</span>
+                    <span class="publication-title">{pub.title}</span>
+                    <ul class="publication-links">
+                        {pub.urls.map((u) => (
+                            <li>
+                                <a
+                                    class="animated-link"
+                                    href={u}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {host(u)}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            ))
+        }
+    </div>
+</section>

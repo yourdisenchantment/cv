@@ -1,0 +1,33 @@
+---
+import type { Cv } from "../../data/cv/schema";
+import { formatPeriod, type Locale } from "../../lib/format";
+import { t } from "../../lib/i18n";
+
+interface Props {
+    lang: Locale;
+    education: Cv["education"];
+}
+
+const { lang, education } = Astro.props;
+---
+
+<section aria-labelledby="education-heading" id="education">
+    <h2 class="container-heading" id="education-heading">
+        {t(lang, "education")}
+    </h2>
+    <div class="container education-container">
+        {
+            education.map((e) => (
+                <div class="block edu-block">
+                    <p class="timestamp">{formatPeriod(e.period, lang)}</p>
+                    <div class="edu-info">
+                        <h3>{e.institution}</h3>
+                        <h4>{e.faculty}</h4>
+                        <p>{e.degree}</p>
+                        {e.honors && <p class="honors">{e.honors}</p>}
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+</section>

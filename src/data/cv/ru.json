@@ -15,42 +15,50 @@
     "contacts": [
         {
             "label": "Email",
-            "value": "mpavel@duck.com"
+            "value": "mpavel@duck.com",
+            "group": "contact"
         },
         {
             "label": "Email",
-            "value": "p.idisenchantment@gmail.com"
+            "value": "p.idisenchantment@gmail.com",
+            "group": "contact"
         },
         {
             "label": "Telegram",
             "value": "t.me/yourdisenchantment",
-            "href": "https://t.me/yourdisenchantment"
+            "href": "https://t.me/yourdisenchantment",
+            "group": "contact"
+        },
+        {
+            "label": "Сайт",
+            "value": "yourdisenchantment.github.io/cv",
+            "href": "https://yourdisenchantment.github.io/cv",
+            "group": "contact"
         },
         {
             "label": "GitHub",
             "value": "github.com/yourdisenchantment",
-            "href": "https://github.com/yourdisenchantment"
+            "href": "https://github.com/yourdisenchantment",
+            "group": "resource"
         },
         {
             "label": "GitLab",
             "value": "gitlab.com/yourdisenchantment",
-            "href": "https://gitlab.com/yourdisenchantment"
+            "href": "https://gitlab.com/yourdisenchantment",
+            "group": "resource"
+        },
+        {
+            "label": "CodePen",
+            "value": "codepen.io/yourdisenchantment",
+            "href": "https://codepen.io/yourdisenchantment",
+            "group": "resource"
         },
         {
             "label": "GitHub",
             "value": "github.com/azzalie",
             "href": "https://github.com/azzalie",
-            "archived": true
-        },
-        {
-            "label": "CodePen",
-            "value": "codepen.io/yourdisenchantment",
-            "href": "https://codepen.io/yourdisenchantment"
-        },
-        {
-            "label": "Сайт",
-            "value": "yourdisenchantment.github.io/cv",
-            "href": "https://yourdisenchantment.github.io/cv"
+            "archived": true,
+            "group": "resource"
         }
     ],
     "skills": [
@@ -92,7 +100,7 @@
                 "end": "2026-05"
             },
             "company": "Thrive.io",
-            "role": "Fullstack-разработчик (Junior)",
+            "role": "Fullstack-разработчик (Junior), Практикант",
             "achievements": [
                 "Поддержка и дополнение актуальных проектов",
                 "Сбор и обработка данных",
@@ -104,8 +112,7 @@
                 "FastAPI",
                 "Pandas",
                 "Анализ данных",
-                "Веб-разработка",
-                "Адаптивная верстка"
+                "Веб-разработка"
             ]
         },
         {

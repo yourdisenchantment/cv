@@ -1,0 +1,34 @@
+---
+import type { Cv } from "../../data/cv/schema";
+import { formatPeriod, type Locale } from "../../lib/format";
+import { t } from "../../lib/i18n";
+
+interface Props {
+    lang: Locale;
+    courses: Cv["courses"];
+}
+
+const { lang, courses } = Astro.props;
+---
+
+<section aria-labelledby="courses-heading" id="courses">
+    <h2 class="container-heading" id="courses-heading">{t(lang, "courses")}</h2>
+    <div class="container courses-container">
+        {
+            courses.map((c) => (
+                <div class="block course-block">
+                    <p class="timestamp">{formatPeriod(c.period, lang)}</p>
+                    <div class="course-info">
+                        <h3>{c.institution}</h3>
+                        <h4>{c.course}</h4>
+                        <ul class="skill-list">
+                            {c.skills.map((s) => (
+                                <li>{s}</li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+</section>

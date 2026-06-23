@@ -1,0 +1,63 @@
+---
+import type { Cv } from "../../data/cv/schema";
+import { type Locale } from "../../lib/format";
+import { t } from "../../lib/i18n";
+
+interface Props {
+    lang: Locale;
+    contacts: Cv["contacts"];
+}
+
+const { lang, contacts } = Astro.props;
+
+// Группы: contact (связь: почта/мессенджер/сайт) и resource (github/gitlab/...).
+// Архивные контакты - в конец своей группы.
+const groupOrder: Array<"contact" | "resource"> = ["contact", "resource"];
+const grouped = groupOrder
+    .map((g) => ({
+        group: g,
+        items: contacts
+            .filter((c) => c.group === g)
+            .sort(
+                (a, b) =>
+                    Number(a.archived ?? false) - Number(b.archived ?? false),
+            ),
+    }))
+    .filter((g) => g.items.length > 0);
+---
+
+<section aria-labelledby="contacts-heading" id="contacts">
+    <h2 class="container-heading" id="contacts-heading">
+        {t(lang, "contacts")}
+    </h2>
+    <div class="contact-container">
+        {
+            grouped.map(({ items }) => (
+                <ul class="contact-group">
+                    {items.map((c) => (
+                        <li>
+                            <strong>{c.label}:</strong>
+                            {c.href ? (
+                                <a
+                                    class="animated-link"
+                                    href={c.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {c.value}
+                                </a>
+                            ) : (
+                                <span class="copy-text">{c.value}</span>
+                            )}
+                            {c.archived && (
+                                <span class="archived">
+                                    ({t(lang, "archived")})
+                                </span>
+                            )}
+                        </li>
+                    ))}
+                </ul>
+            ))
+        }
+    </div>
+</section>

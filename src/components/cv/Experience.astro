@@ -1,0 +1,47 @@
+---
+import type { Cv } from "../../data/cv/schema";
+import { formatPeriod, type Locale } from "../../lib/format";
+import { t } from "../../lib/i18n";
+
+interface Props {
+    lang: Locale;
+    experience: Cv["experience"];
+}
+
+const { lang, experience } = Astro.props;
+
+// Последнее место работы - сверху: сортировка по start (YYYY-MM) по убыванию.
+// Строковая сортировка "YYYY-MM" совпадает с хронологической.
+const sorted = [...experience].sort((a, b) =>
+    b.period.start.localeCompare(a.period.start),
+);
+---
+
+<section aria-labelledby="experience-heading" id="experience">
+    <h2 class="container-heading" id="experience-heading">
+        {t(lang, "experience")}
+    </h2>
+    <div class="container experience-container">
+        {
+            sorted.map((job) => (
+                <div class="block job-block">
+                    <p class="timestamp">{formatPeriod(job.period, lang)}</p>
+                    <div class="job-info">
+                        <h3>{job.company}</h3>
+                        <h4>{job.role}</h4>
+                        <ul class="achievements">
+                            {job.achievements.map((a) => (
+                                <li>{a}</li>
+                            ))}
+                        </ul>
+                        <ul class="skill-list">
+                            {job.skills.map((s) => (
+                                <li>{s}</li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+</section>

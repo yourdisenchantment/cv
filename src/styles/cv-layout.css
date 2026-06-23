@@ -1,0 +1,455 @@
+/* --- Подложка резюме --- */
+.main {
+    background-color: var(--white);
+    border-radius: 2px;
+    box-shadow: 0 4px 10px var(--gray-400);
+    padding: 60px;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-height: fit-content;
+}
+
+/* --- Общие стили --- */
+section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.container {
+    margin-left: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.container-heading {
+    width: 100%;
+    font-size: 1.5em;
+    color: var(--black);
+}
+
+.animated-link,
+.contact-container a,
+.projects-container a,
+.publications a {
+    font-family: var(--font-monospace), monospace;
+    color: var(--gray-700);
+    position: relative;
+    text-decoration: none;
+    transition: color 0.1s ease;
+}
+
+.animated-link::after {
+    content: "";
+    display: block;
+    height: 1px;
+    background-color: var(--gray-600);
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.animated-link:hover,
+.contact-container a:hover,
+.projects-container a:hover,
+.publications a:hover {
+    color: var(--gray-800);
+}
+
+.animated-link:hover::after {
+    transform: scaleX(1);
+}
+
+.copy-text {
+    font-family: var(--font-monospace), monospace;
+    color: var(--gray-700);
+    position: relative;
+    text-decoration: none;
+    padding: 1px 2px;
+    border-radius: 1px;
+    transition:
+        outline 0.1s ease,
+        box-shadow 0.1s ease;
+    cursor: pointer;
+}
+
+.copy-text:hover {
+    outline: 1px solid var(--gray-600);
+    box-shadow: none;
+}
+
+strong {
+    font-family: var(--font-monospace), monospace;
+}
+
+.timestamp {
+    font-family: var(--font-monospace), monospace;
+    font-size: 0.8em;
+    flex: 0 0 200px;
+    text-align: right;
+    color: var(--gray-700);
+}
+
+/* --- О себе --- */
+#about .container-heading {
+    display: none;
+}
+
+/* Шапка (мета + фото) в линию, summary - на всю ширину под ней. */
+.about-container {
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.about-header {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.about-info {
+    flex: 1;
+}
+
+.about-info h2 {
+    font-size: 1.4em;
+    color: var(--black);
+}
+
+.about-info h3 {
+    font-size: 1.1em;
+    font-family: var(--font-monospace), monospace;
+    font-style: italic;
+    font-weight: normal;
+    color: var(--gray-800);
+}
+
+.about-info p {
+    margin: 10px 0;
+    color: var(--gray-700);
+}
+
+.about-container .summary {
+    font-style: italic;
+    color: var(--gray-700);
+}
+
+.availability {
+    margin-top: 10px;
+    font-family: var(--font-monospace), monospace;
+    font-size: 0.9em;
+    color: var(--gray-800);
+}
+
+.about-container img {
+    max-width: 100%;
+    height: auto;
+    max-height: 200px;
+    border-radius: 2px;
+}
+
+/* --- Контакты --- */
+.contact-container {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.contact-group {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.contact-group li {
+    margin-bottom: 6px;
+    font-family: var(--font-monospace), monospace;
+    font-size: 0.85em;
+    color: var(--gray-700);
+}
+
+.archived {
+    font-size: 0.8em;
+    color: var(--gray-500);
+    margin-left: 4px;
+}
+
+/* --- Навыки --- */
+.skills-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill-list li {
+    font-family: var(--font-monospace), monospace;
+    font-size: 0.8em;
+    background-color: var(--gray-200);
+    color: var(--gray-900);
+    padding: 2px 8px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.skill-list li:hover {
+    background-color: var(--gray-300);
+}
+
+/* --- Опыт работы --- */
+.experience-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-left: 20px;
+}
+
+.job-block {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.job-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.job-info h3 {
+    font-size: 1.1em;
+    color: var(--black);
+}
+
+.job-info h4 {
+    font-size: 0.9em;
+    color: var(--gray-700);
+}
+
+.achievements {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.achievements li {
+    font-size: 0.9em;
+    color: var(--gray-800);
+    position: relative;
+    padding-left: 16px;
+}
+
+.achievements li::before {
+    content: "-";
+    position: absolute;
+    left: 4px;
+    color: var(--gray-500);
+}
+
+.job-info .skill-list {
+    margin-top: 4px;
+}
+
+/* --- Образование --- */
+.education-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.edu-block {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.edu-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.edu-info h3 {
+    font-size: 1.1em;
+    color: var(--black);
+}
+
+.edu-info h4 {
+    font-size: 0.9em;
+    color: var(--gray-700);
+}
+
+.edu-info p {
+    font-size: 0.9em;
+    color: var(--gray-800);
+}
+
+.honors {
+    font-family: var(--font-monospace), monospace;
+    font-size: 0.85em;
+    color: var(--gray-700);
+    margin-top: 4px;
+}
+
+/* --- Повышение квалификации (courses) - по аналогии с education --- */
+.courses-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-left: 20px;
+}
+
+.course-block {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.course-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.course-info h3 {
+    font-size: 1.1em;
+    color: var(--black);
+}
+
+.course-info h4 {
+    font-size: 0.9em;
+    color: var(--gray-700);
+}
+
+.course-info .skill-list {
+    margin-top: 6px;
+}
+
+/*--- Проекты ---*/
+.projects-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    margin-left: 0;
+    gap: 16px;
+}
+
+.project-card {
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.project-card:hover {
+    border-color: var(--gray-800);
+}
+
+.project-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.project-header h3 {
+    font-size: 1em;
+    margin: 0;
+}
+
+.project-header a {
+    font-size: 0.9em;
+    position: relative;
+    text-decoration: none;
+    display: inline-block;
+    align-self: flex-start;
+    line-height: normal;
+}
+
+.project-card p {
+    font-size: 0.82em;
+    color: var(--gray-700);
+}
+
+.project-card .skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+
+/* --- Публикации --- */
+.publications {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-left: 20px;
+}
+
+.publication-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 12px;
+    transition: border-color 0.2s ease;
+}
+
+.publication-item:hover {
+    border-color: var(--gray-300);
+}
+
+.publication-meta {
+    font-family: var(--font-monospace), monospace;
+    font-size: 0.8em;
+    color: var(--gray-600);
+}
+
+.publication-title {
+    font-size: 0.92em;
+    color: var(--gray-900);
+}
+
+.publication-links {
+    list-style: none;
+    margin: 4px 0 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.publication-links li {
+    position: relative;
+    padding-left: 16px;
+    font-family: var(--font-monospace), monospace;
+    font-size: 0.85em;
+}
+
+.publication-links li::before {
+    content: "-";
+    position: absolute;
+    left: 4px;
+    color: var(--gray-500);
+}

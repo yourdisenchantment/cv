@@ -1,4 +1,9 @@
 ---
+import "../styles/reset.css";
+import "../styles/variables.css";
+import "../styles/styles.css";
+import "../styles/cv-layout.css";
+
 interface Props {
     lang: "ru" | "en";
     title: string;
@@ -6,16 +11,26 @@ interface Props {
 }
 
 const { lang, title, description } = Astro.props;
+
+// Тема: хардкод "light" сейчас. Этап 4 заменит на логику выбора (prefers-color-
+// scheme + localStorage + переключатель), не трогая вёрстку.
+const theme = "light";
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} data-theme={theme}>
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content={description ?? ""} />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+            rel="stylesheet"
+        />
         <title>{title}</title>
     </head>
     <body>

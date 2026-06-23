@@ -1,0 +1,45 @@
+---
+import type { Cv } from "../../data/cv/schema";
+import { type Locale } from "../../lib/format";
+import { t } from "../../lib/i18n";
+
+interface Props {
+    lang: Locale;
+    projects: Cv["projects"];
+}
+
+const { lang, projects } = Astro.props;
+---
+
+<section aria-labelledby="projects-heading" id="projects">
+    <h2 class="container-heading" id="projects-heading">
+        {t(lang, "projects")}
+    </h2>
+    <div class="container projects-container">
+        {
+            projects.map((p) => (
+                <div class="card project-card">
+                    <div class="project-header">
+                        <h3>{p.name}</h3>
+                        <a
+                            class="animated-link"
+                            href={p.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {t(lang, "sourceLink")}
+                        </a>
+                    </div>
+                    {p.description && <p>{p.description}</p>}
+                    {p.stack && (
+                        <ul class="skill-list">
+                            {p.stack.map((s) => (
+                                <li>{s}</li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+            ))
+        }
+    </div>
+</section>

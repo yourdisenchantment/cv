@@ -1,0 +1,21 @@
+---
+import type { Cv } from "../../data/cv/schema";
+import { type Locale } from "../../lib/format";
+import { t } from "../../lib/i18n";
+
+interface Props {
+    lang: Locale;
+    skills: Cv["skills"];
+}
+
+const { lang, skills } = Astro.props;
+---
+
+<section aria-labelledby="skills-heading" id="skills">
+    <h2 class="container-heading" id="skills-heading">{t(lang, "skills")}</h2>
+    <div class="container skills-container">
+        <ul class="skill-list">
+            {skills.map((s) => <li>{s}</li>)}
+        </ul>
+    </div>
+</section>

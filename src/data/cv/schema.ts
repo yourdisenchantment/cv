@@ -25,11 +25,13 @@ const about = z.object({
 
 // href нет -> значение копируется в буфер (почта).
 // archived -> утерянный аккаунт, показывать с пометкой.
+// group: "contact" (связь: почта/мессенджер/сайт) | "resource" (github/gitlab/...).
 const contact = z.object({
     label: z.string(),
     value: z.string(),
     href: z.url().optional(),
     archived: z.boolean().optional(),
+    group: z.enum(["contact", "resource"]),
 });
 
 const experience = z.object({
