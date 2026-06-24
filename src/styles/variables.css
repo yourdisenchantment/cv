@@ -29,7 +29,9 @@
     --text-emphasis: var(--gray-800);
     --text-muted: var(--gray-700);
     --text-subtle: var(--gray-600);
-    --text-faint: var(--gray-500);
+    /* gray-500 на белом = 2.68:1 (провал AA); gray-600 = 4.61:1. Сходится с
+       subtle - при AA нижние "тихие" серые неизбежно сливаются. */
+    --text-faint: var(--gray-600);
     --border: var(--gray-300);
     --border-hover: var(--gray-800);
     --marker: var(--gray-400);
@@ -98,8 +100,10 @@
     --text-strong: #f5f5f5;
     --text-emphasis: #c4c4c4;
     --text-muted: #a0a0a0;
-    --text-subtle: #808080;
-    --text-faint: #606060;
+    /* AA на #242424: было #808080 (3.93) / #606060 (2.47) - провал. Подняты до
+       5.12 / 4.62, иерархия muted>subtle>faint сохранена. */
+    --text-subtle: #949494;
+    --text-faint: #8c8c8c;
     --border: #383838;
     --border-hover: #707070;
     --marker: #5a5a5a;

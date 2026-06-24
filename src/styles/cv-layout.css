@@ -101,10 +101,6 @@ strong {
 }
 
 /* --- О себе --- */
-#about .container-heading {
-    display: none;
-}
-
 /* Фото справа вверху (float), about-info и summary его обтекают: summary
    начинается сразу после about-info и огибает угол фото. flow-root создает
    BFC, чтобы контейнер содержал float (не выпадал по высоте). */
@@ -120,16 +116,15 @@ strong {
     gap: 4px;
 }
 
-.about-info h2 {
+.about-info h1 {
     font-size: var(--fs-name);
     color: var(--text-strong);
 }
 
-.about-info h3 {
+.about-info .role {
     font-size: var(--fs-role);
     font-family: var(--font-mono);
     font-style: italic;
-    font-weight: normal;
     color: var(--text-emphasis);
 }
 

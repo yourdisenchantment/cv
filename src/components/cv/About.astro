@@ -12,7 +12,6 @@ const { lang, about } = Astro.props;
 ---
 
 <section aria-labelledby="about-heading" id="about">
-    <h2 class="container-heading" id="about-heading">{t(lang, "about")}</h2>
     <div class="about-container">
         <span
             class="about-photo"
@@ -22,8 +21,8 @@ const { lang, about } = Astro.props;
             <img alt={`${about.name}, ${about.role}`} src={about.photo} />
         </span>
         <div class="about-info">
-            <h2>{about.name}</h2>
-            <h3>{about.role}</h3>
+            <h1 id="about-heading">{about.name}</h1>
+            <p class="role">{about.role}</p>
             <p>
                 <strong>{t(lang, "birthDate")}:</strong>
                 {formatBirthDate(about.birthDate, lang)}
