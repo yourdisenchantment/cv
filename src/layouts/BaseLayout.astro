@@ -17,10 +17,10 @@ interface Props {
 
 const { lang, title, description, jsonLd } = Astro.props;
 
-// debug-boxes - только в dev: красная граница при наведении (см. debug.css).
+// debug-boxes - dev only: red outline on hover (see debug.css).
 const isDev = import.meta.env.DEV;
 
-// base ("/cv/" в проде, "/" иначе) - префикс для статики из public/.
+// base ("/cv/" in prod, "/" otherwise) - prefix for static assets in public/.
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -39,9 +39,9 @@ const base = import.meta.env.BASE_URL;
                 />
             )
         }
-        <!-- Применяет тему до первой покраски, чтобы не было вспышки светлой
-             темы (FOUC). Без JS fallback - :root (light). Кнопка-переключатель
-             и запись в localStorage появятся с меню иконок (этап 5/6). -->
+        <!-- Applies the theme before first paint to avoid a flash of the light
+             theme (FOUC). Without JS the fallback is :root (light). The toggle
+             button and the localStorage write live in the Dock. -->
         <script is:inline>
             (function () {
                 var saved = localStorage.getItem("theme");
@@ -59,8 +59,8 @@ const base = import.meta.env.BASE_URL;
     <body class:list={[isDev && "debug-boxes"]}>
         <slot />
         <Dock lang={lang} />
-        <!-- Тултипы (data-tooltip) dismissible по Escape: ставим класс на <html>,
-             снимаем при движении мыши / смене фокуса. CSS-правило - styles.css. -->
+        <!-- Tooltips (data-tooltip) are dismissible via Escape: set a class on
+             <html>, drop it on pointer move / focus change. CSS in styles.css. -->
         <script is:inline>
             (function () {
                 var root = document.documentElement;

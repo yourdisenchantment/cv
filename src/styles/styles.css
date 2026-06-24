@@ -7,13 +7,13 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    /* Страница не скроллится по горизонтали ни при какой ширине (фикс-элементы
-       вроде дока с containing block = вьюпорт при этом не обрезаются). */
+    /* The page never scrolls horizontally at any width (fixed elements like
+       the dock, whose containing block = viewport, are not clipped by this). */
     overflow-x: hidden;
 }
 
-/* Без горизонтального паддинга: у границы A4 лист сразу заполняет фрейм, без
-   промежуточной зоны, где он уже меньше A4, но еще с подложкой по бокам. */
+/* No horizontal padding: at the A4 boundary the sheet fills the frame at once,
+   with no intermediate zone where it is below A4 yet still has side backdrop. */
 .wrapper {
     display: flex;
     justify-content: center;
@@ -21,9 +21,9 @@ body {
     padding: 12vh 0;
 }
 
-/* Видимый фокус только для клавиатурной навигации (:focus-visible). reset
-   гасит :focus (чтобы не было рамки при клике мышью), здесь возвращаем рамку
-   для таба. Смещение наружу - не перекрывает контент. */
+/* Visible focus for keyboard navigation only (:focus-visible). reset clears
+   :focus (so there is no outline on mouse click), here we bring the outline
+   back for tabbing. Offset outward - does not overlap content. */
 a:focus-visible,
 button:focus-visible,
 [tabindex]:focus-visible {
@@ -32,7 +32,7 @@ button:focus-visible,
     border-radius: var(--radius-sm);
 }
 
-/* Экранный читатель: скрыт визуально, но доступен AT (aria-live). */
+/* Screen reader: visually hidden but available to AT (aria-live). */
 .visually-hidden {
     position: absolute;
     width: 1px;
@@ -43,12 +43,13 @@ button:focus-visible,
     white-space: nowrap;
 }
 
-/* --- Всплывающая подсказка (data-tooltip) --- */
-/* Тултип через ::before (не ::after): у .animated-link ::after занят анимацией
-   подчеркивания, на одном элементе псевдоэлемент один. Показ при наведении и
-   при фокусе с клавиатуры. Родителю задаем position:relative. По умолчанию
-   подсказка сверху; data-tooltip-pos="bottom" - снизу (для фото у верха листа).
-   Sans-serif, чтобы отличаться от моно-текста ссылок. */
+/* --- Tooltip (data-tooltip) --- */
+/* Tooltip via ::before (not ::after): on .animated-link ::after is taken by the
+   underline animation, and an element has only one of each pseudo-element.
+   Shown on hover and on keyboard focus. The parent gets position:relative. By
+   default the tooltip is on top; data-tooltip-pos="bottom" puts it below (for
+   the photo near the top of the sheet). Sans-serif to differ from the mono link
+   text. */
 [data-tooltip] {
     position: relative;
 }
@@ -83,22 +84,22 @@ button:focus-visible,
     opacity: 1;
 }
 
-/* WCAG 1.4.13 (Dismissible): по Escape прячем показанную подсказку. Класс на
-   <html> ставит/снимает скрипт в BaseLayout (снимается при движении мыши/смене
-   фокуса, чтобы подсказка снова работала). */
+/* WCAG 1.4.13 (Dismissible): Escape hides a shown tooltip. The class on <html>
+   is set/cleared by the script in BaseLayout (cleared on pointer move / focus
+   change so tooltips work again). */
 html.tooltips-dismissed [data-tooltip]::before {
     opacity: 0 !important;
 }
 
-/* Подсказки - вспомогательная подсветка, в печать не идут. */
+/* Tooltips are an auxiliary hint, excluded from print. */
 @media print {
     [data-tooltip]::before {
         display: none;
     }
 }
 
-/* Уважаем системную настройку "уменьшить движение": гасим анимации и переходы
-   (подчеркивание ссылок, fade тултипов, hover-переходы). */
+/* Respect the system "reduce motion" setting: disable animations and
+   transitions (link underline, tooltip fade, hover transitions). */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

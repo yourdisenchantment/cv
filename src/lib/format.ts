@@ -1,8 +1,8 @@
-// Форматирование периодов и дат резюме. ru/en-таблицы заполнены.
+// Formatting of resume periods and dates. ru/en tables filled in.
 
 export type Locale = "ru" | "en";
 
-// Месяцы в именительном падеже - для периодов ("Июль 2025 - Февраль 2026").
+// Months in nominative case - for periods ("Июль 2025 - Февраль 2026").
 const MONTHS_NOMINATIVE: Record<Locale, string[]> = {
     ru: [
         "Январь",
@@ -34,8 +34,8 @@ const MONTHS_NOMINATIVE: Record<Locale, string[]> = {
     ],
 };
 
-// Месяцы в родительном падеже - для даты рождения ("6 ноября 2002").
-// В английском падеж не выражается, используем те же имена ("6 November 2002").
+// Months in genitive case - for the birth date ("6 ноября 2002"). English has
+// no case inflection, so the same names are reused ("6 November 2002").
 const MONTHS_GENITIVE: Record<Locale, string[]> = {
     ru: [
         "января",
@@ -67,13 +67,13 @@ const MONTHS_GENITIVE: Record<Locale, string[]> = {
     ],
 };
 
-// Метка "настоящее время" для открытого периода (end: null).
+// "Present" label for an open-ended period (end: null).
 const PRESENT: Record<Locale, string> = {
     ru: "настоящее время",
     en: "present",
 };
 
-// "YYYY-MM" -> "Месяц YYYY" (именительный). Бросает при невалидном формате.
+// "YYYY-MM" -> "Month YYYY" (nominative). Throws on an invalid format.
 function formatMonthNominative(value: string, locale: Locale): string {
     const [year, month] = value.split("-");
     const idx = Number(month) - 1;
@@ -88,14 +88,14 @@ function formatMonthNominative(value: string, locale: Locale): string {
 }
 
 /**
- * Период "Месяц Год - Месяц Год" или "Месяц Год - настоящее время".
+ * Period "Month Year - Month Year" or "Month Year - present".
  *
  * Args:
- *   period: { start: "YYYY-MM", end: "YYYY-MM" | null }. end: null - настоящее.
- *   locale: "ru" | "en" (дефолт "ru").
+ *   period: { start: "YYYY-MM", end: "YYYY-MM" | null }. end: null - present.
+ *   locale: "ru" | "en" (default "ru").
  *
  * Returns:
- *   Отформатированную строку периода.
+ *   The formatted period string.
  */
 export function formatPeriod(
     period: { start: string; end: string | null },
@@ -109,15 +109,15 @@ export function formatPeriod(
 }
 
 /**
- * Ссылка без протокола: host + путь, без "https://" и хвостового "/".
- * Для печати: голый ник без домена непонятен, поэтому показываем "host/path"
- * (напр. "t.me/yourdisenchantment", "github.com/yourdisenchantment").
+ * Link without protocol: host + path, without "https://" and trailing "/".
+ * For print: a bare handle without a domain is unclear, so we show "host/path"
+ * (e.g. "t.me/yourdisenchantment", "github.com/yourdisenchantment").
  *
  * Args:
- *   url: абсолютный URL.
+ *   url: an absolute URL.
  *
  * Returns:
- *   Строку "host/path" (или просто "host" для корневого пути).
+ *   A "host/path" string (or just "host" for a root path).
  */
 export function linkHostPath(url: string): string {
     const u = new URL(url);
@@ -126,14 +126,14 @@ export function linkHostPath(url: string): string {
 }
 
 /**
- * Дата рождения из ISO "YYYY-MM-DD" -> "D месяц YYYY" (родительный падеж).
+ * Birth date from ISO "YYYY-MM-DD" -> "D month YYYY" (genitive case).
  *
  * Args:
- *   iso: дата в формате "YYYY-MM-DD".
- *   locale: "ru" | "en" (дефолт "ru").
+ *   iso: date in "YYYY-MM-DD" format.
+ *   locale: "ru" | "en" (default "ru").
  *
  * Returns:
- *   Отформатированную дату.
+ *   The formatted date.
  */
 export function formatBirthDate(iso: string, locale: Locale = "ru"): string {
     const [year, month, day] = iso.split("-");

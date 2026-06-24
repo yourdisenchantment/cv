@@ -1,10 +1,10 @@
-/* Self-hosted шрифты (woff2 в public/fonts/, без запросов к Google).
-   Inter и JetBrains Mono - variable, subsets latin + cyrillic (покрывают
-   ru/en резюме; greek/vietnamese/cyrillic-ext не нужны). Material Symbols
-   Outlined - static (opsz=24, wght=400, FILL=0, GRAD=0), все глифы,
+/* Self-hosted fonts (woff2 in public/fonts/, no requests to Google).
+   Inter and JetBrains Mono - variable, latin + cyrillic subsets (cover the
+   ru/en resume; greek/vietnamese/cyrillic-ext are not needed). Material
+   Symbols Outlined - static (opsz=24, wght=400, FILL=0, GRAD=0), all glyphs,
    ligatures. */
 
-/* Inter: variable wght 100-900 (+ оптический размер opsz). */
+/* Inter: variable wght 100-900 (+ optical size opsz). */
 @font-face {
     font-family: "Inter";
     font-style: normal;
@@ -84,8 +84,8 @@
     unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
-/* Material Symbols Outlined: static, все глифы, ligatures. font-display
-   block - иконки без текста-мерцания (ligature-слова) при загрузке. */
+/* Material Symbols Outlined: static, all glyphs, ligatures. font-display
+   block - icons without flashing text (ligature words) while loading. */
 @font-face {
     font-family: "Material Symbols Outlined";
     font-style: normal;

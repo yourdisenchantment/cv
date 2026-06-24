@@ -1,11 +1,11 @@
-/* Палитра и семантические токены. Два слоя:
-   1. сырая палитра (gray-*) - нейтральная шкала, общая для всех тем;
-   2. семантические токены (bg/text/border/...) - смысловые, компоненты
-      ссылаются только на них.
-   Смена темы (этап 4: темная) = переопределение семантики в
-   [data-theme="dark"], без правки компонентов. */
+/* Palette and semantic tokens. Two layers:
+   1. raw palette (gray-*) - a neutral scale shared by all themes;
+   2. semantic tokens (bg/text/border/...) - meaningful, components reference
+      only these.
+   Switching theme = overriding the semantics in [data-theme="dark"], without
+   touching components. */
 :root {
-    /* Сырая палитра. */
+    /* Raw palette. */
     --white: #ffffff;
     --black: #000000;
     --gray-100: #f5f5f5;
@@ -18,12 +18,11 @@
     --gray-800: #424242;
     --gray-900: #212121;
 
-    /* Нативные элементы (скроллбары, контролы) - в светлой схеме; в темной
-       переопределяется ниже. */
+    /* Native elements (scrollbars, controls) - light scheme here; overridden
+       in the dark theme below. */
     color-scheme: light;
 
-    /* Семантические токены (светлая тема). Этап 4: переопределить в
-       [data-theme="dark"]. */
+    /* Semantic tokens (light theme). Overridden in [data-theme="dark"]. */
     --bg-page: var(--gray-100);
     --bg-surface: var(--white);
     --bg-muted: var(--gray-200);
@@ -33,8 +32,8 @@
     --text-emphasis: var(--gray-800);
     --text-muted: var(--gray-700);
     --text-subtle: var(--gray-600);
-    /* gray-500 на белом = 2.68:1 (провал AA); gray-600 = 4.61:1. Сходится с
-       subtle - при AA нижние "тихие" серые неизбежно сливаются. */
+    /* gray-500 on white = 2.68:1 (fails AA); gray-600 = 4.61:1. Converges with
+       subtle - under AA the lower "quiet" grays inevitably merge. */
     --text-faint: var(--gray-600);
     --border: var(--gray-300);
     --border-hover: var(--gray-800);
@@ -43,24 +42,24 @@
 
     --font-main: "Inter";
     --font-monospace: "JetBrains Mono";
-    /* Готовый стек моноширинного шрифта: моноширинный + fallback. Компоненты
-       ссылаются на --font-mono, чтобы не дублировать ", monospace" везде. */
+    /* Ready-made monospace stack: monospace + fallback. Components reference
+       --font-mono so ", monospace" is not duplicated everywhere. */
     --font-mono: var(--font-monospace), monospace;
 
-    /* Типографская шкала - абсолютные px-токены. Компоненты ссылаются на
-       них, а не на em-проценты от body (не было неоднозначности "переменная
-       и уменьшаем"). Минимум - 12px (мельче режет глаза и мылит в печати).
-       Шкала: 12 (мета) / 14 (основной) / 16 (подзаголовки) / 18 (заголовки
-       секций) / 20 (имя). */
+    /* Type scale - absolute px tokens. Components reference these, not em
+       percentages of body (avoids the "variable and we shrink it" ambiguity).
+       Minimum - 12px (smaller strains the eyes and blurs in print).
+       Scale: 12 (meta) / 14 (body) / 16 (subheads) / 18 (section headings) /
+       20 (name). */
     --fs-small: 12px;
     --fs-body: 14px;
     --fs-subhead: 16px;
     --fs-heading: 18px;
     --fs-title: 20px;
 
-    /* Семантические токены (стайл-бук): роль элемента -> размер. Меняем
-       значение здесь, обновляются все однотипные элементы. Шкала - ниже,
-       токены ссылаются на неё. */
+    /* Semantic tokens (style book): element role -> size. Change a value here
+       and all elements of that kind update. The scale is above; these tokens
+       reference it. */
     --fs-date: var(--fs-small);
     --fs-section-heading: var(--fs-heading);
     --fs-name: var(--fs-title);
@@ -74,33 +73,30 @@
     --fs-contact-label: var(--fs-body);
     --fs-contact-value: var(--fs-small);
 
-    /* Базовый размер: em-размеры в компонентах наследуются от него и
-       масштабируются вместе. */
+    /* Base size: em sizes in components inherit from it and scale together. */
     font-size: var(--fs-body);
 
-    /* Радиусы скругления: мелкое (поверхности) / среднее (карточки) /
-       крупное (чипсы). */
+    /* Corner radii: small (surfaces) / medium (cards) / large (chips). */
     --radius-sm: 2px;
     --radius-md: 4px;
     --radius-lg: 6px;
 
-    /* Длительности переходов с easing: быстрая (color ссылок) / базовая
-       (border, фон) / медленная (underline-анимация). */
+    /* Transition durations with easing: fast (link color) / base (border,
+       background) / slow (underline animation). */
     --transition-fast: 0.1s ease;
     --transition: 0.2s ease;
     --transition-slow: 0.3s ease;
 
-    /* Ширина листа резюме ~ A4 (210mm = 793.7px), берем целые 794px, чтобы не
-       ловить sub-pixel на границе. Тот же размер - точка перелома адаптива:
-       шире -> лист с подложкой, ровно/уже -> на весь экран. В @media значение
-       дублируется литералом (var() в условии нельзя). */
+    /* Resume sheet width ~ A4 (210mm = 793.7px); we use a whole 794px to avoid
+       sub-pixel issues at the edge. The same size is the responsive breakpoint:
+       wider -> sheet with a backdrop, equal/narrower -> full screen. In @media
+       the value is duplicated as a literal (var() is not allowed in a query). */
     --page-width: 794px;
 }
 
-/* Тёмная тема: переопределение только семантических токенов, сырая палитра
-   общая. Стартовая нейтральная палитра; контраст дошлифуется на этапе 8
-   (доступность). Применяется через data-theme на <html> (инлайн-скрипт в
-   BaseLayout). */
+/* Dark theme: overrides only the semantic tokens, the raw palette is shared.
+   Neutral palette tuned for WCAG AA contrast. Applied via data-theme on <html>
+   (inline script in BaseLayout). */
 [data-theme="dark"] {
     color-scheme: dark;
     --bg-page: #1a1a1a;
@@ -111,8 +107,8 @@
     --text-strong: #f5f5f5;
     --text-emphasis: #c4c4c4;
     --text-muted: #a0a0a0;
-    /* AA на #242424: было #808080 (3.93) / #606060 (2.47) - провал. Подняты до
-       5.12 / 4.62, иерархия muted>subtle>faint сохранена. */
+    /* AA on #242424: was #808080 (3.93) / #606060 (2.47) - failing. Raised to
+       5.12 / 4.62, the muted>subtle>faint hierarchy preserved. */
     --text-subtle: #949494;
     --text-faint: #8c8c8c;
     --border: #383838;

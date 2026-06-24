@@ -1,8 +1,8 @@
-// zod-схема резюме. Валидирует ru.json / en.json на сборке через data
-// collection (src/content.config.ts). Тип Cv - для компонентов этапа 3.
+// Resume zod schema. Validates ru.json / en.json at build time through the
+// data collection (src/content.config.ts). The Cv type feeds the components.
 import { z } from "zod";
 
-// Период: start/end в формате "YYYY-MM"; end: null = настоящее время.
+// Period: start/end in "YYYY-MM" format; end: null = present.
 const period = z.object({
     start: z.string(),
     end: z.string().nullable(),
@@ -14,7 +14,7 @@ const meta = z.object({
 });
 
 const about = z.object({
-    photo: z.string(), // путь в public/, напр. "/images/my-face.jpg"
+    photo: z.string(), // path in public/, e.g. "/images/my-face.jpg"
     name: z.string(),
     role: z.string(),
     birthDate: z.string(), // ISO "YYYY-MM-DD"
@@ -23,9 +23,9 @@ const about = z.object({
     availability: z.string().optional(),
 });
 
-// href нет -> значение копируется в буфер (почта).
-// archived -> утерянный аккаунт, показывать с пометкой.
-// group: "contact" (связь: почта/мессенджер/сайт) | "resource" (github/gitlab/...).
+// no href -> the value is copied to the clipboard (email).
+// archived -> a lost account, shown with a label.
+// group: "contact" (email/messenger/site) | "resource" (github/gitlab/...).
 const contact = z.object({
     label: z.string(),
     value: z.string(),
@@ -47,7 +47,7 @@ const education = z.object({
     institution: z.string(),
     faculty: z.string(),
     degree: z.string(),
-    honors: z.string().optional(), // "Красный диплом"
+    honors: z.string().optional(), // e.g. "Красный диплом" (honors degree)
 });
 
 const course = z.object({
@@ -64,7 +64,7 @@ const project = z.object({
     stack: z.array(z.string()).optional(),
 });
 
-// level/course - только для kind: "vkr" (ВКР бакалавра/магистра).
+// level/course - only for kind: "vkr" (bachelor's/master's graduation thesis).
 const publication = z.object({
     kind: z.enum(["article", "thesis", "patent", "vkr", "dataset"]),
     title: z.string(),

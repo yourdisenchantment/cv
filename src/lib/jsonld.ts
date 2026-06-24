@@ -1,12 +1,12 @@
-// JSON-LD schema.org/Person для <head>. Данные берутся из локального CV-JSON,
-// поэтому объект уже локализован (role/url зависят от языка страницы).
+// JSON-LD schema.org/Person for <head>. Data comes from the local CV JSON,
+// so the object is already localized (role/url depend on the page language).
 import type { Cv } from "../data/cv/schema";
 import type { Locale } from "./format";
 
-// Собирает объект Person для разметки. site - Astro.site (origin), base -
-// import.meta.env.BASE_URL ("/cv/"). root = origin+base (напр. .../cv/); url
-// строится по модели B (en на root, ru на root+"ru/"). sameAs - внешние
-// профили (контакты с href), кроме утерянных (archived).
+// Builds the Person object for the markup. site - Astro.site (origin), base -
+// import.meta.env.BASE_URL ("/cv/"). root = origin+base (e.g. .../cv/); url
+// follows model B (en at root, ru at root+"ru/"). sameAs - external profiles
+// (contacts with href), excluding lost ones (archived).
 export function personSchema(
     data: Cv,
     lang: Locale,

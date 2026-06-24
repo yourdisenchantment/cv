@@ -1,17 +1,17 @@
-/* Печать: резюме как A4-документ. Все экранные эффекты гасятся, лист печатается
-   на белом с темным текстом независимо от темы. Подключается последним, чтобы
-   переопределять токены и раскладку. */
+/* Print: the resume as an A4 document. All screen effects are disabled, the
+   sheet prints on white with dark text regardless of theme. Imported last so it
+   overrides tokens and layout. */
 @media print {
-    /* Реальная страница A4 с полями. Внутренние поля листа (.main padding 2cm)
-       при печати убираем - иначе поля удвоятся. */
+    /* Real A4 page with margins. The sheet's inner padding (.main padding 2cm)
+       is removed when printing - otherwise margins would double. */
     @page {
         size: A4;
         margin: 2cm;
     }
 
-    /* Печать всегда ч/б на белом: переопределяем семантику поверх любой темы
-       (в т.ч. [data-theme="dark"]). Дальше все токен-цвета следуют автоматически,
-       тени исчезают (--shadow: transparent). */
+    /* Print is always B/W on white: override the semantics on top of any theme
+       (including [data-theme="dark"]). All token colors then follow
+       automatically, shadows disappear (--shadow: transparent). */
     :root,
     [data-theme="dark"] {
         --bg-page: #ffffff;
@@ -31,26 +31,26 @@
         color-scheme: light;
     }
 
-    /* height:100% + overflow-x:hidden (экранные) в печати клиппят документ до
-       одной страницы. Сбрасываем - тогда контент разбивается на A4-страницы. */
+    /* height:100% + overflow-x:hidden (the screen rules) clip the print to a
+       single page. Reset them so the content breaks across A4 pages. */
     html,
     body {
         height: auto;
         overflow: visible;
     }
 
-    /* Обертка-центрирование не нужна: лист и есть страница. */
+    /* The centering wrapper is not needed: the sheet is the page. */
     .wrapper {
         display: block;
         min-height: 0;
         padding: 0;
     }
 
-    /* Блочный поток для печати: break-* (заголовки/разрывы) во flex-фрагментации
-       Chrome игнорирует, в block-потоке - работает. Поэтому контейнеры, которые
-       должны ломаться по страницам и держать заголовки, делаем block, а gap
-       заменяем на margin между детьми. Поля дает @page - у листа убираем
-       внутренние отступы и подложку. */
+    /* Block flow for print: Chrome ignores break-* (headings/breaks) under flex
+       fragmentation but honors it in block flow. So containers that must break
+       across pages and hold headings are made block, and gap is replaced with
+       margin between children. @page provides the margins - the sheet drops its
+       inner padding and backdrop. */
     .main {
         display: block;
         max-width: none;
@@ -60,7 +60,7 @@
     }
 
     .main > * + * {
-        margin-top: 30px; /* было gap: 30px между секциями */
+        margin-top: 30px; /* was gap: 30px between sections */
     }
 
     section {
@@ -77,29 +77,29 @@
     .experience-container > * + *,
     .education-container > * + *,
     .courses-container > * + * {
-        margin-top: 40px; /* было gap: 40px между записями */
+        margin-top: 40px; /* was gap: 40px between entries */
     }
 
     .publications > * + * {
-        margin-top: 12px; /* было gap: 12px между публикациями */
+        margin-top: 12px; /* was gap: 12px between publications */
     }
 
-    /* margin-bottom заменяет gap:10px внутри .section-lead (заголовок -> первая
-       запись). */
+    /* margin-bottom replaces gap:10px inside .section-lead (heading -> first
+       entry). */
     .container-heading {
         margin-bottom: 10px;
     }
 
-    /* Заголовок + первая запись держатся вместе: break-after Chrome при печати
-       игнорирует, поэтому единственный надежный способ не оторвать заголовок -
-       один неразрывный бокс. Между .section-lead и следующими записями разрыв
-       допустим (margin-top контейнера сохраняет ритм). */
+    /* Heading + first entry stay together: Chrome ignores break-after when
+       printing, so the only reliable way to keep the heading attached is a
+       single unbreakable box. A break between .section-lead and the following
+       entries is allowed (the container margin-top keeps the rhythm). */
     .section-lead {
         display: block;
         break-inside: avoid;
     }
 
-    /* Каждая запись - целая (между записями разрыв допустим, внутри - нет). */
+    /* Each entry stays whole (a break between entries is fine, inside is not). */
     .job-block,
     .edu-block,
     .course-block,
@@ -108,7 +108,7 @@
         break-inside: avoid;
     }
 
-    /* Чипы навыков - контурные (рамка вместо серого фона), экономия чернил. */
+    /* Skill chips - outlined (border instead of gray fill), saves ink. */
     .skill-list li {
         border: 1px solid var(--border);
     }

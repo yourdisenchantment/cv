@@ -10,9 +10,9 @@ import Courses from "./Courses.astro";
 import Projects from "./Projects.astro";
 import Publications from "./Publications.astro";
 
-// Тело резюме (обёртка + секции) для обоих локалей. Страницы (/ и /ru/) грузят
-// свой entry и передают cv.data; метаданные (title/description) страница
-// отдаёт в BaseLayout. Порядок секций - единый источник правды.
+// Resume body (wrapper + sections) for both locales. The pages (/ and /ru/)
+// load their own entry and pass cv.data; metadata (title/description) is
+// handed to BaseLayout by the page. Section order is the single source of truth.
 interface Props {
     lang: Locale;
     data: Cv;

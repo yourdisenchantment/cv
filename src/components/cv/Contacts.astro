@@ -10,8 +10,8 @@ interface Props {
 
 const { lang, contacts } = Astro.props;
 
-// Группы: contact (связь: почта/мессенджер/сайт) и resource (github/gitlab/...).
-// Архивные контакты - в конец своей группы.
+// Groups: contact (email/messenger/site) and resource (github/gitlab/...).
+// Archived contacts go to the end of their group.
 const groupOrder: Array<"contact" | "resource"> = ["contact", "resource"];
 const grouped = groupOrder
     .map((g) => ({
@@ -76,10 +76,10 @@ const grouped = groupOrder
         data-copied-text={t(lang, "copied")}></span>
 </section>
 
-<!-- Копирование почты: кнопки .copy-text (контакты без href - всегда почта).
-     Клик -> navigator.clipboard, визуальная .copied-метка, подмена тултипа на
-     "Скопировано" и объявление в aria-live регион для скринридера. Через 1.2с
-     все возвращается к исходному. Без clipboard API - молча ничего. -->
+<!-- Email copy: .copy-text buttons (contacts without href are always email).
+     Click -> navigator.clipboard, a visual .copied mark, swap the tooltip to
+     "Copied" and announce it in an aria-live region for screen readers. After
+     1.2s everything returns to the initial state. No clipboard API - silent. -->
 <script is:inline>
     (function () {
         var buttons = document.querySelectorAll(".copy-text");

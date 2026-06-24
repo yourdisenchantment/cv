@@ -1,7 +1,7 @@
-/* Отладка отступов: красная граница элемента при наведении. Видно границы
-   блока; зазор до соседей - margin, зазор до вложенного (наведи на него) -
-   padding. Включается классом body.debug-boxes (ставится только в DEV из
-   BaseLayout, в продакшен не попадает). Выключить в devtools:
+/* Spacing debug: red outline on hover. Shows the box edges; the gap to
+   siblings is margin, the gap to a nested element (hover it) is padding.
+   Enabled by the body.debug-boxes class (set only in DEV from BaseLayout,
+   never ships to production). Disable in devtools:
    document.body.classList.remove('debug-boxes'). */
 .debug-boxes *:hover {
     outline: 1px solid red;

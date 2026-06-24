@@ -4,7 +4,7 @@ import Resume from "../components/cv/Resume.astro";
 import { personSchema } from "../lib/jsonld";
 import { getEntry } from "astro:content";
 
-// Английская версия - корневой маршрут '/' (модель B: en по умолчанию).
+// English version - root route '/' (model B: en by default).
 const lang = "en";
 const cv = await getEntry("cv", lang);
 if (!cv) throw new Error(`CV entry '${lang}' not found in collection 'cv'`);

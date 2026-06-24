@@ -1,8 +1,8 @@
-/* Док-бар управления: тема, язык, PDF, печать, исходник резюме. Плавающий,
-   снизу по центру, над листом резюме. В печать/PDF не попадает. */
+/* Control dock: theme, language, PDF, print, resume source. Floating, bottom
+   center, above the resume sheet. Excluded from print/PDF. */
 
-/* Material Symbols Outlined: статичный font, оси зафиксированы в URL
-   (opsz=24, wght=400, FILL=0, GRAD=0), font-variation-settings не нужен. */
+/* Material Symbols Outlined: static font, axes fixed in the URL
+   (opsz=24, wght=400, FILL=0, GRAD=0), no font-variation-settings needed. */
 .material-symbols-outlined {
     font-family: "Material Symbols Outlined";
     font-weight: normal;
@@ -20,16 +20,16 @@
     -webkit-font-smoothing: antialiased;
 }
 
-/* Плавающий док: всегда виден, статичного размера (по контенту, не тянется),
-   по центру внизу с одинаковыми отступами по бокам. На всех ширинах одинаков -
-   не липнет к краям даже на телефоне. */
+/* Floating dock: always visible, static size (fits content, does not stretch),
+   bottom center with equal side margins. Identical at all widths - never
+   sticks to the edges, even on a phone. */
 .dock {
     position: fixed;
     bottom: 12px;
-    /* Центрирование через auto-margin между left:0/right:0, без
-       transform: translateX(-50%) - тот давал layout-бокс от центра вправо и на
-       узких экранах выезжал за правый край (горизонтальный скролл + полоса
-       bg-page). fit-content держит док по ширине контента. */
+    /* Centered via auto-margin between left:0/right:0, without
+       transform: translateX(-50%) - that placed the layout box from center to
+       the right and on narrow screens overflowed the right edge (horizontal
+       scroll + bg-page strip). fit-content keeps the dock at content width. */
     left: 0;
     right: 0;
     margin-inline: auto;
@@ -44,8 +44,8 @@
     z-index: 100;
 }
 
-/* Кнопка дока: иконка-глиф, цвет через семантический токен (авто с темой).
-   Фон дока (bg-surface) дает контраст иконкам в обеих темах. */
+/* Dock button: glyph icon, color via a semantic token (auto with the theme).
+   The dock background (bg-surface) gives the icons contrast in both themes. */
 .dock-button {
     display: inline-flex;
     align-items: center;
@@ -67,9 +67,9 @@
     background-color: var(--bg-muted);
 }
 
-/* Тултип кнопок дока - общее правило [data-tooltip]::before в styles.css. */
+/* Dock button tooltip - shared [data-tooltip]::before rule in styles.css. */
 
-/* Печать/PDF: док не попадает в документ. */
+/* Print/PDF: the dock is excluded from the document. */
 @media print {
     .dock {
         display: none;

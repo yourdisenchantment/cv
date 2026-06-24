@@ -1,12 +1,12 @@
-// UI-строки интерфейса резюме. Плоский словарь, без pluralization/интерполяции.
-// ru/en заполнены. Компоненты берут строки через t(lang, key); добавление
-// языка = дополнение словаря без правки компонентов.
+// Resume UI strings. Flat dictionary, no pluralization/interpolation.
+// ru/en filled in. Components read strings via t(lang, key); adding a
+// language = extending the dictionary without touching components.
 
 import type { Locale } from "./format";
 
-// Ключи UI-строк. keyof Dict - чтобы t() проверял ключи на этапе компиляции.
+// UI string keys. keyof Dict lets t() check keys at compile time.
 type Dict = {
-    // заголовки секций
+    // section headings
     about: string;
     contacts: string;
     skills: string;
@@ -15,32 +15,32 @@ type Dict = {
     courses: string;
     projects: string;
     publications: string;
-    // лейблы блока "О себе"
+    // "About" block labels
     birthDate: string;
     city: string;
-    // контакты
+    // contacts
     archived: string;
-    // контакты: копирование почты
+    // contacts: email copy
     copyEmail: string;
     copied: string;
-    // тултип внешней ссылки (наведение)
+    // external link tooltip (hover)
     openInNewTab: string;
-    // тултип кнопки копирования (наведение, до клика)
+    // copy button tooltip (hover, before click)
     copy: string;
-    // публикации: kind
+    // publications: kind
     kindArticle: string;
     kindThesis: string;
     kindPatent: string;
     kindVkr: string;
     kindDataset: string;
-    // публикации: level (для ВКР)
+    // publications: level (graduation thesis only)
     levelBachelor: string;
     levelMaster: string;
-    // публикации: слово "курс" (для ВКР, "2 курс" / "Year 2")
+    // publications: the word "year" (for thesis: "2 курс" / "Year 2")
     course: string;
-    // проекты: текст ссылки на репозиторий
+    // projects: repository link text
     sourceLink: string;
-    // док-бар: aria/тултипы
+    // dock bar: aria/tooltips
     dockNav: string;
     themeToggle: string;
     downloadPdf: string;
@@ -114,15 +114,15 @@ const ui: Record<Locale, Dict> = {
 };
 
 /**
- * Возвращает UI-строку для языка и ключа. Для пустого en-значения падает
- * обратно на ru (страховка).
+ * Returns the UI string for a language and key. Falls back to ru when the
+ * en value is empty (safety net).
  *
  * Args:
- *   lang: язык страницы.
- *   key: ключ строки из Dict.
+ *   lang: page language.
+ *   key: string key from Dict.
  *
  * Returns:
- *   Локализованную строку.
+ *   The localized string.
  */
 export function t(lang: Locale, key: keyof Dict): string {
     const value = ui[lang][key];

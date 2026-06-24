@@ -3,9 +3,9 @@ import { type Locale } from "../lib/format";
 import { t } from "../lib/i18n";
 import "../styles/dock.css";
 
-// Док-бар управления резюме. Рабочие: тема (toggle), code (ссылка на GitHub-
-// репо), печать/PDF (window.print - временно, стилизация печати - этап E),
-// язык (ссылка на другой локаль-маршрут). Модель B: en на '/', ru на '/ru/'.
+// Resume control dock. Buttons: theme (toggle), code (link to the GitHub
+// repo), print/PDF (window.print, styled via print.css), language (link to
+// the other locale route). Model B: en at '/', ru at '/ru/'.
 interface Props {
     lang: Locale;
 }
@@ -14,9 +14,9 @@ const { lang } = Astro.props;
 
 const repoUrl = "https://github.com/yourdisenchantment/cv";
 
-// Кнопка языка - ссылка на другой локаль. Тултип - автоним целевого языка
-// (узнаваем пользователем): на en-странице -> "Русский", на ru -> "English".
-// Маршруты под base: BASE_URL ("/cv/") - корень en, + "ru/" - русская версия.
+// Language button - link to the other locale. Tooltip is the target language
+// autonym (recognizable to the user): on en -> "Русский", on ru -> "English".
+// Routes under base: BASE_URL ("/cv/") - en root, + "ru/" - the Russian version.
 const base = import.meta.env.BASE_URL;
 const langHref = lang === "en" ? `${base}ru/` : base;
 const langLabel = lang === "en" ? "Русский" : "English";
@@ -75,9 +75,9 @@ const langLabel = lang === "en" ? "Русский" : "English";
     </a>
 </nav>
 
-<!-- Переключатель темы: toggles data-theme на <html>, пишет в localStorage.
-     Инлайн-скрипт в BaseLayout уже применил тему до покраски; здесь только
-     переключение по клику. -->
+<!-- Theme toggle: flips data-theme on <html>, writes to localStorage. The
+     inline script in BaseLayout already applied the theme before paint; here
+     it is only toggled on click. -->
 <script is:inline>
     (function () {
         var btn = document.querySelector('.dock-button[data-action="theme"]');
@@ -92,9 +92,8 @@ const langLabel = lang === "en" ? "Русский" : "English";
     })();
 </script>
 
-<!-- Печать и скачивание PDF: пока оба вызывают window.print() (диалог браузера,
-     "Сохранить как PDF"). Временная реализация - стилизация печати (print.css,
-     @page A4) на этапе E. -->
+<!-- Print and PDF download: both call window.print() (browser dialog, "Save
+     as PDF"). Print styling lives in print.css (@page A4). -->
 <script is:inline>
     (function () {
         var buttons = document.querySelectorAll(

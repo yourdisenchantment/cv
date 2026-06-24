@@ -10,7 +10,7 @@ interface Props {
 
 const { lang, publications } = Astro.props;
 
-// kind -> ключ i18n-метки. level -> ключ i18n-метки (только для ВКР).
+// kind -> i18n label key. level -> i18n label key (graduation thesis only).
 const kindKey = {
     article: "kindArticle",
     thesis: "kindThesis",
@@ -23,9 +23,9 @@ const levelKey = {
     master: "levelMaster",
 } as const;
 
-// Метка публикации: для ВКР - "ВКР (Магистратура), 2 курс" / "Graduation
-// thesis (Master), Year 2"; иначе - просто kind. Порядок слова "курс/Year"
-// зависит от локали: ru "2 курс", en "Year 2".
+// Publication label: for a graduation thesis - "ВКР (Магистратура), 2 курс" /
+// "Graduation thesis (Master), Year 2"; otherwise just the kind. The position
+// of the "year" word depends on locale: ru "2 курс", en "Year 2".
 function meta(pub: Cv["publications"][number]): string {
     const kind = t(lang, kindKey[pub.kind]);
     if (pub.kind === "vkr" && pub.level) {
@@ -40,8 +40,8 @@ function meta(pub: Cv["publications"][number]): string {
     return kind;
 }
 
-// Текст ссылки: полный адрес без схемы (https://), чтобы в PDF ссылка читалась
-// целиком, а одинаковые домены (напр. elibrary.ru) различались между собой.
+// Link text: the full address without the scheme (https://), so in the PDF the
+// link reads in full and identical domains (e.g. elibrary.ru) stay distinct.
 function linkText(url: string): string {
     return url.replace(/^https?:\/\//, "");
 }
@@ -72,8 +72,8 @@ function linkText(url: string): string {
                         </ul>
                     </div>
                 );
-                // Заголовок + первая запись в одном боксе (.section-lead),
-                // чтобы при печати заголовок не отрывался от содержимого.
+                // Heading + first entry in one box (.section-lead) so the
+                // heading does not get orphaned from its content when printing.
                 return i === 0 ? (
                     <div class="section-lead">
                         <h2 class="container-heading" id="publications-heading">

@@ -1,4 +1,4 @@
-/* --- Подложка резюме --- */
+/* --- Resume sheet --- */
 .main {
     background-color: var(--bg-surface);
     border-radius: var(--radius-sm);
@@ -8,12 +8,12 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    /* .wrapper - flex-row с align-items:stretch; без этого .main растянулся бы
-       по высоте на весь вьюпорт. Держим лист по высоте контента. */
+    /* .wrapper is a flex-row with align-items:stretch; without this .main would
+       stretch in height to the whole viewport. Keep the sheet at content height. */
     align-self: flex-start;
 }
 
-/* --- Общие стили --- */
+/* --- Common styles --- */
 section {
     width: 100%;
     display: flex;
@@ -27,26 +27,27 @@ section {
     color: var(--text-strong);
 }
 
-/* Заголовок секции вместе с первой записью (списочные секции: опыт, образование,
-   курсы, публикации). На экране - просто колонка с тем же ритмом 10px, что был
-   у section gap (заголовок -> содержимое), вид не меняется. На печати (print.css)
-   получает break-inside:avoid, чтобы заголовок не отрывался от первой записи. */
+/* Section heading together with the first entry (list sections: experience,
+   education, courses, publications). On screen - just a column with the same
+   10px rhythm the section gap had (heading -> content), look unchanged. In
+   print (print.css) it gets break-inside:avoid so the heading does not detach
+   from the first entry. */
 .section-lead {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-/* Все ссылки контента (контакты/проекты/публикации) имеют класс .animated-link,
-   поэтому одного селектора достаточно. */
+/* All content links (contacts/projects/publications) carry the .animated-link
+   class, so one selector is enough. */
 .animated-link {
     font-family: var(--font-mono);
     color: var(--text-muted);
     position: relative;
     text-decoration: none;
     transition: color var(--transition-fast);
-    /* inline-block даёт ссылке определённую ширину, и подчёркивание ::after
-       (width:100%) равно ширине текста, а не растягивается на весь <li>. */
+    /* inline-block gives the link a definite width, so the ::after underline
+       (width:100%) equals the text width instead of stretching the whole <li>. */
     display: inline-block;
 }
 
@@ -88,7 +89,7 @@ section {
     border-color: var(--border);
 }
 
-/* Копирование успешно: краткая визуальная метка (граница + цвет). */
+/* Copy succeeded: a brief visual mark (border + color). */
 .copy-text.copied {
     border-color: var(--border-hover);
     color: var(--text-emphasis);
@@ -101,23 +102,23 @@ strong {
 .timestamp {
     font-family: var(--font-mono);
     font-size: var(--fs-date);
-    /* 28ch: вмещает "Сентябрь 2024 - Сентябрь 2026" (29 char) с запасом и
-       масштабируется вместе с --fs-date. text-align:right - даты в столбец. */
+    /* 28ch: fits "Сентябрь 2024 - Сентябрь 2026" (29 chars) with room to spare
+       and scales with --fs-date. text-align:right - dates in a column. */
     flex: 0 0 28ch;
     text-align: right;
     color: var(--text-muted);
 }
 
-/* --- О себе --- */
-/* Фото справа вверху (float), about-info и summary его обтекают: summary
-   начинается сразу после about-info и огибает угол фото. flow-root создает
-   BFC, чтобы контейнер содержал float (не выпадал по высоте). */
+/* --- About --- */
+/* Photo at the top right (float), about-info and summary wrap around it:
+   summary starts right after about-info and hugs the photo corner. flow-root
+   creates a BFC so the container contains the float (does not collapse). */
 .about-container {
     display: flow-root;
 }
 
-/* Внутренний ритм блока - gap (как у *-info опыта/образования), без margin
-   у детей. */
+/* The block's internal rhythm is gap (like the *-info of experience/education),
+   without margins on the children. */
 .about-info {
     display: flex;
     flex-direction: column;
@@ -140,8 +141,8 @@ strong {
     color: var(--text-muted);
 }
 
-/* summary - отдельный абзац под about-info (вне flex, обтекает фото), потому
-   отступ задаем явно. */
+/* summary is a separate paragraph below about-info (outside the flex, wraps the
+   photo), so its spacing is set explicitly. */
 .about-container .summary {
     margin-top: 10px;
     font-style: italic;
@@ -154,8 +155,8 @@ strong {
     color: var(--text-emphasis);
 }
 
-/* Фото: float right на обертке (она несет тултип), высота фиксированная,
-   ширина по пропорциям. Обтекается текстом about-info и summary. */
+/* Photo: float right on the wrapper (which carries the tooltip), fixed height,
+   width by proportion. Wrapped by the about-info and summary text. */
 .about-photo {
     float: right;
     margin: 0 0 16px 20px;
@@ -168,16 +169,16 @@ strong {
     border-radius: var(--radius-sm);
 }
 
-/* --- Контакты --- */
+/* --- Contacts --- */
 .contact-container {
     display: flex;
     gap: 24px;
     flex-wrap: wrap;
 }
 
-/* Две группы (связь / ресурсы) бок о бок; на узком - в столбец через wrap.
-   min-width:0 разрешает группе сжиматься. Ритм между контактами - gap группы
-   (внутреннее дело блока), без margin у li. */
+/* Two groups (contact / resources) side by side; on narrow widths they stack
+   via wrap. min-width:0 lets a group shrink. The rhythm between contacts is the
+   group gap (the block's internal concern), without margins on li. */
 .contact-group {
     flex: 1 1 280px;
     min-width: 0;
@@ -186,9 +187,9 @@ strong {
     gap: 6px;
 }
 
-/* Лейбл и значение в одну строку по базовой линии: разные кегли (14/12) не
-   ломают выравнивание. Лейбл не сжимается, значение занимает остаток и
-   переносит длинные URL. */
+/* Label and value on one baseline-aligned line: different sizes (14/12) do not
+   break alignment. The label does not shrink, the value takes the rest and
+   wraps long URLs. */
 .contact-group li {
     display: flex;
     gap: 6px;
@@ -202,9 +203,9 @@ strong {
     flex: none;
 }
 
-/* Значение мельче подписи (--fs-contact-value < --fs-contact-label). Ссылке -
-   тот же бокс (border+padding), что у .copy-text, чтобы текст ссылки и кнопки
-   имел одинаковый инсет и пары визуально совпадали. */
+/* The value is smaller than the label (--fs-contact-value < --fs-contact-label).
+   The link gets the same box (border+padding) as .copy-text so link and button
+   text share the same inset and the pairs line up visually. */
 .contact-group a,
 .contact-group .copy-text {
     font-size: var(--fs-contact-value);
@@ -222,7 +223,7 @@ strong {
     color: var(--text-faint);
 }
 
-/* --- Навыки --- */
+/* --- Skills --- */
 .skills-container {
     display: flex;
     flex-direction: column;
@@ -252,9 +253,9 @@ strong {
     background-color: var(--bg-muted-hover);
 }
 
-/* --- Опыт / Образование / Курсы --- */
-/* Три секции с одинаковой структурой "дата сбоку + блок инфо в столбец".
-   Общие правила - здесь, специфика (достижения / степень / отличия) - ниже. */
+/* --- Experience / Education / Courses --- */
+/* Three sections with the same structure "date on the side + info block in a
+   column". Shared rules here, specifics (achievements / degree / honors) below. */
 .experience-container,
 .education-container,
 .courses-container {
@@ -263,8 +264,8 @@ strong {
     gap: 40px;
 }
 
-/* baseline: дата садится на базовую линию названия (h3), а не висит выше из-за
-   меньшего кегля. */
+/* baseline: the date sits on the title's baseline (h3) instead of riding higher
+   because of its smaller size. */
 .job-block,
 .edu-block,
 .course-block {
@@ -297,9 +298,9 @@ strong {
     color: var(--text-muted);
 }
 
-/* Опыт: маркированный список достижений (общий стиль со списком публикаций).
-   Ритм между пунктами - margin-bottom (список, не flex), ритм до соседних
-   блоков - gap родителя. */
+/* Experience: a bulleted list of achievements (shared style with the
+   publication list). The rhythm between items is margin-bottom (a list, not
+   flex); the rhythm to neighboring blocks is the parent gap. */
 .achievements,
 .publication-links {
     list-style: disc;
@@ -326,7 +327,7 @@ strong {
     color: var(--text-emphasis);
 }
 
-/* Образование: текст степени и строка отличий. */
+/* Education: degree text and the honors line. */
 .edu-info p {
     font-size: var(--fs-body-text);
     color: var(--text-emphasis);
@@ -338,11 +339,11 @@ strong {
     color: var(--text-muted);
 }
 
-/*--- Проекты ---*/
-/* Водопад (masonry) через CSS columns: карточки разной высоты, без
-   растягивания до соседа. Порядок - по колонкам сверху-вниз. */
+/*--- Projects ---*/
+/* Masonry via CSS columns: cards of different heights, without stretching to
+   match a neighbor. Order goes column by column, top to bottom. */
 .projects-container {
-    /* columns нужен block-контейнер (на flex columns не работает). */
+    /* columns needs a block container (it does not work on flex). */
     display: block;
     columns: 240px;
     column-gap: 16px;
@@ -375,8 +376,8 @@ strong {
     font-size: var(--fs-item-title);
 }
 
-/* line-height: normal - плотный строчный бокс, чтобы "Код" вставал вровень с
-   заголовком (у body line-height 1.6 ссылка висела бы ниже). */
+/* line-height: normal - a tight line box so "Code" lines up with the heading
+   (with body line-height 1.6 the link would sit lower). */
 .project-header a {
     font-size: var(--fs-body-text);
     position: relative;
@@ -397,7 +398,7 @@ strong {
     margin-top: auto;
 }
 
-/* --- Публикации --- */
+/* --- Publications --- */
 .publications {
     display: flex;
     flex-direction: column;
@@ -432,23 +433,23 @@ strong {
 .publication-links li {
     font-family: var(--font-mono);
     font-size: var(--fs-meta);
-    /* Полный URL без пробелов: разрешаем перенос в любом месте, иначе длинный
-       адрес вылезет за лист (на узком экране - под overflow-x:hidden обрежется).
-       Свойство наследуется во вложенную ссылку. */
+    /* A full URL has no spaces: allow breaking anywhere, otherwise a long
+       address overflows the sheet (on a narrow screen it gets clipped under
+       overflow-x:hidden). The property is inherited by the nested link. */
     overflow-wrap: anywhere;
 }
 
-/* --- Адаптив, шаг 1: на ширине листа (--page-width, 794px) и уже резюме
-   разворачивается во весь экран без подложки. Раскладка пока остается строчной
-   (даты сбоку, фото обтекается) - места еще хватает. screen only: при печати
-   лист и есть A4, правило не нужно. --- */
+/* --- Responsive, step 1: at the sheet width (--page-width, 794px) and below,
+   the resume expands to the full screen without a backdrop. The layout stays
+   inline for now (dates on the side, photo wrapped) - there is still room.
+   screen only: in print the sheet is A4, so the rule is not needed. --- */
 @media screen and (max-width: 794px) {
     .wrapper {
         padding: 0;
     }
 
-    /* Поля 2cm (бумажные) сохраняем - меняется только подложка. Ужимаем их до
-       мобильных вместе с reflow ниже, а не скачком здесь. */
+    /* Keep the 2cm (paper) margins - only the backdrop changes. They shrink to
+       mobile size together with the reflow below, not abruptly here. */
     .main {
         max-width: none;
         width: 100%;
@@ -457,17 +458,17 @@ strong {
     }
 }
 
-/* --- Адаптив, шаг 2: когда строчному виду реально тесно (~600px) - блоки в
-   столбец. Даты над контентом, фото сверху без обтекания, поля листа ужимаем
-   до мобильных. 600px - примерно где "дата 28ch + контент" и "фото + текст
-   рядом" перестают помещаться. --- */
+/* --- Responsive, step 2: when the inline layout gets genuinely cramped
+   (~600px) - blocks go into a column. Dates above content, photo on top without
+   wrapping, sheet margins shrink to mobile. 600px is roughly where "date 28ch +
+   content" and "photo + text side by side" stop fitting. --- */
 @media screen and (max-width: 600px) {
     .main {
         padding: 16px;
     }
 
-    /* Блоки опыта/образования/курсов: timestamp над контентом, не сбоку.
-       В колонке baseline не нужен - возвращаем выравнивание по левому краю. */
+    /* Experience/education/courses blocks: timestamp above the content, not on
+       the side. In a column baseline is not needed - back to left alignment. */
     .job-block,
     .edu-block,
     .course-block {
@@ -480,8 +481,8 @@ strong {
         text-align: left;
     }
 
-    /* "О себе": фото над инфо, не обтекает (float отключен, на узком
-       обтекание не нужно). */
+    /* "About": photo above the info, no wrapping (float off; on narrow widths
+       wrapping is not needed). */
     .about-photo {
         float: none;
         margin: 0 0 16px 0;
@@ -494,6 +495,6 @@ strong {
     }
 }
 
-/* --- Печать вынесена в print.css (@media print): ч/б на белом, поля @page A4,
-   контурные чипы, контроль разрывов. Обтекание фото (float: right + flow-root)
-   при печати сохраняется. --- */
+/* --- Print lives in print.css (@media print): B/W on white, @page A4 margins,
+   outline chips, page-break control. The photo wrap (float: right + flow-root)
+   is preserved when printing. --- */

@@ -10,8 +10,8 @@ interface Props {
 
 const { lang, courses } = Astro.props;
 
-// Новое сверху: сортировка по start (YYYY-MM) по убыванию. Строковая
-// сортировка "YYYY-MM" совпадает с хронологической. Порядок в JSON не важен.
+// Newest on top: sort by start (YYYY-MM) descending. String sorting of
+// "YYYY-MM" matches chronological order. JSON order does not matter.
 const sorted = [...courses].sort((a, b) =>
     b.period.start.localeCompare(a.period.start),
 );
@@ -35,8 +35,8 @@ const sorted = [...courses].sort((a, b) =>
                         </div>
                     </div>
                 );
-                // Заголовок + первая запись в одном боксе (.section-lead),
-                // чтобы при печати заголовок не отрывался от содержимого.
+                // Heading + first entry in one box (.section-lead) so the
+                // heading does not get orphaned from its content when printing.
                 return i === 0 ? (
                     <div class="section-lead">
                         <h2 class="container-heading" id="courses-heading">
