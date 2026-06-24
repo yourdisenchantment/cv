@@ -16,7 +16,9 @@ const repoUrl = "https://github.com/yourdisenchantment/cv";
 
 // Кнопка языка - ссылка на другой локаль. Тултип - автоним целевого языка
 // (узнаваем пользователем): на en-странице -> "Русский", на ru -> "English".
-const langHref = lang === "en" ? "/ru/" : "/";
+// Маршруты под base: BASE_URL ("/cv/") - корень en, + "ru/" - русская версия.
+const base = import.meta.env.BASE_URL;
+const langHref = lang === "en" ? `${base}ru/` : base;
 const langLabel = lang === "en" ? "Русский" : "English";
 ---
 

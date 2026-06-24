@@ -3,12 +3,18 @@
 import type { Cv } from "../data/cv/schema";
 import type { Locale } from "./format";
 
-// Собирает объект Person для разметки. site - Astro.site (origin из конфига);
-// url страницы строится по модели B (en на '/', ru на '/ru/'). sameAs -
-// внешние профили (контакты с href), кроме утерянных (archived).
-export function personSchema(data: Cv, lang: Locale, site: URL | undefined) {
-    const base = site?.href.replace(/\/$/, "") ?? "";
-    const url = lang === "en" ? `${base}/` : `${base}/${lang}/`;
+// Собирает объект Person для разметки. site - Astro.site (origin), base -
+// import.meta.env.BASE_URL ("/cv/"). root = origin+base (напр. .../cv/); url
+// строится по модели B (en на root, ru на root+"ru/"). sameAs - внешние
+// профили (контакты с href), кроме утерянных (archived).
+export function personSchema(
+    data: Cv,
+    lang: Locale,
+    site: URL | undefined,
+    base: string,
+) {
+    const root = site ? new URL(base, site).href.replace(/\/?$/, "/") : base;
+    const url = lang === "en" ? root : `${root}${lang}/`;
     const sameAs = data.contacts
         .filter((c) => c.href && !c.archived)
         .map((c) => c.href as string);
@@ -19,7 +25,7 @@ export function personSchema(data: Cv, lang: Locale, site: URL | undefined) {
         name: data.about.name,
         jobTitle: data.about.role,
         url,
-        image: `${base}${data.about.photo}`,
+        image: `${root}${data.about.photo.replace(/^\//, "")}`,
         sameAs,
     };
 }

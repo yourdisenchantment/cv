@@ -9,7 +9,12 @@ const lang = "en";
 const cv = await getEntry("cv", lang);
 if (!cv) throw new Error(`CV entry '${lang}' not found in collection 'cv'`);
 
-const jsonLd = personSchema(cv.data, lang, Astro.site);
+const jsonLd = personSchema(
+    cv.data,
+    lang,
+    Astro.site,
+    import.meta.env.BASE_URL,
+);
 ---
 
 <BaseLayout
