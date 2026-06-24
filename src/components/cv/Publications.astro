@@ -66,6 +66,7 @@ function linkText(url: string, kind: string): string {
                                     href={u}
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    data-tooltip={t(lang, "openInNewTab")}
                                 >
                                     {linkText(u, pub.kind)}
                                 </a>

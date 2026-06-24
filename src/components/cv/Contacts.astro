@@ -1,6 +1,6 @@
 ---
 import type { Cv } from "../../data/cv/schema";
-import { type Locale } from "../../lib/format";
+import { type Locale, linkHostPath } from "../../lib/format";
 import { t } from "../../lib/i18n";
 
 interface Props {
@@ -43,11 +43,20 @@ const grouped = groupOrder
                                     href={c.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    data-tooltip={t(lang, "openInNewTab")}
                                 >
-                                    {c.value}
+                                    {linkHostPath(c.href)}
                                 </a>
                             ) : (
-                                <span class="copy-text">{c.value}</span>
+                                <button
+                                    class="copy-text"
+                                    type="button"
+                                    data-copy={c.value}
+                                    data-tooltip={t(lang, "copy")}
+                                    aria-label={`${t(lang, "copyEmail")}: ${c.value}`}
+                                >
+                                    {c.value}
+                                </button>
                             )}
                             {c.archived && (
                                 <span class="archived">
@@ -60,4 +69,40 @@ const grouped = groupOrder
             ))
         }
     </div>
+    <span
+        class="visually-hidden"
+        aria-live="polite"
+        data-copy-status
+        data-copied-text={t(lang, "copied")}></span>
 </section>
+
+<!-- Копирование почты: кнопки .copy-text (контакты без href - всегда почта).
+     Клик -> navigator.clipboard, визуальная .copied-метка, подмена тултипа на
+     "Скопировано" и объявление в aria-live регион для скринридера. Через 1.2с
+     все возвращается к исходному. Без clipboard API - молча ничего. -->
+<script is:inline>
+    (function () {
+        var buttons = document.querySelectorAll(".copy-text");
+        var status = document.querySelector("[data-copy-status]");
+        if (!buttons.length || !navigator.clipboard) return;
+        var copiedText = status ? status.getAttribute("data-copied-text") : "";
+        buttons.forEach(function (b) {
+            var copyTip = b.getAttribute("data-tooltip");
+            b.addEventListener("click", function () {
+                var value = b.getAttribute("data-copy");
+                navigator.clipboard.writeText(value).then(function () {
+                    b.classList.add("copied");
+                    if (copiedText) b.setAttribute("data-tooltip", copiedText);
+                    if (status && copiedText) {
+                        status.textContent = "";
+                        status.textContent = copiedText;
+                    }
+                    setTimeout(function () {
+                        b.classList.remove("copied");
+                        if (copyTip) b.setAttribute("data-tooltip", copyTip);
+                    }, 1200);
+                });
+            });
+        });
+    })();
+</script>

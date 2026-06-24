@@ -15,7 +15,7 @@ const { lang, projects } = Astro.props;
     <h2 class="container-heading" id="projects-heading">
         {t(lang, "projects")}
     </h2>
-    <div class="container projects-container">
+    <div class="projects-container">
         {
             projects.map((p) => (
                 <div class="project-card">
@@ -26,6 +26,7 @@ const { lang, projects } = Astro.props;
                             href={p.url}
                             target="_blank"
                             rel="noopener noreferrer"
+                            data-tooltip={t(lang, "openInNewTab")}
                         >
                             {t(lang, "sourceLink")}
                         </a>

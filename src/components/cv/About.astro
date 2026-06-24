@@ -14,7 +14,13 @@ const { lang, about } = Astro.props;
 <section aria-labelledby="about-heading" id="about">
     <h2 class="container-heading" id="about-heading">{t(lang, "about")}</h2>
     <div class="about-container">
-        <img alt={about.name} src={about.photo} />
+        <span
+            class="about-photo"
+            data-tooltip={about.name}
+            data-tooltip-pos="bottom"
+        >
+            <img alt={`${about.name}, ${about.role}`} src={about.photo} />
+        </span>
         <div class="about-info">
             <h2>{about.name}</h2>
             <h3>{about.role}</h3>

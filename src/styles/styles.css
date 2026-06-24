@@ -15,3 +15,72 @@ body {
     min-height: 100vh;
     padding: 12vh 20px;
 }
+
+/* Видимый фокус только для клавиатурной навигации (:focus-visible). reset
+   гасит :focus (чтобы не было рамки при клике мышью), здесь возвращаем рамку
+   для таба. Смещение наружу - не перекрывает контент. */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--text-strong);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+/* Экранный читатель: скрыт визуально, но доступен AT (aria-live). */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+/* --- Всплывающая подсказка (data-tooltip) --- */
+/* Тултип через ::before (не ::after): у .animated-link ::after занят анимацией
+   подчеркивания, на одном элементе псевдоэлемент один. Показ при наведении и
+   при фокусе с клавиатуры. Родителю задаем position:relative. По умолчанию
+   подсказка сверху; data-tooltip-pos="bottom" - снизу (для фото у верха листа).
+   Sans-serif, чтобы отличаться от моно-текста ссылок. */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    background-color: var(--bg-muted);
+    color: var(--text-strong);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-main);
+    font-size: var(--fs-small);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition);
+    z-index: 101;
+}
+
+[data-tooltip][data-tooltip-pos="bottom"]::before {
+    bottom: auto;
+    top: calc(100% + 8px);
+}
+
+[data-tooltip]:hover::before,
+[data-tooltip]:focus-visible::before {
+    opacity: 1;
+}
+
+/* Подсказки - вспомогательная подсветка, в печать не идут. */
+@media print {
+    [data-tooltip]::before {
+        display: none;
+    }
+}

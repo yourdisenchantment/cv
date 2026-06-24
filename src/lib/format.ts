@@ -109,6 +109,23 @@ export function formatPeriod(
 }
 
 /**
+ * Ссылка без протокола: host + путь, без "https://" и хвостового "/".
+ * Для печати: голый ник без домена непонятен, поэтому показываем "host/path"
+ * (напр. "t.me/yourdisenchantment", "github.com/yourdisenchantment").
+ *
+ * Args:
+ *   url: абсолютный URL.
+ *
+ * Returns:
+ *   Строку "host/path" (или просто "host" для корневого пути).
+ */
+export function linkHostPath(url: string): string {
+    const u = new URL(url);
+    const path = u.pathname === "/" ? "" : u.pathname.replace(/\/$/, "");
+    return u.hostname + path;
+}
+
+/**
  * Дата рождения из ISO "YYYY-MM-DD" -> "D месяц YYYY" (родительный падеж).
  *
  * Args:

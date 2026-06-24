@@ -66,32 +66,8 @@
     cursor: not-allowed;
 }
 
-/* Всплывающая подсказка над кнопкой (data-tooltip): что произойдет по клику.
-   Sans-serif, чтобы отличаться от моно-дока. */
-.dock-button[data-tooltip]::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 4px 8px;
-    background-color: var(--bg-muted);
-    color: var(--text-strong);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-family: var(--font-main);
-    font-size: var(--fs-small);
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--transition);
-    z-index: 101;
-}
-
-.dock-button:hover[data-tooltip]::after,
-.dock-button:focus-visible[data-tooltip]::after {
-    opacity: 1;
-}
+/* Тултип кнопок дока (data-tooltip): общее правило в styles.css ([data-tooltip]
+   ::before, сверху). Здесь только специфика дока, если понадобится. */
 
 /* Печать/PDF: док не попадает в документ. */
 @media print {

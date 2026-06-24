@@ -20,6 +20,13 @@ type Dict = {
     city: string;
     // контакты
     archived: string;
+    // контакты: копирование почты
+    copyEmail: string;
+    copied: string;
+    // тултип внешней ссылки (наведение)
+    openInNewTab: string;
+    // тултип кнопки копирования (наведение, до клика)
+    copy: string;
     // публикации: kind
     kindArticle: string;
     kindThesis: string;
@@ -54,6 +61,10 @@ const ui: Record<Locale, Dict> = {
         birthDate: "Дата рождения",
         city: "Город",
         archived: "archived",
+        copyEmail: "Скопировать почту",
+        copied: "Скопировано",
+        openInNewTab: "Открыть в новой вкладке",
+        copy: "Скопировать",
         kindArticle: "Статья",
         kindThesis: "Тезисы",
         kindPatent: "Патент",
@@ -81,6 +92,10 @@ const ui: Record<Locale, Dict> = {
         birthDate: "Date of birth",
         city: "City",
         archived: "archived",
+        copyEmail: "Copy email",
+        copied: "Copied",
+        openInNewTab: "Open in a new tab",
+        copy: "Copy",
         kindArticle: "Article",
         kindThesis: "Conference paper",
         kindPatent: "Patent",

@@ -19,11 +19,6 @@ section {
     gap: 10px;
 }
 
-.container {
-    display: flex;
-    gap: 20px;
-}
-
 .container-heading {
     width: 100%;
     font-size: var(--fs-section-heading);
@@ -78,10 +73,17 @@ section {
     padding: 1px 2px;
     transition: border-color var(--transition);
     cursor: pointer;
+    text-align: left;
 }
 
 .copy-text:hover {
     border-color: var(--border);
+}
+
+/* Копирование успешно: краткая визуальная метка (граница + цвет). */
+.copy-text.copied {
+    border-color: var(--border-hover);
+    color: var(--text-emphasis);
 }
 
 strong {
@@ -107,8 +109,15 @@ strong {
    начинается сразу после about-info и огибает угол фото. flow-root создает
    BFC, чтобы контейнер содержал float (не выпадал по высоте). */
 .about-container {
-    margin-left: 0;
     display: flow-root;
+}
+
+/* Внутренний ритм блока - gap (как у *-info опыта/образования), без margin
+   у детей. */
+.about-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .about-info h2 {
@@ -125,29 +134,34 @@ strong {
 }
 
 .about-info p {
-    margin: 10px 0;
     color: var(--text-muted);
 }
 
+/* summary - отдельный абзац под about-info (вне flex, обтекает фото), потому
+   отступ задаем явно. */
 .about-container .summary {
+    margin-top: 10px;
     font-style: italic;
     color: var(--text-muted);
 }
 
 .availability {
-    margin-top: 10px;
     font-family: var(--font-mono);
     font-size: var(--fs-body-text);
     color: var(--text-emphasis);
 }
 
-/* Фото: float right, высота фиксированная, ширина по пропорциям. Обтекается
-   текстом about-info и summary. */
-.about-container img {
+/* Фото: float right на обертке (она несет тултип), высота фиксированная,
+   ширина по пропорциям. Обтекается текстом about-info и summary. */
+.about-photo {
     float: right;
+    margin: 0 0 16px 20px;
+}
+
+.about-container img {
+    display: block;
     height: 200px;
     width: auto;
-    margin: 0 0 16px 20px;
     border-radius: var(--radius-sm);
 }
 
@@ -159,29 +173,45 @@ strong {
 }
 
 /* Две группы (связь / ресурсы) бок о бок; на узком - в столбец через wrap.
-   min-width:0 разрешает группе сжиматься, длинные URL переносятся по
-   overflow-wrap на li, а не выпадают из карточки. */
+   min-width:0 разрешает группе сжиматься. Ритм между контактами - gap группы
+   (внутреннее дело блока), без margin у li. */
 .contact-group {
     flex: 1 1 280px;
     min-width: 0;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
+/* Лейбл и значение в одну строку по базовой линии: разные кегли (14/12) не
+   ломают выравнивание. Лейбл не сжимается, значение занимает остаток и
+   переносит длинные URL. */
 .contact-group li {
-    margin-bottom: 6px;
+    display: flex;
+    gap: 6px;
+    align-items: baseline;
     font-family: var(--font-mono);
     font-size: var(--fs-contact-label);
     color: var(--text-muted);
-    overflow-wrap: anywhere;
 }
 
-/* Значение мельче подписи (--fs-contact-value < --fs-contact-label): длинные
-   URL/ник влезают в блок. Оба размера - в variables.css, меняются централизованно. */
+.contact-group li strong {
+    flex: none;
+}
+
+/* Значение мельче подписи (--fs-contact-value < --fs-contact-label). Ссылке -
+   тот же бокс (border+padding), что у .copy-text, чтобы текст ссылки и кнопки
+   имел одинаковый инсет и пары визуально совпадали. */
 .contact-group a,
 .contact-group .copy-text {
     font-size: var(--fs-contact-value);
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.contact-group a {
+    border: 1px solid transparent;
+    padding: 1px 2px;
 }
 
 .archived {
@@ -227,10 +257,12 @@ strong {
     gap: 40px;
 }
 
+/* baseline: дата садится на базовую линию названия (h3), а не висит выше из-за
+   меньшего кегля. */
 .job-block {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: baseline;
     gap: 20px;
 }
 
@@ -238,6 +270,7 @@ strong {
     flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 4px;
 }
 
 .job-info h3 {
@@ -253,9 +286,11 @@ strong {
 .achievements,
 .publication-links {
     list-style: disc;
-    margin: 6px 0;
     padding-left: 1.4em;
 }
+
+/* margin списка достижений убран - вертикальный ритм держит gap у .job-info.
+   (.publication-links отступает gap-ом .publication-item.) */
 
 .achievements li,
 .publication-links li {
@@ -277,11 +312,6 @@ strong {
     color: var(--text-emphasis);
 }
 
-.job-info .skill-list,
-.course-info .skill-list {
-    margin-top: 4px;
-}
-
 /* --- Образование --- */
 .education-container {
     display: flex;
@@ -292,7 +322,7 @@ strong {
 .edu-block {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: baseline;
     gap: 20px;
 }
 
@@ -300,6 +330,7 @@ strong {
     flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 4px;
 }
 
 .edu-info h3 {
@@ -321,7 +352,6 @@ strong {
     font-family: var(--font-mono);
     font-size: var(--fs-meta);
     color: var(--text-muted);
-    margin-top: 4px;
 }
 
 /* --- Повышение квалификации (courses) - по аналогии с education --- */
@@ -334,7 +364,7 @@ strong {
 .course-block {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: baseline;
     gap: 20px;
 }
 
@@ -342,6 +372,7 @@ strong {
     flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 4px;
 }
 
 .course-info h3 {
@@ -358,12 +389,10 @@ strong {
 /* Водопад (masonry) через CSS columns: карточки разной высоты, без
    растягивания до соседа. Порядок - по колонкам сверху-вниз. */
 .projects-container {
-    /* Перекрывает .container (display: flex) - columns нужен block.
-       Без этого flex-row выкладывает карточки в ряд без переноса. */
+    /* columns нужен block-контейнер (на flex columns не работает). */
     display: block;
     columns: 240px;
     column-gap: 16px;
-    margin-left: 0;
 }
 
 .project-card {
@@ -467,19 +496,13 @@ strong {
         box-shadow: none;
     }
 
-    .container,
-    .contact-container,
-    .experience-container,
-    .courses-container,
-    .publications {
-        margin-left: 0;
-    }
-
-    /* Блоки опыта/образования/курсов: timestamp над контентом, не сбоку. */
+    /* Блоки опыта/образования/курсов: timestamp над контентом, не сбоку.
+       В колонке baseline не нужен - возвращаем выравнивание по левому краю. */
     .job-block,
     .edu-block,
     .course-block {
         flex-direction: column;
+        align-items: flex-start;
     }
 
     .timestamp {
@@ -489,13 +512,15 @@ strong {
 
     /* "О себе": фото над инфо, не обтекает (float отключен, на узком
        обтекание не нужно). */
-    .about-container img {
+    .about-photo {
         float: none;
-        display: block;
+        margin: 0 0 16px 0;
+    }
+
+    .about-container img {
         height: auto;
         max-height: 200px;
         max-width: 100%;
-        margin: 0 0 16px 0;
     }
 }
 

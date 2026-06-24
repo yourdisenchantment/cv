@@ -13,7 +13,7 @@ const { lang, courses } = Astro.props;
 
 <section aria-labelledby="courses-heading" id="courses">
     <h2 class="container-heading" id="courses-heading">{t(lang, "courses")}</h2>
-    <div class="container courses-container">
+    <div class="courses-container">
         {
             courses.map((c) => (
                 <div class="course-block">
