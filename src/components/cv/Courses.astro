@@ -9,12 +9,18 @@ interface Props {
 }
 
 const { lang, courses } = Astro.props;
+
+// Новое сверху: сортировка по start (YYYY-MM) по убыванию. Строковая
+// сортировка "YYYY-MM" совпадает с хронологической. Порядок в JSON не важен.
+const sorted = [...courses].sort((a, b) =>
+    b.period.start.localeCompare(a.period.start),
+);
 ---
 
 <section aria-labelledby="courses-heading" id="courses">
     <div class="courses-container">
         {
-            courses.map((c, i) => {
+            sorted.map((c, i) => {
                 const block = (
                     <div class="course-block">
                         <p class="timestamp">{formatPeriod(c.period, lang)}</p>
