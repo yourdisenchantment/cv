@@ -8,7 +8,9 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    max-height: fit-content;
+    /* .wrapper - flex-row с align-items:stretch; без этого .main растянулся бы
+       по высоте на весь вьюпорт. Держим лист по высоте контента. */
+    align-self: flex-start;
 }
 
 /* --- Общие стили --- */
@@ -25,10 +27,9 @@ section {
     color: var(--text-strong);
 }
 
-.animated-link,
-.contact-container a,
-.projects-container a,
-.publications a {
+/* Все ссылки контента (контакты/проекты/публикации) имеют класс .animated-link,
+   поэтому одного селектора достаточно. */
+.animated-link {
     font-family: var(--font-mono);
     color: var(--text-muted);
     position: relative;
@@ -52,10 +53,7 @@ section {
     transition: transform var(--transition-slow);
 }
 
-.animated-link:hover,
-.contact-container a:hover,
-.projects-container a:hover,
-.publications a:hover {
+.animated-link:hover {
     color: var(--text-emphasis);
 }
 
@@ -212,7 +210,6 @@ strong {
 .archived {
     font-size: var(--fs-meta);
     color: var(--text-faint);
-    margin-left: 4px;
 }
 
 /* --- Навыки --- */
@@ -245,8 +242,12 @@ strong {
     background-color: var(--bg-muted-hover);
 }
 
-/* --- Опыт работы --- */
-.experience-container {
+/* --- Опыт / Образование / Курсы --- */
+/* Три секции с одинаковой структурой "дата сбоку + блок инфо в столбец".
+   Общие правила - здесь, специфика (достижения / степень / отличия) - ниже. */
+.experience-container,
+.education-container,
+.courses-container {
     display: flex;
     flex-direction: column;
     gap: 40px;
@@ -254,38 +255,46 @@ strong {
 
 /* baseline: дата садится на базовую линию названия (h3), а не висит выше из-за
    меньшего кегля. */
-.job-block {
+.job-block,
+.edu-block,
+.course-block {
     display: flex;
     flex-direction: row;
     align-items: baseline;
     gap: 20px;
 }
 
-.job-info {
+.job-info,
+.edu-info,
+.course-info {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
 
-.job-info h3 {
+.job-info h3,
+.edu-info h3,
+.course-info h3 {
     font-size: var(--fs-item-title);
     color: var(--text-strong);
 }
 
-.job-info h4 {
+.job-info h4,
+.edu-info h4,
+.course-info h4 {
     font-size: var(--fs-item-subtitle);
     color: var(--text-muted);
 }
 
+/* Опыт: маркированный список достижений (общий стиль со списком публикаций).
+   Ритм между пунктами - margin-bottom (список, не flex), ритм до соседних
+   блоков - gap родителя. */
 .achievements,
 .publication-links {
     list-style: disc;
     padding-left: 1.4em;
 }
-
-/* margin списка достижений убран - вертикальный ритм держит gap у .job-info.
-   (.publication-links отступает gap-ом .publication-item.) */
 
 .achievements li,
 .publication-links li {
@@ -307,37 +316,7 @@ strong {
     color: var(--text-emphasis);
 }
 
-/* --- Образование --- */
-.education-container {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-}
-
-.edu-block {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    gap: 20px;
-}
-
-.edu-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.edu-info h3 {
-    font-size: var(--fs-item-title);
-    color: var(--text-strong);
-}
-
-.edu-info h4 {
-    font-size: var(--fs-item-subtitle);
-    color: var(--text-muted);
-}
-
+/* Образование: текст степени и строка отличий. */
 .edu-info p {
     font-size: var(--fs-body-text);
     color: var(--text-emphasis);
@@ -346,37 +325,6 @@ strong {
 .honors {
     font-family: var(--font-mono);
     font-size: var(--fs-meta);
-    color: var(--text-muted);
-}
-
-/* --- Повышение квалификации (courses) - по аналогии с education --- */
-.courses-container {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-}
-
-.course-block {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    gap: 20px;
-}
-
-.course-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.course-info h3 {
-    font-size: var(--fs-item-title);
-    color: var(--text-strong);
-}
-
-.course-info h4 {
-    font-size: var(--fs-item-subtitle);
     color: var(--text-muted);
 }
 
@@ -415,9 +363,10 @@ strong {
 
 .project-header h3 {
     font-size: var(--fs-item-title);
-    margin: 0;
 }
 
+/* line-height: normal - плотный строчный бокс, чтобы "Код" вставал вровень с
+   заголовком (у body line-height 1.6 ссылка висела бы ниже). */
 .project-header a {
     font-size: var(--fs-body-text);
     position: relative;
@@ -484,19 +433,25 @@ strong {
         padding: 0;
     }
 
+    /* Поля 2cm (бумажные) сохраняем - меняется только подложка. Ужимаем их до
+       мобильных вместе с reflow ниже, а не скачком здесь. */
     .main {
         max-width: none;
         width: 100%;
-        padding: 16px;
         border-radius: 0;
         box-shadow: none;
     }
 }
 
 /* --- Адаптив, шаг 2: когда строчному виду реально тесно (~600px) - блоки в
-   столбец. Даты над контентом, фото сверху без обтекания. 600px - примерно где
-   "дата 28ch + контент" и "фото + текст рядом" перестают помещаться. --- */
+   столбец. Даты над контентом, фото сверху без обтекания, поля листа ужимаем
+   до мобильных. 600px - примерно где "дата 28ch + контент" и "фото + текст
+   рядом" перестают помещаться. --- */
 @media screen and (max-width: 600px) {
+    .main {
+        padding: 16px;
+    }
+
     /* Блоки опыта/образования/курсов: timestamp над контентом, не сбоку.
        В колонке baseline не нужен - возвращаем выравнивание по левому краю. */
     .job-block,

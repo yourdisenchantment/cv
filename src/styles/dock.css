@@ -67,16 +67,7 @@
     background-color: var(--bg-muted);
 }
 
-/* Нерабочие кнопки (язык/печать/PDF до своих этапов): приглушены. Не
-   disabled, а aria-disabled - на disabled не срабатывает hover, tooltip бы
-   не показывался. tabindex="-1" убирает из таб-порядка. */
-.dock-button.is-pending {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
-
-/* Тултип кнопок дока (data-tooltip): общее правило в styles.css ([data-tooltip]
-   ::before, сверху). Здесь только специфика дока, если понадобится. */
+/* Тултип кнопок дока - общее правило [data-tooltip]::before в styles.css. */
 
 /* Печать/PDF: док не попадает в документ. */
 @media print {

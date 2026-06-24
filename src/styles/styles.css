@@ -83,6 +83,13 @@ button:focus-visible,
     opacity: 1;
 }
 
+/* WCAG 1.4.13 (Dismissible): по Escape прячем показанную подсказку. Класс на
+   <html> ставит/снимает скрипт в BaseLayout (снимается при движении мыши/смене
+   фокуса, чтобы подсказка снова работала). */
+html.tooltips-dismissed [data-tooltip]::before {
+    opacity: 0 !important;
+}
+
 /* Подсказки - вспомогательная подсветка, в печать не идут. */
 @media print {
     [data-tooltip]::before {

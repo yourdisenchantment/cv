@@ -45,5 +45,21 @@ const isDev = import.meta.env.DEV;
     <body class:list={[isDev && "debug-boxes"]}>
         <slot />
         <Dock lang={lang} />
+        <!-- Тултипы (data-tooltip) dismissible по Escape: ставим класс на <html>,
+             снимаем при движении мыши / смене фокуса. CSS-правило - styles.css. -->
+        <script is:inline>
+            (function () {
+                var root = document.documentElement;
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape")
+                        root.classList.add("tooltips-dismissed");
+                });
+                ["pointermove", "focusin"].forEach(function (ev) {
+                    document.addEventListener(ev, function () {
+                        root.classList.remove("tooltips-dismissed");
+                    });
+                });
+            })();
+        </script>
     </body>
 </html>
