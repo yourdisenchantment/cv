@@ -71,27 +71,6 @@
     "experience": [
         {
             "period": {
-                "start": "2025-07",
-                "end": "2026-02"
-            },
-            "company": "Thrive.io",
-            "role": "Fullstack Developer (Junior)",
-            "achievements": [
-                "Data collection and processing",
-                "Building and maintaining a FastAPI application",
-                "Working with SAM-family AI models"
-            ],
-            "skills": [
-                "Python",
-                "Git",
-                "FastAPI",
-                "Pandas",
-                "Data mining",
-                "Web development"
-            ]
-        },
-        {
-            "period": {
                 "start": "2026-02",
                 "end": "2026-05"
             },
@@ -108,6 +87,27 @@
                 "FastAPI",
                 "Pandas",
                 "Data analysis",
+                "Web development"
+            ]
+        },
+        {
+            "period": {
+                "start": "2025-07",
+                "end": "2026-02"
+            },
+            "company": "Thrive.io",
+            "role": "Fullstack Developer (Junior)",
+            "achievements": [
+                "Data collection and processing",
+                "Building and maintaining a FastAPI application",
+                "Working with SAM-family AI models"
+            ],
+            "skills": [
+                "Python",
+                "Git",
+                "FastAPI",
+                "Pandas",
+                "Data mining",
                 "Web development"
             ]
         },
