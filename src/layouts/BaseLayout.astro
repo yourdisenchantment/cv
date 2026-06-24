@@ -12,9 +12,10 @@ interface Props {
     lang: "ru" | "en";
     title: string;
     description?: string;
+    jsonLd?: Record<string, unknown>;
 }
 
-const { lang, title, description } = Astro.props;
+const { lang, title, description, jsonLd } = Astro.props;
 
 // debug-boxes - только в dev: красная граница при наведении (см. debug.css).
 const isDev = import.meta.env.DEV;
@@ -26,6 +27,15 @@ const isDev = import.meta.env.DEV;
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content={description ?? ""} />
+        {
+            jsonLd && (
+                <script
+                    is:inline
+                    type="application/ld+json"
+                    set:html={JSON.stringify(jsonLd)}
+                />
+            )
+        }
         <!-- Применяет тему до первой покраски, чтобы не было вспышки светлой
              темы (FOUC). Без JS fallback - :root (light). Кнопка-переключатель
              и запись в localStorage появятся с меню иконок (этап 5/6). -->

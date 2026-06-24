@@ -1,18 +1,22 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Resume from "../components/cv/Resume.astro";
+import { personSchema } from "../lib/jsonld";
 import { getEntry } from "astro:content";
 
 // Английская версия - корневой маршрут '/' (модель B: en по умолчанию).
 const lang = "en";
 const cv = await getEntry("cv", lang);
 if (!cv) throw new Error(`CV entry '${lang}' not found in collection 'cv'`);
+
+const jsonLd = personSchema(cv.data, lang, Astro.site);
 ---
 
 <BaseLayout
     lang={lang}
     title={cv.data.meta.title}
     description={cv.data.meta.description}
+    jsonLd={jsonLd}
 >
     <Resume lang={lang} data={cv.data} />
 </BaseLayout>
