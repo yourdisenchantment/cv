@@ -1,43 +1,73 @@
-# Astro Starter Kit: Minimal
+# CV - Pavel Mikheyev
 
-```sh
-bun create astro@latest -- --template minimal
-```
+Personal resume built with [Astro](https://astro.build/) as a static site and
+deployed to GitHub Pages.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Live: https://yourdisenchantment.github.io/cv/
 
-## 🚀 Project Structure
+## Features
 
-Inside of your Astro project, you'll see the following folders and files:
+- **Bilingual** (i18n model B): English at `/`, Russian at `/ru/`. UI strings
+  and resume content are localized; a language switcher links between locales.
+- **Light/dark theme** via `data-theme` on `<html>`, persisted in
+  `localStorage`, defaulting to `prefers-color-scheme`. Applied before first
+  paint to avoid a flash.
+- **Print / PDF** as a real A4 document (`@media print`): black on white
+  regardless of theme, controlled page breaks, outlined chips to save ink.
+- **Accessibility**: WCAG AA contrast, visible keyboard focus, dismissible
+  tooltips, reduced-motion support.
+- **Content as data**: the resume lives in JSON validated by a zod schema -
+  editing JSON updates the page without touching components.
+- **Self-hosted fonts** (Inter, JetBrains Mono, Material Symbols), no external
+  requests; `schema.org/Person` JSON-LD for SEO.
+
+## Stack
+
+- [Astro](https://astro.build/) 6 (static output, SSG), TypeScript (strict).
+- Package manager: **bun**. Node `>=22.12.0`.
+- [zod](https://zod.dev/) for the resume data schema.
+- ESLint (astro + jsx-a11y) and Prettier; git hooks via husky + lint-staged;
+  commit style enforced by commitlint (Conventional Commits).
+
+## Project structure
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/
+├── components/
+│   ├── cv/            # resume sections (About, Experience, Projects, ...)
+│   └── Dock.astro     # floating control bar (theme, language, print, source)
+├── data/cv/           # resume content: en.json / ru.json + zod schema
+├── layouts/           # BaseLayout (html/head, theme + tooltip scripts)
+├── lib/               # i18n, date/link formatting, JSON-LD builder
+├── pages/             # routes: / (en), /ru/ (ru)
+└── styles/            # tokens (variables.css), layout, print, fonts
+public/                # static assets (favicon, images, fonts)
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Editing content
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Resume content is in `src/data/cv/en.json` and `src/data/cv/ru.json`, validated
+on build by the zod schema in `src/data/cv/schema.ts`. Keep both locale files in
+the same shape. Experience, education and courses are sorted by date in code, so
+entry order in JSON does not matter.
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Commands
 
-## 🧞 Commands
+| Command            | Action                               |
+| :----------------- | :----------------------------------- |
+| `bun install`      | Install dependencies                 |
+| `bun dev`          | Dev server at `localhost:4321/cv/`   |
+| `bun run build`    | Production build to `./dist/`        |
+| `bun run preview`  | Preview the production build locally |
+| `bunx astro check` | Type-check `.astro`/TS templates     |
+| `bun run lint`     | ESLint (astro + jsx-a11y)            |
+| `bun run format`   | Format with Prettier                 |
 
-All commands are run from the root of the project, from a terminal:
+## Deployment
 
-| Command               | Action                                           |
-| :-------------------- | :----------------------------------------------- |
-| `bun install`         | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
+A GitHub Actions workflow (`.github/workflows/deploy.yml`) builds the site with
+bun and publishes it to GitHub Pages on every push to `main`. The site is served
+as a project page under `/cv/`, set via `base` in `astro.config.mjs`.
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Repository setting required once: **Settings -> Pages -> Source = GitHub
+Actions**.
