@@ -20,11 +20,20 @@
     -webkit-font-smoothing: antialiased;
 }
 
+/* Плавающий док: всегда виден, статичного размера (по контенту, не тянется),
+   по центру внизу с одинаковыми отступами по бокам. На всех ширинах одинаков -
+   не липнет к краям даже на телефоне. */
 .dock {
     position: fixed;
-    bottom: 16px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 12px;
+    /* Центрирование через auto-margin между left:0/right:0, без
+       transform: translateX(-50%) - тот давал layout-бокс от центра вправо и на
+       узких экранах выезжал за правый край (горизонтальный скролл + полоса
+       bg-page). fit-content держит док по ширине контента. */
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: fit-content;
     display: flex;
     gap: 4px;
     padding: 6px;
