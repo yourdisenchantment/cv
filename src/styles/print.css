@@ -1,0 +1,115 @@
+/* Печать: резюме как A4-документ. Все экранные эффекты гасятся, лист печатается
+   на белом с темным текстом независимо от темы. Подключается последним, чтобы
+   переопределять токены и раскладку. */
+@media print {
+    /* Реальная страница A4 с полями. Внутренние поля листа (.main padding 2cm)
+       при печати убираем - иначе поля удвоятся. */
+    @page {
+        size: A4;
+        margin: 2cm;
+    }
+
+    /* Печать всегда ч/б на белом: переопределяем семантику поверх любой темы
+       (в т.ч. [data-theme="dark"]). Дальше все токен-цвета следуют автоматически,
+       тени исчезают (--shadow: transparent). */
+    :root,
+    [data-theme="dark"] {
+        --bg-page: #ffffff;
+        --bg-surface: #ffffff;
+        --bg-muted: #ffffff;
+        --bg-muted-hover: #ffffff;
+        --text: #000000;
+        --text-strong: #000000;
+        --text-emphasis: #1a1a1a;
+        --text-muted: #333333;
+        --text-subtle: #555555;
+        --text-faint: #666666;
+        --border: #999999;
+        --border-hover: #666666;
+        --marker: #999999;
+        --shadow: transparent;
+        color-scheme: light;
+    }
+
+    /* height:100% + overflow-x:hidden (экранные) в печати клиппят документ до
+       одной страницы. Сбрасываем - тогда контент разбивается на A4-страницы. */
+    html,
+    body {
+        height: auto;
+        overflow: visible;
+    }
+
+    /* Обертка-центрирование не нужна: лист и есть страница. */
+    .wrapper {
+        display: block;
+        min-height: 0;
+        padding: 0;
+    }
+
+    /* Блочный поток для печати: break-* (заголовки/разрывы) во flex-фрагментации
+       Chrome игнорирует, в block-потоке - работает. Поэтому контейнеры, которые
+       должны ломаться по страницам и держать заголовки, делаем block, а gap
+       заменяем на margin между детьми. Поля дает @page - у листа убираем
+       внутренние отступы и подложку. */
+    .main {
+        display: block;
+        max-width: none;
+        width: 100%;
+        padding: 0;
+        border-radius: 0;
+    }
+
+    .main > * + * {
+        margin-top: 30px; /* было gap: 30px между секциями */
+    }
+
+    section {
+        display: block;
+    }
+
+    .experience-container,
+    .education-container,
+    .courses-container,
+    .publications {
+        display: block;
+    }
+
+    .experience-container > * + *,
+    .education-container > * + *,
+    .courses-container > * + * {
+        margin-top: 40px; /* было gap: 40px между записями */
+    }
+
+    .publications > * + * {
+        margin-top: 12px; /* было gap: 12px между публикациями */
+    }
+
+    /* margin-bottom заменяет gap:10px внутри .section-lead (заголовок -> первая
+       запись). */
+    .container-heading {
+        margin-bottom: 10px;
+    }
+
+    /* Заголовок + первая запись держатся вместе: break-after Chrome при печати
+       игнорирует, поэтому единственный надежный способ не оторвать заголовок -
+       один неразрывный бокс. Между .section-lead и следующими записями разрыв
+       допустим (margin-top контейнера сохраняет ритм). */
+    .section-lead {
+        display: block;
+        break-inside: avoid;
+    }
+
+    /* Каждая запись - целая (между записями разрыв допустим, внутри - нет). */
+    .job-block,
+    .edu-block,
+    .course-block,
+    .project-card,
+    .publication-item {
+        break-inside: avoid;
+    }
+
+    /* Чипы навыков - контурные (рамка вместо серого фона), экономия чернил. */
+    .skill-list li {
+        border: 1px solid var(--border);
+    }
+}

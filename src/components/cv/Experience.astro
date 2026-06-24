@@ -18,30 +18,43 @@ const sorted = [...experience].sort((a, b) =>
 ---
 
 <section aria-labelledby="experience-heading" id="experience">
-    <h2 class="container-heading" id="experience-heading">
-        {t(lang, "experience")}
-    </h2>
     <div class="experience-container">
         {
-            sorted.map((job) => (
-                <div class="job-block">
-                    <p class="timestamp">{formatPeriod(job.period, lang)}</p>
-                    <div class="job-info">
-                        <h3>{job.company}</h3>
-                        <h4>{job.role}</h4>
-                        <ul class="achievements">
-                            {job.achievements.map((a) => (
-                                <li>{a}</li>
-                            ))}
-                        </ul>
-                        <ul class="skill-list">
-                            {job.skills.map((s) => (
-                                <li>{s}</li>
-                            ))}
-                        </ul>
+            sorted.map((job, i) => {
+                const block = (
+                    <div class="job-block">
+                        <p class="timestamp">
+                            {formatPeriod(job.period, lang)}
+                        </p>
+                        <div class="job-info">
+                            <h3>{job.company}</h3>
+                            <h4>{job.role}</h4>
+                            <ul class="achievements">
+                                {job.achievements.map((a) => (
+                                    <li>{a}</li>
+                                ))}
+                            </ul>
+                            <ul class="skill-list">
+                                {job.skills.map((s) => (
+                                    <li>{s}</li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            ))
+                );
+                // Заголовок + первая запись в одном боксе (.section-lead),
+                // чтобы при печати заголовок не отрывался от содержимого.
+                return i === 0 ? (
+                    <div class="section-lead">
+                        <h2 class="container-heading" id="experience-heading">
+                            {t(lang, "experience")}
+                        </h2>
+                        {block}
+                    </div>
+                ) : (
+                    block
+                );
+            })
         }
     </div>
 </section>

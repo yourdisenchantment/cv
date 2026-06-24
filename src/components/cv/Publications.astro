@@ -40,41 +40,51 @@ function meta(pub: Cv["publications"][number]): string {
     return kind;
 }
 
-// Текст ссылки: для датасета - полный путь (hostname + pathname), чтобы виден
-// DOI-идентификатор; для остальных - только домен.
-function linkText(url: string, kind: string): string {
-    const u = new URL(url);
-    return kind === "dataset" ? u.hostname + u.pathname : u.hostname;
+// Текст ссылки: полный адрес без схемы (https://), чтобы в PDF ссылка читалась
+// целиком, а одинаковые домены (напр. elibrary.ru) различались между собой.
+function linkText(url: string): string {
+    return url.replace(/^https?:\/\//, "");
 }
 ---
 
 <section aria-labelledby="publications-heading" id="publications">
-    <h2 class="container-heading" id="publications-heading">
-        {t(lang, "publications")}
-    </h2>
     <div class="publications">
         {
-            publications.map((pub) => (
-                <div class="publication-item">
-                    <span class="publication-meta">{meta(pub)}</span>
-                    <span class="publication-title">{pub.title}</span>
-                    <ul class="publication-links">
-                        {pub.urls.map((u) => (
-                            <li>
-                                <a
-                                    class="animated-link"
-                                    href={u}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    data-tooltip={t(lang, "openInNewTab")}
-                                >
-                                    {linkText(u, pub.kind)}
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            ))
+            publications.map((pub, i) => {
+                const block = (
+                    <div class="publication-item">
+                        <span class="publication-meta">{meta(pub)}</span>
+                        <span class="publication-title">{pub.title}</span>
+                        <ul class="publication-links">
+                            {pub.urls.map((u) => (
+                                <li>
+                                    <a
+                                        class="animated-link"
+                                        href={u}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        data-tooltip={t(lang, "openInNewTab")}
+                                    >
+                                        {linkText(u)}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                );
+                // Заголовок + первая запись в одном боксе (.section-lead),
+                // чтобы при печати заголовок не отрывался от содержимого.
+                return i === 0 ? (
+                    <div class="section-lead">
+                        <h2 class="container-heading" id="publications-heading">
+                            {t(lang, "publications")}
+                        </h2>
+                        {block}
+                    </div>
+                ) : (
+                    block
+                );
+            })
         }
     </div>
 </section>

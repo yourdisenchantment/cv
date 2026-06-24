@@ -12,23 +12,36 @@ const { lang, courses } = Astro.props;
 ---
 
 <section aria-labelledby="courses-heading" id="courses">
-    <h2 class="container-heading" id="courses-heading">{t(lang, "courses")}</h2>
     <div class="courses-container">
         {
-            courses.map((c) => (
-                <div class="course-block">
-                    <p class="timestamp">{formatPeriod(c.period, lang)}</p>
-                    <div class="course-info">
-                        <h3>{c.institution}</h3>
-                        <h4>{c.course}</h4>
-                        <ul class="skill-list">
-                            {c.skills.map((s) => (
-                                <li>{s}</li>
-                            ))}
-                        </ul>
+            courses.map((c, i) => {
+                const block = (
+                    <div class="course-block">
+                        <p class="timestamp">{formatPeriod(c.period, lang)}</p>
+                        <div class="course-info">
+                            <h3>{c.institution}</h3>
+                            <h4>{c.course}</h4>
+                            <ul class="skill-list">
+                                {c.skills.map((s) => (
+                                    <li>{s}</li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            ))
+                );
+                // Заголовок + первая запись в одном боксе (.section-lead),
+                // чтобы при печати заголовок не отрывался от содержимого.
+                return i === 0 ? (
+                    <div class="section-lead">
+                        <h2 class="container-heading" id="courses-heading">
+                            {t(lang, "courses")}
+                        </h2>
+                        {block}
+                    </div>
+                ) : (
+                    block
+                );
+            })
         }
     </div>
 </section>
