@@ -46,6 +46,7 @@ const education = z.object({
     period: period,
     institution: z.string(),
     faculty: z.string(),
+    department: z.string().optional(), // e.g. "Кафедра прикладной математики"
     degree: z.string(),
     honors: z.string().optional(), // e.g. "Красный диплом" (honors degree)
 });

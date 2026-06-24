@@ -327,15 +327,16 @@ strong {
     color: var(--text-emphasis);
 }
 
-/* Education: degree text and the honors line. */
+/* Education: degree line (degree text, with honors appended after a period). */
 .edu-info p {
     font-size: var(--fs-body-text);
     color: var(--text-emphasis);
 }
 
-.honors {
-    font-family: var(--font-mono);
-    font-size: var(--fs-meta);
+/* Department line under the faculty: same look as the faculty (h4) line. The
+   selector outranks `.edu-info p` so it is not styled like the degree. */
+.edu-info .department {
+    font-size: var(--fs-item-subtitle);
     color: var(--text-muted);
 }
 

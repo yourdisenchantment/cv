@@ -15,20 +15,32 @@ const { lang, education } = Astro.props;
 const sorted = [...education].sort((a, b) =>
     b.period.start.localeCompare(a.period.start),
 );
+
+// Middle dot (U+00B7) separator for the degree line. Built via fromCharCode
+// to keep the source ASCII-only.
+const sep = String.fromCharCode(0xb7);
 ---
 
 <section aria-labelledby="education-heading" id="education">
     <div class="education-container">
         {
             sorted.map((e, i) => {
+                // Degree and honors on one line, separated by the middle dot
+                // (sep, U+00B7). Built as one string so JSX does not slip in
+                // an extra space.
+                const degreeLine = e.honors
+                    ? `${e.degree} ${sep} ${e.honors}`
+                    : e.degree;
                 const block = (
                     <div class="edu-block">
                         <p class="timestamp">{formatPeriod(e.period, lang)}</p>
                         <div class="edu-info">
                             <h3>{e.institution}</h3>
                             <h4>{e.faculty}</h4>
-                            <p>{e.degree}</p>
-                            {e.honors && <p class="honors">{e.honors}</p>}
+                            {e.department && (
+                                <p class="department">{e.department}</p>
+                            )}
+                            <p>{degreeLine}</p>
                         </div>
                     </div>
                 );

@@ -71,45 +71,39 @@
     "experience": [
         {
             "period": {
-                "start": "2026-02",
-                "end": "2026-05"
-            },
-            "company": "Thrive.io",
-            "role": "Fullstack Developer (Junior), Intern",
-            "achievements": [
-                "Maintaining and extending active projects",
-                "Data collection and processing",
-                "Supporting and developing a FastAPI application"
-            ],
-            "skills": [
-                "Python",
-                "Git",
-                "FastAPI",
-                "Pandas",
-                "Data analysis",
-                "Web development"
-            ]
-        },
-        {
-            "period": {
                 "start": "2025-07",
                 "end": "2026-02"
             },
             "company": "Thrive.io",
-            "role": "Fullstack Developer (Junior)",
+            "role": "Fullstack Developer",
             "achievements": [
                 "Data collection and processing",
-                "Building and maintaining a FastAPI application",
-                "Working with SAM-family AI models"
+                "Building a FastAPI application for browsing data",
+                "Applying SAM 3D Body to video",
+                "Building an application to review SAM 3D Body generation results"
             ],
             "skills": [
                 "Python",
-                "Git",
                 "FastAPI",
-                "Pandas",
-                "Data mining",
-                "Web development"
+                "Requests",
+                "Polars",
+                "Git",
+                "Gradio",
+                "Rerun"
             ]
+        },
+        {
+            "period": {
+                "start": "2025-04",
+                "end": "2025-07"
+            },
+            "company": "Thrive.io",
+            "role": "Intern",
+            "achievements": [
+                "Adding functionality to a FastAPI application",
+                "Data processing with Pandas"
+            ],
+            "skills": ["Python", "FastAPI", "Pandas", "Git"]
         },
         {
             "period": {
@@ -121,7 +115,14 @@
             "achievements": [
                 "Training VisualBERT on the Conceptual Captions dataset"
             ],
-            "skills": ["Python", "Machine learning"]
+            "skills": [
+                "Python",
+                "PyTorch",
+                "Datasets",
+                "Transformers",
+                "ResNet",
+                "Hugging Face"
+            ]
         },
         {
             "period": {
@@ -144,6 +145,7 @@
             },
             "institution": "V.I. Vernadsky Crimean Federal University",
             "faculty": "Faculty of Mathematics and Informatics",
+            "department": "Department of Applied Mathematics",
             "degree": "Master's",
             "honors": "Red diploma"
         },
@@ -154,6 +156,7 @@
             },
             "institution": "V.I. Vernadsky Crimean Federal University",
             "faculty": "Faculty of Mathematics and Informatics",
+            "department": "Department of Applied Mathematics",
             "degree": "Bachelor's",
             "honors": "Red diploma"
         }
