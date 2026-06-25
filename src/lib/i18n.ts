@@ -15,6 +15,9 @@ type Dict = {
     courses: string;
     projects: string;
     publications: string;
+    awards: string;
+    // awards: note that document originals/scans are available on request
+    scansOnRequest: string;
     // "About" block labels
     birthDate: string;
     city: string;
@@ -33,6 +36,8 @@ type Dict = {
     kindPatent: string;
     kindVkr: string;
     kindDataset: string;
+    kindCollection: string;
+    kindJournal: string;
     // publications: level (graduation thesis only)
     levelBachelor: string;
     levelMaster: string;
@@ -58,6 +63,8 @@ const ui: Record<Locale, Dict> = {
         courses: "Повышение квалификации",
         projects: "Проекты",
         publications: "Публикации",
+        awards: "Награды",
+        scansOnRequest: "Сканы оригиналов и другие документы - по запросу",
         birthDate: "Дата рождения",
         city: "Город",
         archived: "archived",
@@ -70,6 +77,8 @@ const ui: Record<Locale, Dict> = {
         kindPatent: "Патент",
         kindVkr: "ВКР",
         kindDataset: "Датасет",
+        kindCollection: "Сборник",
+        kindJournal: "Журнал",
         levelBachelor: "Бакалавриат",
         levelMaster: "Магистратура",
         course: "курс",
@@ -89,6 +98,9 @@ const ui: Record<Locale, Dict> = {
         courses: "Professional development",
         projects: "Projects",
         publications: "Publications",
+        awards: "Awards",
+        scansOnRequest:
+            "Scans of originals and other documents available on request",
         birthDate: "Date of birth",
         city: "City",
         archived: "archived",
@@ -101,6 +113,8 @@ const ui: Record<Locale, Dict> = {
         kindPatent: "Patent",
         kindVkr: "Graduation thesis",
         kindDataset: "Dataset",
+        kindCollection: "Collection",
+        kindJournal: "Journal",
         levelBachelor: "Bachelor",
         levelMaster: "Master",
         course: "Year",

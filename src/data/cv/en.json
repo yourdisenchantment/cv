@@ -1,26 +1,21 @@
 {
     "meta": {
         "title": "Pavel Mikheyev - CV",
-        "description": "CV of Pavel Mikheev, Fullstack developer and Data Scientist."
+        "description": "CV of Pavel Mikheyev, Data Scientist and ML Engineer."
     },
     "about": {
         "photo": "/images/my-face.jpg",
         "name": "Mikheyev Pavel Olegovich",
-        "role": "Fullstack Developer, Data Scientist",
+        "role": "Data Scientist, ML Engineer",
         "birthDate": "2002-11-06",
         "city": "Simferopol, Russia",
-        "summary": "Researcher and developer focused on R&D and academic work. What matters most to me is developing skills and applying scientific methods to engineering problems. I do research in DS, try new technologies, and am growing toward an ML engineer role. I value teamwork and open communication, always ready to discuss workflows and share experience. I follow the principle of \"quality over speed\", building robust and clear architecture. I actively use AI tools to delegate routine work and focus on high-level tasks.",
+        "summary": "Software engineer with a strong applied-mathematics background (bachelor's and master's, two honors degrees) focused on machine learning, data work, and research. Combined studies with independent projects at work: parsing and processing hundreds of thousands of listings, and adapting and deploying computer-vision models (SAM 3D Body) - from inference to an interactive viewer. I value thoughtful architecture and a scientific approach to problems; growing toward ML engineering and considering a PhD.",
         "availability": "Open to remote work"
     },
     "contacts": [
         {
             "label": "Email",
-            "value": "mpavel@duck.com",
-            "group": "contact"
-        },
-        {
-            "label": "Email",
-            "value": "p.idisenchantment@gmail.com",
+            "value": "pavel.mikheyev.611@gmail.com",
             "group": "contact"
         },
         {
@@ -30,7 +25,7 @@
             "group": "contact"
         },
         {
-            "label": "Site",
+            "label": "Website",
             "value": "yourdisenchantment.github.io/cv",
             "href": "https://yourdisenchantment.github.io/cv",
             "group": "contact"
@@ -57,16 +52,19 @@
     ],
     "skills": [
         "Python",
-        "Java",
-        "JavaScript",
-        "C/C++",
-        "HTML/CSS",
+        "PyTorch",
+        "Hugging Face",
+        "Polars",
+        "Pandas",
+        "NumPy",
+        "SciPy",
+        "scikit-learn",
+        "MLX",
+        "FastAPI",
         "SQL",
         "Linux",
-        "Docker",
-        "FastAPI",
-        "PyTorch",
-        "MLX"
+        "Git",
+        "Java"
     ],
     "experience": [
         {
@@ -77,19 +75,23 @@
             "company": "Thrive.io",
             "role": "Fullstack Developer",
             "achievements": [
-                "Data collection and processing",
-                "Building a FastAPI application for browsing data",
-                "Applying SAM 3D Body to video",
-                "Building an application to review SAM 3D Body generation results"
+                "Independently led two internal projects in parallel with my master's studies",
+                "Real estate listings aggregator: parser and processing of 300k+ listings (~100 fields -> a 50-column table), location hierarchy, recommendations, split into archive/old/active/new, served via FastAPI",
+                "Initiated the migration from Pandas to Polars due to memory and speed limits on large tables",
+                "End-to-end SAM 3D Body pipeline: dissecting the model, extracting joints, switching the skeleton to quaternions, adapting it to video, building a Gradio interface",
+                "Desktop viewer for SAM 3D Body results on Rerun and PySide (skeleton and mesh projection; shown to investors, used by the team)"
             ],
             "skills": [
                 "Python",
-                "FastAPI",
-                "Requests",
                 "Polars",
-                "Git",
+                "Pandas",
+                "FastAPI",
+                "PyTorch",
+                "Rerun",
+                "PySide",
                 "Gradio",
-                "Rerun"
+                "Git",
+                "Linux"
             ]
         },
         {
@@ -100,10 +102,11 @@
             "company": "Thrive.io",
             "role": "Intern",
             "achievements": [
-                "Adding functionality to a FastAPI application",
-                "Data processing with Pandas"
+                "Merged real estate listings from two sources (~200k) by building ID and title similarity",
+                "Location hierarchy and its reconciliation across sources for autocomplete and recommendations of similar listings",
+                "Filtering, parsing, and analysis of dataframes in Pandas (project was sold)"
             ],
-            "skills": ["Python", "FastAPI", "Pandas", "Git"]
+            "skills": ["Python", "Pandas", "FastAPI", "Git"]
         },
         {
             "period": {
@@ -113,13 +116,15 @@
             "company": "Strong Artificial Intelligence",
             "role": "Intern",
             "achievements": [
-                "Training VisualBERT on the Conceptual Captions dataset"
+                "Thesis project: research on image alt-text generation, training VisualBERT on Conceptual Captions (3.3M pairs)",
+                "Given weak results - trained ResNet50 separately and reassembled it with BERT, experimented with GPT-2 as a decoder",
+                "Comparative analysis of approaches: Gemini 2.5 Pro/Flash versus Cloud Vision + the text part of Gemini"
             ],
             "skills": [
                 "Python",
                 "PyTorch",
-                "Datasets",
                 "Transformers",
+                "Datasets",
                 "ResNet",
                 "Hugging Face"
             ]
@@ -132,9 +137,10 @@
             "company": "Voda Kryma",
             "role": "Intern",
             "achievements": [
-                "Editing the corporate city map to improve informativeness"
+                "Editing the corporate map of Simferopol on Yandex Maps (in a pair): infrastructure objects - schools, kindergartens, hospitals",
+                "Tried the Yandex Maps API and a Python script for annotation; labeled part of the data manually"
             ],
-            "skills": ["JavaScript", "Yandex Maps API", "Python"]
+            "skills": ["Python", "JavaScript", "Yandex Maps API"]
         }
     ],
     "education": [
@@ -147,7 +153,7 @@
             "faculty": "Faculty of Mathematics and Informatics",
             "department": "Department of Applied Mathematics",
             "degree": "Master's",
-            "honors": "Red diploma"
+            "honors": "With honors"
         },
         {
             "period": {
@@ -158,7 +164,7 @@
             "faculty": "Faculty of Mathematics and Informatics",
             "department": "Department of Applied Mathematics",
             "degree": "Bachelor's",
-            "honors": "Red diploma"
+            "honors": "With honors"
         }
     ],
     "courses": [
@@ -204,12 +210,6 @@
             ]
         },
         {
-            "name": "Logic and architecture of compute environments",
-            "url": "https://github.com/yourdisenchantment/logic-compute-env",
-            "description": "Course tasks on parallel computing in C/C++: single- and multi-threaded matrix multiplication, producer-consumer synchronization, recursive parallelism.",
-            "stack": ["C/C++"]
-        },
-        {
             "name": "ThermalVis of Indoor Environments",
             "url": "https://github.com/yourdisenchantment/ThermalVis-of-Indoor-Environments",
             "description": "3D visualization of indoor temperature distribution from wall temperatures: two value sets with a shared color range and adjustable surface opacity.",
@@ -228,78 +228,60 @@
             "stack": ["Java"]
         },
         {
-            "name": "Computer Networks",
-            "url": "https://github.com/azzalie/computer-networks",
-            "description": "Course tasks on networking and concurrency in Java: quadratic equations, UDP sockets, chat, and client-server applications.",
-            "stack": ["Java"]
-        },
-        {
-            "name": "Numerical methods for equations of mathematical physics",
-            "url": "https://github.com/azzalie/mathphysics",
-            "description": "Numerical solution of wave equations of mathematical physics.",
-            "stack": ["Python", "NumPy"]
-        },
-        {
-            "name": "Italian Listings Viewer",
-            "url": "https://gitlab.com/yourdisenchantment/italian-listing-viewer",
-            "description": "Web app for browsing Italian real-estate listings: Google Drive sync, location hierarchy, filters, and autocomplete.",
-            "stack": ["Python", "FastAPI", "Polars"]
-        },
-        {
             "name": "SAM 3D Body",
             "url": "https://github.com/yourdisenchantment/sam-3d-body",
             "description": "Tooling for running the SAM 3D Body model (Meta) locally: CLI for batch dataset processing, a Gradio demo, and setup/debug scripts. Fork of the original repo.",
             "stack": ["Python", "PyTorch", "trimesh", "Gradio", "OpenCV"]
         },
         {
+            "name": "Logic and architecture of compute environments",
+            "url": "https://github.com/yourdisenchantment/logic-compute-env",
+            "description": "Course tasks on parallel computing in C/C++: single- and multi-threaded matrix multiplication, producer-consumer synchronization, recursive parallelism.",
+            "stack": ["C/C++"]
+        },
+        {
+            "name": "Computer Networks",
+            "url": "https://github.com/azzalie/computer-networks",
+            "description": "Course tasks on networking and concurrency in Java: quadratic equations, UDP sockets, chat, and client-server applications.",
+            "stack": ["Java"]
+        },
+        {
             "name": "SAM 3D Viewer",
             "url": "https://gitlab.com/yourdisenchantment/sam-3d-viewer",
             "description": "Desktop app for viewing 3D body reconstruction results from the SAM 3D Body neural network: synchronized RGB frames, meshes, and skeletons in Rerun.",
             "stack": ["Python", "PySide6", "Rerun", "trimesh", "NumPy"]
+        },
+        {
+            "name": "Italian Listings Viewer",
+            "url": "https://gitlab.com/yourdisenchantment/italian-listing-viewer",
+            "description": "Web app for browsing Italian real-estate listings: Google Drive sync, location hierarchy, filters, and autocomplete.",
+            "stack": ["Python", "FastAPI", "Polars"]
         }
     ],
     "publications": [
         {
             "kind": "article",
-            "title": "РАЗРАБОТКА АЛЬТЕРНАТИВНОГО ТЕКСТА С ИСПОЛЬЗОВАНИЕМ НЕЙРОННЫХ СЕТЕЙ ДЛЯ ГЕНЕРАЦИИ ИЗОБРАЖЕНИЙ",
+            "title": "Использование нейронной сети для генерирования изображений при обучении студентов разработке альтернативного текста",
             "urls": [
+                "https://doi.org/10.21686/1818-4243-2024-1-9-20",
                 "https://openedu.rea.ru/jour/article/view/1008/617",
-                "https://www.elibrary.ru/item.asp?id=67355328"
+                "https://elibrary.ru/item.asp?id=67355328"
             ]
         },
         {
             "kind": "thesis",
-            "title": "ИСПОЛЬЗОВАНИЕ НЕЙРОННОЙ СЕТИ ДЛЯ ГЕНЕРИРОВАНИЯ ИЗОБРАЖЕНИЙ ПРИ ОБУЧЕНИИ СТУДЕНТОВ РАЗРАБОТКЕ АЛЬТЕРНАТИВНОГО ТЕКСТА",
-            "urls": ["https://www.elibrary.ru/item.asp?id=67952551"]
-        },
-        {
-            "kind": "patent",
-            "title": "ПРОГРАММА ДЛЯ ЭВМ \"THERMALVIS OF INDOOR ENVIRONMENTS\"",
-            "urls": ["https://www.elibrary.ru/item.asp?id=80653653"]
-        },
-        {
-            "kind": "article",
-            "title": "МЕЖДИСЦИПЛИНАРНЫЕ АСПЕКТЫ РАЗВИТИЯ ТРАНСФОРМАЦИОННЫХ ТЕХНОЛОГИЙ",
-            "urls": [
-                "https://publishing.intelgr.com/index.php/component/content/article.html?id=1002",
-                "https://www.elibrary.ru/item.asp?id=82948136"
-            ]
+            "title": "Разработка альтернативного текста с использованием нейронных сетей для генерации изображений",
+            "urls": ["https://elibrary.ru/item.asp?id=67952551"]
         },
         {
             "kind": "thesis",
-            "title": "МИКМО-2025",
-            "urls": [
-                "https://www.elibrary.ru/item.asp?id=82443605",
-                "https://www.elibrary.ru/item.asp?id=82476665"
-            ]
+            "title": "Использование мультимодальных нейронных сетей для создания альтернативного текста к изображениям: сравнительный анализ подходов",
+            "urls": ["https://elibrary.ru/item.asp?id=82476665"]
         },
         {
-            "kind": "article",
-            "title": "СТРОИТЕЛЬНОЕ ПРОИЗВОДСТВО",
-            "urls": [
-                "https://build-pro.press/ru/nauka/journal/275/view",
-                "https://www.elibrary.ru/title_about_new.asp?id=73740"
-            ]
+            "kind": "collection",
+            "title": "Математика, информатика, компьютерные науки, моделирование, образование (МИКМО-2025)",
+            "urls": ["https://www.elibrary.ru/item.asp?id=82443605"]
         },
         {
             "kind": "dataset",
@@ -307,22 +289,43 @@
             "urls": ["https://doi.org/10.6084/m9.figshare.32258007"]
         },
         {
+            "kind": "patent",
+            "title": "Программа для ЭВМ \"ThermalVis of Indoor Environments\"",
+            "urls": ["https://elibrary.ru/item.asp?id=80653653"]
+        },
+        {
+            "kind": "article",
+            "title": "Междисциплинарные аспекты развития трансформационных технологий",
+            "urls": [
+                "https://publishing.intelgr.com/index.php/component/content/article.html?id=1002",
+                "https://elibrary.ru/item.asp?id=82948136"
+            ]
+        },
+        {
+            "kind": "journal",
+            "title": "Строительное производство",
+            "urls": ["https://elibrary.ru/title_about_new.asp?id=73740"]
+        },
+        {
             "kind": "vkr",
-            "title": "Bachelor's Thesis",
+            "title": "Разработка альтернативного текста для незрячих пользователей с использованием нейронных сетей",
             "level": "bachelor",
-            "course": 4,
             "urls": [
                 "https://drive.google.com/drive/folders/1i2vL2TaXcO8BqrWcIU7o9WCZsannGDEB"
             ]
         },
         {
             "kind": "vkr",
-            "title": "Master's Thesis",
+            "title": "Разработка нейронной сети для генерации альтернативного текста к изображениям",
             "level": "master",
-            "course": 2,
             "urls": [
                 "https://drive.google.com/drive/folders/1r0yBQ5TlCrQ-29R-wYSrz8CzdGz_ULGC"
             ]
         }
+    ],
+    "awards": [
+        "Presidential scholarship of the Russian Federation",
+        "Scholarship of the State Council of the Republic of Crimea",
+        "Scholarship of the Council of Ministers of the Republic of Crimea (twice)"
     ]
 }

@@ -6,6 +6,7 @@ import Contacts from "./Contacts.astro";
 import Skills from "./Skills.astro";
 import Experience from "./Experience.astro";
 import Education from "./Education.astro";
+import Awards from "./Awards.astro";
 import Courses from "./Courses.astro";
 import Projects from "./Projects.astro";
 import Publications from "./Publications.astro";
@@ -28,6 +29,7 @@ const {
     courses,
     projects,
     publications,
+    awards,
 } = data;
 ---
 
@@ -38,6 +40,7 @@ const {
         <Skills lang={lang} skills={skills} />
         <Experience lang={lang} experience={experience} />
         <Education lang={lang} education={education} />
+        <Awards lang={lang} awards={awards} />
         <Courses lang={lang} courses={courses} />
         <Publications lang={lang} publications={publications} />
         <Projects lang={lang} projects={projects} />

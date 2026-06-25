@@ -67,7 +67,15 @@ const project = z.object({
 
 // level/course - only for kind: "vkr" (bachelor's/master's graduation thesis).
 const publication = z.object({
-    kind: z.enum(["article", "thesis", "patent", "vkr", "dataset"]),
+    kind: z.enum([
+        "article",
+        "thesis",
+        "patent",
+        "vkr",
+        "dataset",
+        "collection",
+        "journal",
+    ]),
     title: z.string(),
     level: z.enum(["bachelor", "master"]).optional(),
     course: z.number().optional(),
@@ -84,6 +92,7 @@ export const cvSchema = z.object({
     courses: z.array(course),
     projects: z.array(project),
     publications: z.array(publication),
+    awards: z.array(z.string()),
 });
 
 export type Cv = z.infer<typeof cvSchema>;

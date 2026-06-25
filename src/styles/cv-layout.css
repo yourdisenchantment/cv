@@ -340,6 +340,32 @@ strong {
     color: var(--text-muted);
 }
 
+/* --- Awards --- */
+/* Bulleted list like achievements; the scans note is a small muted line. */
+.awards-list {
+    list-style: disc;
+    padding-left: 1.4em;
+    color: var(--text-emphasis);
+}
+
+.awards-list li {
+    font-size: var(--fs-body-text);
+    margin-bottom: 4px;
+}
+
+.awards-list li:last-child {
+    margin-bottom: 0;
+}
+
+.awards-list li::marker {
+    color: var(--marker);
+}
+
+.scans-note {
+    font-size: var(--fs-meta);
+    color: var(--text-faint);
+}
+
 /*--- Projects ---*/
 /* Masonry via CSS columns: cards of different heights, without stretching to
    match a neighbor. Order goes column by column, top to bottom. */
