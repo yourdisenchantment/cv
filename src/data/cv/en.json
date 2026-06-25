@@ -76,7 +76,7 @@
             "role": "Fullstack Developer",
             "achievements": [
                 "Independently led two internal projects in parallel with my master's studies",
-                "Real estate listings aggregator: parser and processing of 300k+ listings (~100 fields -> a 50-column table), location hierarchy, recommendations, split into archive/old/active/new, served via FastAPI",
+                "Real estate listings aggregator: parser and processing of 300k+ listings (~100 fields -> a 50-column table), location hierarchy, recommendations, split into archive/old/active/new to track price dynamics, served via FastAPI",
                 "Initiated the migration from Pandas to Polars due to memory and speed limits on large tables",
                 "End-to-end SAM 3D Body pipeline: dissecting the model, extracting joints, switching the skeleton to quaternions, adapting it to video, building a Gradio interface",
                 "Desktop viewer for SAM 3D Body results on Rerun and PySide (skeleton and mesh projection; shown to investors, used by the team)"
