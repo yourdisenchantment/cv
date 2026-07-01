@@ -3,7 +3,7 @@ import js from "@eslint/js";
 import astro from "eslint-plugin-astro";
 import tsParser from "@typescript-eslint/parser";
 
-// ESLint 9 flat config: массив конфигов, применяемых последовательно.
+// ESLint flat config: массив конфигов, применяемых последовательно.
 // Каждый конфиг может фильтровать по files/ignores и добавлять правила/плагины.
 export default [
     // Не линтим генерируемое, стороннее и legacy-референс миграции.
