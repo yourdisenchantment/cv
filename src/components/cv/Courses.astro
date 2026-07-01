@@ -18,36 +18,25 @@ const sorted = [...courses].sort((a, b) =>
 ---
 
 <section aria-labelledby="courses-heading" id="courses">
+    <h2 class="container-heading" id="courses-heading">
+        {t(lang, "courses")}
+    </h2>
     <div class="courses-container">
         {
-            sorted.map((c, i) => {
-                const block = (
-                    <div class="course-block">
-                        <p class="timestamp">{formatPeriod(c.period, lang)}</p>
-                        <div class="course-info">
-                            <h3>{c.institution}</h3>
-                            <h4>{c.course}</h4>
-                            <ul class="skill-list">
-                                {c.skills.map((s) => (
-                                    <li>{s}</li>
-                                ))}
-                            </ul>
-                        </div>
+            sorted.map((c) => (
+                <div class="course-block">
+                    <p class="timestamp">{formatPeriod(c.period, lang)}</p>
+                    <div class="course-info">
+                        <h3>{c.institution}</h3>
+                        <h4>{c.course}</h4>
+                        <ul class="skill-list">
+                            {c.skills.map((s) => (
+                                <li>{s}</li>
+                            ))}
+                        </ul>
                     </div>
-                );
-                // Heading + first entry in one box (.section-lead) so the
-                // heading does not get orphaned from its content when printing.
-                return i === 0 ? (
-                    <div class="section-lead">
-                        <h2 class="container-heading" id="courses-heading">
-                            {t(lang, "courses")}
-                        </h2>
-                        {block}
-                    </div>
-                ) : (
-                    block
-                );
-            })
+                </div>
+            ))
         }
     </div>
 </section>

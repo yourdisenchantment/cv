@@ -39,6 +39,10 @@
     --border-hover: var(--gray-800);
     --marker: var(--gray-400);
     --shadow: var(--gray-400);
+    /* Elevation geometry shared by the resume sheet and the dock (offset +
+       blur bound to the shadow color). One knob if the surface lift is
+       re-tuned. */
+    --shadow-elevation: 0 4px 10px var(--shadow);
 
     --font-main: "Inter";
     --font-monospace: "JetBrains Mono";
@@ -49,22 +53,21 @@
     /* Type scale - absolute px tokens. Components reference these, not em
        percentages of body (avoids the "variable and we shrink it" ambiguity).
        Minimum - 12px (smaller strains the eyes and blurs in print).
-       Scale: 12 (meta) / 14 (body) / 16 (subheads) / 18 (section headings) /
-       20 (name). */
+       Scale: 12 (meta) / 14 (body) / 18 (headings + name). Roles that used to
+       take 16 (role, item-title) now take 14 - distinguished by weight/style/
+       mono, not by size. Name takes 18, not 20 - distinguished by weight. */
     --fs-small: 12px;
     --fs-body: 14px;
-    --fs-subhead: 16px;
     --fs-heading: 18px;
-    --fs-title: 20px;
 
     /* Semantic tokens (style book): element role -> size. Change a value here
        and all elements of that kind update. The scale is above; these tokens
        reference it. */
     --fs-date: var(--fs-small);
     --fs-section-heading: var(--fs-heading);
-    --fs-name: var(--fs-title);
-    --fs-role: var(--fs-subhead);
-    --fs-item-title: var(--fs-subhead);
+    --fs-name: var(--fs-heading);
+    --fs-role: var(--fs-body);
+    --fs-item-title: var(--fs-body);
     --fs-publication-title: var(--fs-body);
     --fs-item-subtitle: var(--fs-body);
     --fs-body-text: var(--fs-body);
@@ -72,6 +75,58 @@
     --fs-chip: var(--fs-body);
     --fs-contact-label: var(--fs-body);
     --fs-contact-value: var(--fs-small);
+
+    /* Spacing scale - absolute px tokens. Covers the distinct design values
+       (not a pure 4-multiple: 6/10/12/20/30/40 are design-tuned, kept as-is).
+       Components reference the semantic aliases below, not these directly, so a
+       role can be re-tuned without touching every use site. */
+    --space-2: 4px;
+    --space-3: 6px;
+    --space-4: 8px;
+    --space-5: 10px;
+    --space-6: 12px;
+    --space-7: 16px;
+    --space-8: 20px;
+    --space-9: 24px;
+    --space-10: 30px;
+    --space-11: 40px;
+
+    /* Semantic spacing aliases - role -> size. Change a value here and all
+       spacing of that kind updates on screen AND in print. */
+    --space-section-gap: var(--space-10); /* between resume sections */
+    --space-entry-gap: var(--space-11); /* between jobs/courses/edu entries */
+    --space-block-gap: var(
+        --space-5
+    ); /* heading -> content, inside a section */
+    --space-publication-gap: var(--space-6); /* between publications */
+    --space-publication-item-gap: var(
+        --space-3
+    ); /* publication card internal gap (meta -> title -> links) */
+    --space-card-pad: var(--space-6); /* project/publication card padding */
+    --space-card-gap: var(--space-4); /* project card internal gap */
+    --space-card-margin: var(
+        --space-7
+    ); /* card margin-bottom + masonry column-gap */
+    --space-contact-gap: var(--space-9); /* between contact groups */
+    --space-contact-item-gap: var(--space-3); /* between contacts in a group */
+    --space-list-item-gap: var(
+        --space-2
+    ); /* margin-bottom on bulleted list items */
+    --space-info-gap: var(
+        --space-2
+    ); /* tight gap inside .about-info / .job-info */
+    --space-entry-internal-gap: var(
+        --space-8
+    ); /* row gap: timestamp <-> info block */
+    --space-photo-margin: var(--space-7); /* about-photo margin-bottom */
+
+    /* Photo height: one knob for the portrait size (screen height + mobile
+       max-height share it). */
+    --photo-height: 200px;
+
+    /* Bulleted list indent (achievements, awards, publication-links) - em
+       based so it scales with font-size. */
+    --space-list-indent: 1.4em;
 
     /* Base size: em sizes in components inherit from it and scale together. */
     font-size: var(--fs-body);

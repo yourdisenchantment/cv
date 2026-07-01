@@ -1,7 +1,8 @@
 ---
 import type { Cv } from "../../data/cv/schema";
-import { formatPeriod, type Locale } from "../../lib/format";
+import { type Locale } from "../../lib/format";
 import { t } from "../../lib/i18n";
+import EducationItem from "./EducationItem.astro";
 
 interface Props {
     lang: Locale;
@@ -16,47 +17,25 @@ const sorted = [...education].sort((a, b) =>
     b.period.start.localeCompare(a.period.start),
 );
 
-// Middle dot (U+00B7) separator for the degree line. Built via fromCharCode
-// to keep the source ASCII-only.
-const sep = String.fromCharCode(0xb7);
+// First entry is glued to the heading (.section-lead) so the heading is not
+// orphaned at a page bottom in print; the rest flow after.
+const [first, ...rest] = sorted;
 ---
 
 <section aria-labelledby="education-heading" id="education">
-    <div class="education-container">
-        {
-            sorted.map((e, i) => {
-                // Degree and honors on one line, separated by the middle dot
-                // (sep, U+00B7). Built as one string so JSX does not slip in
-                // an extra space.
-                const degreeLine = e.honors
-                    ? `${e.degree} ${sep} ${e.honors}`
-                    : e.degree;
-                const block = (
-                    <div class="edu-block">
-                        <p class="timestamp">{formatPeriod(e.period, lang)}</p>
-                        <div class="edu-info">
-                            <h3>{e.institution}</h3>
-                            <h4>{e.faculty}</h4>
-                            {e.department && (
-                                <p class="department">{e.department}</p>
-                            )}
-                            <p>{degreeLine}</p>
-                        </div>
-                    </div>
-                );
-                // Heading + first entry in one box (.section-lead) so the
-                // heading does not get orphaned from its content when printing.
-                return i === 0 ? (
-                    <div class="section-lead">
-                        <h2 class="container-heading" id="education-heading">
-                            {t(lang, "education")}
-                        </h2>
-                        {block}
-                    </div>
-                ) : (
-                    block
-                );
-            })
-        }
+    <div class="section-lead">
+        <h2 class="container-heading" id="education-heading">
+            {t(lang, "education")}
+        </h2>
+        {first && <EducationItem edu={first} lang={lang} />}
     </div>
+    {
+        rest.length > 0 && (
+            <div class="education-container">
+                {rest.map((edu) => (
+                    <EducationItem edu={edu} lang={lang} />
+                ))}
+            </div>
+        )
+    }
 </section>

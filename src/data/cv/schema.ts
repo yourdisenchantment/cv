@@ -23,7 +23,7 @@ const about = z.object({
     availability: z.string().optional(),
 });
 
-// no href -> the value is copied to the clipboard (email).
+// no href -> the value is an email, rendered as a mailto: link.
 // archived -> a lost account, shown with a label.
 // group: "contact" (email/messenger/site) | "resource" (github/gitlab/...).
 const contact = z.object({
@@ -92,7 +92,7 @@ export const cvSchema = z.object({
     courses: z.array(course),
     projects: z.array(project),
     publications: z.array(publication),
-    awards: z.array(z.string()),
+    achievements: z.array(z.string()),
 });
 
 export type Cv = z.infer<typeof cvSchema>;

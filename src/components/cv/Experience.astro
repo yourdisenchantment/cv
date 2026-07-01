@@ -18,43 +18,32 @@ const sorted = [...experience].sort((a, b) =>
 ---
 
 <section aria-labelledby="experience-heading" id="experience">
+    <h2 class="container-heading" id="experience-heading">
+        {t(lang, "experience")}
+    </h2>
     <div class="experience-container">
         {
-            sorted.map((job, i) => {
-                const block = (
-                    <div class="job-block">
-                        <p class="timestamp">
-                            {formatPeriod(job.period, lang)}
-                        </p>
-                        <div class="job-info">
+            sorted.map((job) => (
+                <div class="job-block">
+                    <p class="timestamp">{formatPeriod(job.period, lang)}</p>
+                    <div class="job-info">
+                        <div class="entry-head">
                             <h3>{job.company}</h3>
                             <h4>{job.role}</h4>
-                            <ul class="achievements">
-                                {job.achievements.map((a) => (
-                                    <li>{a}</li>
-                                ))}
-                            </ul>
-                            <ul class="skill-list">
-                                {job.skills.map((s) => (
-                                    <li>{s}</li>
-                                ))}
-                            </ul>
                         </div>
+                        <ul class="achievements">
+                            {job.achievements.map((a) => (
+                                <li>{a}</li>
+                            ))}
+                        </ul>
+                        <ul class="skill-list">
+                            {job.skills.map((s) => (
+                                <li>{s}</li>
+                            ))}
+                        </ul>
                     </div>
-                );
-                // Heading + first entry in one box (.section-lead) so the
-                // heading does not get orphaned from its content when printing.
-                return i === 0 ? (
-                    <div class="section-lead">
-                        <h2 class="container-heading" id="experience-heading">
-                            {t(lang, "experience")}
-                        </h2>
-                        {block}
-                    </div>
-                ) : (
-                    block
-                );
-            })
+                </div>
+            ))
         }
     </div>
 </section>

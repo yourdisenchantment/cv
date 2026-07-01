@@ -5,16 +5,18 @@ import { t } from "../../lib/i18n";
 
 interface Props {
     lang: Locale;
-    awards: Cv["awards"];
+    achievements: Cv["achievements"];
 }
 
-const { lang, awards } = Astro.props;
+const { lang, achievements } = Astro.props;
 ---
 
-<section aria-labelledby="awards-heading" id="awards">
-    <h2 class="container-heading" id="awards-heading">{t(lang, "awards")}</h2>
+<section aria-labelledby="achievements-heading" id="achievements">
+    <h2 class="container-heading" id="achievements-heading">
+        {t(lang, "achievements")}
+    </h2>
     <ul class="awards-list">
-        {awards.map((a) => <li>{a}</li>)}
+        {achievements.map((a) => <li>{a}</li>)}
     </ul>
     <p class="scans-note">{t(lang, "scansOnRequest")}</p>
 </section>

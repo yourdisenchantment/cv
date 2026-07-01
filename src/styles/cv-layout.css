@@ -2,12 +2,12 @@
 .main {
     background-color: var(--bg-surface);
     border-radius: var(--radius-sm);
-    box-shadow: 0 4px 10px var(--shadow);
+    box-shadow: var(--shadow-elevation);
     padding: 2cm;
     max-width: var(--page-width);
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: var(--space-section-gap);
     /* .wrapper is a flex-row with align-items:stretch; without this .main would
        stretch in height to the whole viewport. Keep the sheet at content height. */
     align-self: flex-start;
@@ -18,24 +18,13 @@ section {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--space-block-gap);
 }
 
 .container-heading {
     width: 100%;
     font-size: var(--fs-section-heading);
     color: var(--text-strong);
-}
-
-/* Section heading together with the first entry (list sections: experience,
-   education, courses, publications). On screen - just a column with the same
-   10px rhythm the section gap had (heading -> content), look unchanged. In
-   print (print.css) it gets break-inside:avoid so the heading does not detach
-   from the first entry. */
-.section-lead {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
 }
 
 /* All content links (contacts/projects/publications) carry the .animated-link
@@ -72,29 +61,6 @@ section {
     transform: scaleX(1);
 }
 
-.copy-text {
-    font-family: var(--font-mono);
-    color: var(--text-muted);
-    position: relative;
-    text-decoration: none;
-    border: 1px solid transparent;
-    border-radius: var(--radius-sm);
-    padding: 1px 2px;
-    transition: border-color var(--transition);
-    cursor: pointer;
-    text-align: left;
-}
-
-.copy-text:hover {
-    border-color: var(--border);
-}
-
-/* Copy succeeded: a brief visual mark (border + color). */
-.copy-text.copied {
-    border-color: var(--border-hover);
-    color: var(--text-emphasis);
-}
-
 strong {
     font-family: var(--font-mono);
 }
@@ -122,12 +88,7 @@ strong {
 .about-info {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-}
-
-.about-info h1 {
-    font-size: var(--fs-name);
-    color: var(--text-strong);
+    gap: var(--space-info-gap);
 }
 
 .about-info .role {
@@ -144,7 +105,7 @@ strong {
 /* summary is a separate paragraph below about-info (outside the flex, wraps the
    photo), so its spacing is set explicitly. */
 .about-container .summary {
-    margin-top: 10px;
+    margin-top: var(--space-block-gap);
     font-style: italic;
     color: var(--text-muted);
 }
@@ -159,12 +120,12 @@ strong {
    width by proportion. Wrapped by the about-info and summary text. */
 .about-photo {
     float: right;
-    margin: 0 0 16px 20px;
+    margin: 0 0 var(--space-photo-margin) 20px;
 }
 
 .about-container img {
     display: block;
-    height: 200px;
+    height: var(--photo-height);
     width: auto;
     border-radius: var(--radius-sm);
 }
@@ -172,7 +133,7 @@ strong {
 /* --- Contacts --- */
 .contact-container {
     display: flex;
-    gap: 24px;
+    gap: var(--space-contact-gap);
     flex-wrap: wrap;
 }
 
@@ -184,7 +145,7 @@ strong {
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: var(--space-contact-item-gap);
 }
 
 /* Label and value on one baseline-aligned line: different sizes (14/12) do not
@@ -192,7 +153,7 @@ strong {
    wraps long URLs. */
 .contact-group li {
     display: flex;
-    gap: 6px;
+    gap: var(--space-contact-item-gap);
     align-items: baseline;
     font-family: var(--font-mono);
     font-size: var(--fs-contact-label);
@@ -203,19 +164,11 @@ strong {
     flex: none;
 }
 
-/* The value is smaller than the label (--fs-contact-value < --fs-contact-label).
-   The link gets the same box (border+padding) as .copy-text so link and button
-   text share the same inset and the pairs line up visually. */
-.contact-group a,
-.contact-group .copy-text {
+/* The value is smaller than the label (--fs-contact-value < --fs-contact-label). */
+.contact-group a {
     font-size: var(--fs-contact-value);
     min-width: 0;
     overflow-wrap: anywhere;
-}
-
-.contact-group a {
-    border: 1px solid transparent;
-    padding: 1px 2px;
 }
 
 .archived {
@@ -227,13 +180,13 @@ strong {
 .skills-container {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--space-block-gap);
 }
 
 .skill-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: var(--space-block-gap);
 }
 
 .skill-list li {
@@ -261,7 +214,7 @@ strong {
 .courses-container {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: var(--space-entry-gap);
 }
 
 /* baseline: the date sits on the title's baseline (h3) instead of riding higher
@@ -272,7 +225,7 @@ strong {
     display: flex;
     flex-direction: row;
     align-items: baseline;
-    gap: 20px;
+    gap: var(--space-entry-internal-gap);
 }
 
 .job-info,
@@ -281,7 +234,22 @@ strong {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: var(--space-info-gap);
+}
+
+/* Company and role on one line, separated by a middle dot (U+00B7, written as a
+   CSS escape to keep the source ASCII). h3/h4 go inline inside the .entry-head
+   box; the box also lets print keep the head together (break-inside: avoid, see
+   print.css). */
+.entry-head h3,
+.entry-head h4 {
+    display: inline;
+}
+
+.entry-head h4::before {
+    content: "\00B7";
+    margin: 0 0.5ch;
+    color: var(--text-subtle);
 }
 
 .job-info h3,
@@ -304,12 +272,12 @@ strong {
 .achievements,
 .publication-links {
     list-style: disc;
-    padding-left: 1.4em;
+    padding-left: var(--space-list-indent);
 }
 
 .achievements li,
 .publication-links li {
-    margin-bottom: 4px;
+    margin-bottom: var(--space-list-item-gap);
 }
 
 .achievements li:last-child,
@@ -344,13 +312,13 @@ strong {
 /* Bulleted list like achievements; the scans note is a small muted line. */
 .awards-list {
     list-style: disc;
-    padding-left: 1.4em;
+    padding-left: var(--space-list-indent);
     color: var(--text-emphasis);
 }
 
 .awards-list li {
     font-size: var(--fs-body-text);
-    margin-bottom: 4px;
+    margin-bottom: var(--space-list-item-gap);
 }
 
 .awards-list li:last-child {
@@ -373,18 +341,18 @@ strong {
     /* columns needs a block container (it does not work on flex). */
     display: block;
     columns: 240px;
-    column-gap: 16px;
+    column-gap: var(--space-card-margin);
 }
 
 .project-card {
     break-inside: avoid;
-    margin-bottom: 16px;
+    margin-bottom: var(--space-card-margin);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
-    padding: 12px;
+    padding: var(--space-card-pad);
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--space-card-gap);
     transition: border-color var(--transition);
 }
 
@@ -396,7 +364,7 @@ strong {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 20px;
+    gap: var(--space-entry-internal-gap);
 }
 
 .project-header h3 {
@@ -425,20 +393,40 @@ strong {
     margin-top: auto;
 }
 
+/* --- Section lead (heading + first entry) --- */
+/* The heading + first entry live in .section-lead so print can keep them on one
+   page (break-inside: avoid, see print.css). To match the original spacing: the
+   section gap becomes the inter-entry gap (first -> second), while .section-lead
+   keeps the heading -> content (block) gap internally. Each such section sets
+   its own inter-entry gap below. */
+.section-lead {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-block-gap);
+}
+
+#publications {
+    gap: var(--space-publication-gap);
+}
+
+#education {
+    gap: var(--space-entry-gap);
+}
+
 /* --- Publications --- */
 .publications {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: var(--space-publication-gap);
 }
 
 .publication-item {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: var(--space-publication-item-gap);
     border: 1px solid transparent;
     border-radius: var(--radius-md);
-    padding: 12px;
+    padding: var(--space-card-pad);
     transition: border-color var(--transition);
 }
 
@@ -509,15 +497,15 @@ strong {
     }
 
     /* "About": photo above the info, no wrapping (float off; on narrow widths
-       wrapping is not needed). */
+        wrapping is not needed). */
     .about-photo {
         float: none;
-        margin: 0 0 16px 0;
+        margin: 0 0 var(--space-photo-margin) 0;
     }
 
     .about-container img {
         height: auto;
-        max-height: 200px;
+        max-height: var(--photo-height);
         max-width: 100%;
     }
 }

@@ -73,6 +73,20 @@ const langLabel = lang === "en" ? "Русский" : "English";
     >
         <span class="material-symbols-outlined" aria-hidden="true">code</span>
     </a>
+    {
+        import.meta.env.DEV && (
+            <a
+                class="dock-button"
+                href={`${base}stylebook`}
+                data-tooltip={t(lang, "stylebook")}
+                aria-label={t(lang, "stylebook")}
+            >
+                <span class="material-symbols-outlined" aria-hidden="true">
+                    color_lens
+                </span>
+            </a>
+        )
+    }
 </nav>
 
 <!-- Theme toggle: flips data-theme on <html>, writes to localStorage. The

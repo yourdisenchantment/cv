@@ -60,7 +60,9 @@
     }
 
     .main > * + * {
-        margin-top: 30px; /* was gap: 30px between sections */
+        margin-top: var(
+            --space-section-gap
+        ); /* was gap: 30px between sections */
     }
 
     section {
@@ -77,39 +79,61 @@
     .experience-container > * + *,
     .education-container > * + *,
     .courses-container > * + * {
-        margin-top: 40px; /* was gap: 40px between entries */
+        margin-top: var(--space-entry-gap); /* was gap: 40px between entries */
     }
 
     .publications > * + * {
-        margin-top: 12px; /* was gap: 12px between publications */
+        margin-top: var(
+            --space-publication-gap
+        ); /* was gap: 12px between publications */
     }
 
-    /* margin-bottom replaces gap:10px inside .section-lead (heading -> first
-       entry). */
+    /* break-after:avoid keeps the heading attached to the next line. ~90%
+        reliable in Chrome print; chosen over the former .section-lead
+        (heading+first-entry break-inside:avoid) which caused large empty
+        gaps when the unbreakable block didn't fit. The margin-bottom
+        replaces the former section gap (heading -> content). */
     .container-heading {
-        margin-bottom: 10px;
+        margin-bottom: var(--space-block-gap);
+        break-after: avoid;
     }
 
-    /* Heading + first entry stay together: Chrome ignores break-after when
-       printing, so the only reliable way to keep the heading attached is a
-       single unbreakable box. A break between .section-lead and the following
-       entries is allowed (the container margin-top keeps the rhythm). */
-    .section-lead {
-        display: block;
-        break-inside: avoid;
-    }
-
-    /* Each entry stays whole (a break between entries is fine, inside is not). */
-    .job-block,
-    .edu-block,
-    .course-block,
-    .project-card,
+    /* Divisibility model: everything may split across pages EXCEPT cards, whose
+       visible box would be cut in half. Only publications and projects are
+       cards. break-inside is the sole cross-engine tool (Blink/Gecko/WebKit);
+       break-after: avoid is ignored by Gecko, so nothing relies on it. */
     .publication-item {
         break-inside: avoid;
+    }
+    /* .project-card already carries break-inside: avoid globally (cv-layout). */
+
+    /* Long experience entries split instead of jumping whole and leaving a
+       half-empty page; the head (company - role on one line) is kept whole. */
+    .entry-head {
+        break-inside: avoid;
+    }
+
+    /* A section heading is glued to its first entry (.section-lead) so it is
+       never orphaned at a page bottom - break-after: avoid does not work in
+       Gecko. The rest of the entries flow freely; the margin restores the
+       first->second gap that pulling the first entry out would otherwise drop. */
+    .section-lead {
+        break-inside: avoid;
+    }
+
+    #publications > .publications {
+        margin-top: var(--space-publication-gap);
+    }
+
+    #education > .education-container {
+        margin-top: var(--space-entry-gap);
     }
 
     /* Skill chips - outlined (border instead of gray fill), saves ink. */
     .skill-list li {
         border: 1px solid var(--border);
     }
+
+    /* Projects are temporarily printed too (to review the full state). To hide
+       them again in print/PDF, restore: #projects { display: none } */
 }

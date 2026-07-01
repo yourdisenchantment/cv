@@ -1,0 +1,717 @@
+---
+// DEV-only stylebook: a single page surfacing every design token and a live
+// sample of each resume section. Excluded from the production build via an
+// empty getStaticPaths in PROD (true exclusion - no HTML in dist). The dock
+// button that links here is DEV-only too, so the page is unreachable in prod.
+//
+// Route: /stylebook (served under base as /cv/stylebook in dev). The original
+// spec asked for /__stylebook, but Astro excludes underscore-prefixed files and
+// directories from routing, so the route must not start with "_".
+import type { Cv } from "../../data/cv/schema";
+import { type Locale } from "../../lib/format";
+import About from "../../components/cv/About.astro";
+import Contacts from "../../components/cv/Contacts.astro";
+import Skills from "../../components/cv/Skills.astro";
+import Experience from "../../components/cv/Experience.astro";
+import Education from "../../components/cv/Education.astro";
+import Awards from "../../components/cv/Awards.astro";
+import Courses from "../../components/cv/Courses.astro";
+import Projects from "../../components/cv/Projects.astro";
+import Publications from "../../components/cv/Publications.astro";
+
+// DEV only: no route generated in the prod build. The rest param [...slug]
+// with slug undefined matches the bare /stylebook path.
+export async function getStaticPaths() {
+    if (import.meta.env.PROD) return [];
+    return [{ params: { slug: undefined } }];
+}
+
+const lang: Locale = "en";
+const base = import.meta.env.BASE_URL;
+
+// Color tokens to swatch (in order: backgrounds, text, borders, marker).
+const colorTokens = [
+    "bg-page",
+    "bg-surface",
+    "bg-muted",
+    "bg-muted-hover",
+    "text-strong",
+    "text-emphasis",
+    "text",
+    "text-muted",
+    "text-subtle",
+    "text-faint",
+    "border",
+    "border-hover",
+    "marker",
+] as const;
+
+// Type scale: the three absolute sizes + every semantic role token mapped to
+// the CSS variable and a human label.
+const scaleRoles: Array<{ token: string; label: string }> = [
+    { token: "--fs-small", label: "scale: small (meta)" },
+    { token: "--fs-body", label: "scale: body" },
+    { token: "--fs-heading", label: "scale: heading" },
+    { token: "--fs-name", label: "role: name" },
+    { token: "--fs-role", label: "role: role" },
+    { token: "--fs-section-heading", label: "role: section-heading" },
+    { token: "--fs-item-title", label: "role: item-title" },
+    { token: "--fs-item-subtitle", label: "role: item-subtitle" },
+    { token: "--fs-publication-title", label: "role: publication-title" },
+    { token: "--fs-body-text", label: "role: body-text" },
+    { token: "--fs-chip", label: "role: chip" },
+    { token: "--fs-date", label: "role: date" },
+    { token: "--fs-meta", label: "role: meta" },
+    { token: "--fs-contact-label", label: "role: contact-label" },
+    { token: "--fs-contact-value", label: "role: contact-value" },
+];
+
+// Spacing scale (absolute) + semantic aliases. Each rendered as a bar whose
+// width is the token value, with the px and the alias label.
+const spaceScale = [
+    { token: "--space-2", label: "space-2" },
+    { token: "--space-3", label: "space-3" },
+    { token: "--space-4", label: "space-4" },
+    { token: "--space-5", label: "space-5" },
+    { token: "--space-6", label: "space-6" },
+    { token: "--space-7", label: "space-7" },
+    { token: "--space-8", label: "space-8" },
+    { token: "--space-9", label: "space-9" },
+    { token: "--space-10", label: "space-10" },
+    { token: "--space-11", label: "space-11" },
+];
+
+const spaceAliases: Array<{ token: string; label: string }> = [
+    { token: "--space-section-gap", label: "section-gap" },
+    { token: "--space-entry-gap", label: "entry-gap" },
+    { token: "--space-block-gap", label: "block-gap" },
+    { token: "--space-publication-gap", label: "publication-gap" },
+    { token: "--space-publication-item-gap", label: "publication-item-gap" },
+    { token: "--space-card-pad", label: "card-pad" },
+    { token: "--space-card-gap", label: "card-gap" },
+    { token: "--space-card-margin", label: "card-margin" },
+    { token: "--space-contact-gap", label: "contact-gap" },
+    { token: "--space-contact-item-gap", label: "contact-item-gap" },
+    { token: "--space-list-item-gap", label: "list-item-gap" },
+    { token: "--space-info-gap", label: "info-gap" },
+    { token: "--space-entry-internal-gap", label: "entry-internal-gap" },
+    { token: "--space-photo-margin", label: "photo-margin" },
+];
+
+// Dummy CV: self-contained sample data so the stylebook does not depend on the
+// real resume content. Covers every section type with minimal but realistic
+// fields (archived contact, honors, department, vkr level/course, project
+// stack, publication kinds/urls).
+const dummyCv: Cv = {
+    meta: { title: "Stylebook", description: "DEV stylebook" },
+    about: {
+        photo: "/images/my-face.jpg",
+        name: "Sample Person",
+        role: "Sample Role, Demo Engineer",
+        birthDate: "2000-01-15",
+        city: "Sample City",
+        summary:
+            "A short summary line to show the .summary style: italic, muted, wrapping under the floated photo.",
+        availability: "Open to remote work",
+    },
+    contacts: [
+        { label: "Email", value: "sample@example.com", group: "contact" },
+        {
+            label: "Telegram",
+            value: "sample",
+            href: "https://t.me/sample",
+            group: "contact",
+        },
+        {
+            label: "OldSite",
+            value: "old.example.com",
+            href: "https://old.example.com",
+            archived: true,
+            group: "contact",
+        },
+        {
+            label: "GitHub",
+            value: "github.com/sample",
+            href: "https://github.com/sample",
+            group: "resource",
+        },
+    ],
+    skills: ["Python", "TypeScript", "PyTorch", "Astro", "Docker"],
+    experience: [
+        {
+            period: { start: "2023-06", end: null },
+            company: "Sample Company",
+            role: "Sample Engineer",
+            achievements: [
+                "Shipped a thing that does X and Y.",
+                "Led a sub-project with measurable outcome Z.",
+            ],
+            skills: ["Python", "Docker"],
+        },
+        {
+            period: { start: "2021-09", end: "2023-05" },
+            company: "Prior Job Inc.",
+            role: "Junior Engineer",
+            achievements: ["Maintained legacy service."],
+            skills: ["TypeScript"],
+        },
+    ],
+    education: [
+        {
+            period: { start: "2018-09", end: "2022-06" },
+            institution: "Sample University",
+            faculty: "Faculty of Applied Math",
+            department: "Department of Something",
+            degree: "Bachelor",
+            honors: "Honors degree",
+        },
+    ],
+    courses: [
+        {
+            period: { start: "2022-03", end: "2022-05" },
+            institution: "Course Provider",
+            course: "Sample Course Title",
+            skills: ["Astro"],
+        },
+    ],
+    achievements: ["First place, Sample Competition (2021)."],
+    projects: [
+        {
+            name: "sample-project",
+            url: "https://github.com/sample/project",
+            description: "A demo project card with a short description line.",
+            stack: ["TypeScript", "Astro"],
+        },
+        {
+            name: "another-project",
+            url: "https://github.com/sample/another",
+        },
+    ],
+    publications: [
+        {
+            kind: "article",
+            title: "Sample Article Title",
+            urls: ["https://doi.org/10.0000/sample"],
+        },
+        {
+            kind: "vkr",
+            title: "Sample Graduation Thesis",
+            level: "master",
+            course: 2,
+            urls: ["https://example.edu/thesis.pdf"],
+        },
+    ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Stylebook (DEV)</title>
+        <!-- Standalone page: no BaseLayout, so import the token + base stacks
+             directly. cv-layout/dock/styles are needed for the section samples
+             and the dock button to render with real classes. -->
+    </head>
+    <body>
+        <main class="stylebook">
+            <header class="sb-header">
+                <h1>Stylebook</h1>
+                <p class="sb-intro">
+                    DEV-only. Every design token and a live sample of each
+                    resume section. Toggle the theme with the dock.
+                </p>
+                <p class="sb-intro">
+                    Route: <code>/stylebook</code> (prod build excludes this page).
+                    Spec asked for
+                    <code>/__stylebook</code>, but Astro skips
+                    underscore-prefixed routes.
+                </p>
+            </header>
+
+            <!-- 1. Palette: two columns, light and dark, side by side. The dark
+                 column is a fixed [data-theme="dark"] scope so both themes are
+                 visible at once regardless of the page theme. -->
+            <section class="sb-block">
+                <h2 class="sb-title">Palette</h2>
+                <div class="sb-palette">
+                    <div class="sb-theme-col">
+                        <h3 class="sb-subtitle">Light</h3>
+                        <ul class="sb-swatches">
+                            {
+                                colorTokens.map((name) => (
+                                    <li class="sb-swatch">
+                                        <span
+                                            class="sb-chip"
+                                            style={`background: var(--${name});`}
+                                        />
+                                        <span class="sb-swatch-label">
+                                            {name}
+                                        </span>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </div>
+                    <div class="sb-theme-col" data-theme="dark">
+                        <h3 class="sb-subtitle">Dark</h3>
+                        <ul class="sb-swatches">
+                            {
+                                colorTokens.map((name) => (
+                                    <li class="sb-swatch">
+                                        <span
+                                            class="sb-chip"
+                                            style={`background: var(--${name});`}
+                                        />
+                                        <span class="sb-swatch-label">
+                                            {name}
+                                        </span>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Typography: scale sizes + role tokens, each shown as a styled
+                 line at its own font-size. -->
+            <section class="sb-block">
+                <h2 class="sb-title">Typography</h2>
+                <ul class="sb-type">
+                    {
+                        scaleRoles.map(({ token, label }) => (
+                            <li class="sb-type-row">
+                                <span
+                                    class="sb-type-sample"
+                                    style={`font-size: var(${token});`}
+                                >
+                                    The quick brown fox 0123
+                                </span>
+                                <span class="sb-type-label">{label}</span>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </section>
+
+            <!-- 3. Spacing: visual bars for the scale (bar width = token value)
+                 plus the semantic aliases list. -->
+            <section class="sb-block">
+                <h2 class="sb-title">Spacing</h2>
+                <h3 class="sb-subtitle">Scale</h3>
+                <ul class="sb-space">
+                    {
+                        spaceScale.map(({ token, label }) => (
+                            <li class="sb-space-row">
+                                <span
+                                    class="sb-space-bar"
+                                    style={`width: var(${token});`}
+                                />
+                                <span class="sb-space-label">
+                                    {label} ({token})
+                                </span>
+                            </li>
+                        ))
+                    }
+                </ul>
+                <h3 class="sb-subtitle">Aliases</h3>
+                <ul class="sb-aliases">
+                    {
+                        spaceAliases.map(({ token, label }) => (
+                            <li>
+                                <code>{token}</code>
+                                <span class="sb-alias-label">{label}</span>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </section>
+
+            <!-- 4. Radius: three boxes at sm/md/lg. -->
+            <section class="sb-block">
+                <h2 class="sb-title">Radius</h2>
+                <div class="sb-radius">
+                    <div
+                        class="sb-radius-box"
+                        style="border-radius: var(--radius-sm);"
+                    >
+                        sm
+                    </div>
+                    <div
+                        class="sb-radius-box"
+                        style="border-radius: var(--radius-md);"
+                    >
+                        md
+                    </div>
+                    <div
+                        class="sb-radius-box"
+                        style="border-radius: var(--radius-lg);"
+                    >
+                        lg
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Transition: three links demonstrating fast/base/slow via a
+                 hover that animates the underline. -->
+            <section class="sb-block">
+                <h2 class="sb-title">Transition</h2>
+                <ul class="sb-transitions">
+                    <li>
+                        <a
+                            class="sb-transition-link"
+                            href="https://example.com/"
+                            style="transition: color var(--transition-fast);"
+                        >
+                            fast (--transition-fast)
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            class="sb-transition-link"
+                            href="https://example.com/"
+                            style="transition: color var(--transition);"
+                        >
+                            base (--transition)
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            class="sb-transition-link"
+                            href="https://example.com/"
+                            style="transition: color var(--transition-slow);"
+                        >
+                            slow (--transition-slow)
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 6. States: animated-link (normal/hover/focus/visited), dock
+                 button, skill chip, project card. -->
+            <section class="sb-block">
+                <h2 class="sb-title">States</h2>
+                <h3 class="sb-subtitle">.animated-link</h3>
+                <p class="sb-states-line">
+                    <a
+                        class="animated-link"
+                        href="https://example.com/"
+                        data-tooltip="tooltip"
+                    >
+                        normal / hover / focus
+                    </a>
+                </p>
+                <h3 class="sb-subtitle">.animated-link (visited)</h3>
+                <p class="sb-states-line">
+                    <a
+                        class="animated-link"
+                        href="https://example.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        example.com/
+                    </a>
+                </p>
+                <h3 class="sb-subtitle">.dock-button</h3>
+                <p class="sb-states-line">
+                    <button class="dock-button" type="button">
+                        <span
+                            class="material-symbols-outlined"
+                            aria-hidden="true">routine</span
+                        >
+                    </button>
+                </p>
+                <h3 class="sb-subtitle">.skill-list li</h3>
+                <ul class="skill-list">
+                    <li>chip</li>
+                    <li>chip-hover</li>
+                </ul>
+                <h3 class="sb-subtitle">.project-card</h3>
+                <div class="sb-project-demo">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3>card</h3>
+                            <a
+                                class="animated-link"
+                                href="https://example.com/"
+                                data-tooltip="open in new tab"
+                            >
+                                Code
+                            </a>
+                        </div>
+                        <p>description line</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. Section samples: each resume section rendered with dummy data
+                 via the real components, wrapped in a .main sheet so layout
+                 tokens (gaps, sheet padding) apply. -->
+            <section class="sb-block">
+                <h2 class="sb-title">Section samples</h2>
+                <div class="wrapper">
+                    <main class="main">
+                        <About lang={lang} about={dummyCv.about} />
+                        <Contacts lang={lang} contacts={dummyCv.contacts} />
+                        <Skills lang={lang} skills={dummyCv.skills} />
+                        <Experience
+                            lang={lang}
+                            experience={dummyCv.experience}
+                        />
+                        <Education lang={lang} education={dummyCv.education} />
+                        <Awards
+                            lang={lang}
+                            achievements={dummyCv.achievements}
+                        />
+                        <Courses lang={lang} courses={dummyCv.courses} />
+                        <Publications
+                            lang={lang}
+                            publications={dummyCv.publications}
+                        />
+                        <Projects lang={lang} projects={dummyCv.projects} />
+                    </main>
+                </div>
+            </section>
+        </main>
+        <!-- Dock (standalone): imports its own CSS above so classes resolve.
+             DEV-only stylebook button is included because this IS the dev
+             page. -->
+        <nav class="dock" aria-label="Resume controls">
+            <a
+                class="dock-button"
+                href={`${base}`}
+                data-tooltip="Back to resume"
+                aria-label="Back to resume"
+            >
+                <span class="material-symbols-outlined" aria-hidden="true"
+                    >home</span
+                >
+            </a>
+        </nav>
+    </body>
+</html>
+
+<style>
+    /* Stylebook-only styles. Scoped under .stylebook so they never leak into
+       the real resume. Inline in the page (dev tool, not src/styles/). */
+    @import "../../styles/reset.css";
+    @import "../../styles/fonts.css";
+    @import "../../styles/variables.css";
+    @import "../../styles/styles.css";
+    @import "../../styles/cv-layout.css";
+    @import "../../styles/dock.css";
+
+    .stylebook {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 32px 24px 120px;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .sb-header h1 {
+        font-size: var(--fs-heading);
+        color: var(--text-strong);
+    }
+
+    .sb-intro {
+        font-size: var(--fs-body-text);
+        color: var(--text-muted);
+        margin-top: 8px;
+    }
+
+    .sb-intro code,
+    .sb-aliases code {
+        font-family: var(--font-mono);
+        font-size: var(--fs-meta);
+        color: var(--text-emphasis);
+    }
+
+    .sb-block {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-block-gap);
+    }
+
+    .sb-title {
+        font-size: var(--fs-section-heading);
+        color: var(--text-strong);
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 8px;
+    }
+
+    .sb-subtitle {
+        font-size: var(--fs-item-title);
+        color: var(--text-muted);
+        margin-top: 8px;
+    }
+
+    /* Palette: two columns. The dark column carries data-theme="dark" so the
+       semantic tokens resolve to dark values inside it. */
+    .sb-palette {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+    }
+
+    .sb-theme-col {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        background-color: var(--bg-surface);
+        color: var(--text);
+    }
+
+    .sb-swatches {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .sb-swatch {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .sb-chip {
+        display: inline-block;
+        width: 48px;
+        height: 24px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        flex: none;
+    }
+
+    .sb-swatch-label {
+        font-family: var(--font-mono);
+        font-size: var(--fs-meta);
+        color: var(--text-muted);
+    }
+
+    /* Typography: one row per token, sample on the left, label on the right. */
+    .sb-type {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .sb-type-row {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        border-bottom: 1px dashed var(--border);
+        padding-bottom: 4px;
+    }
+
+    .sb-type-sample {
+        color: var(--text-strong);
+        flex: 1;
+    }
+
+    .sb-type-label {
+        font-family: var(--font-mono);
+        font-size: var(--fs-meta);
+        color: var(--text-muted);
+        flex: none;
+    }
+
+    /* Spacing: bars whose width equals the token value. */
+    .sb-space {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .sb-space-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .sb-space-bar {
+        display: inline-block;
+        height: 12px;
+        background-color: var(--text-muted);
+        flex: none;
+    }
+
+    .sb-space-label {
+        font-family: var(--font-mono);
+        font-size: var(--fs-meta);
+        color: var(--text-muted);
+    }
+
+    .sb-aliases {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .sb-aliases li {
+        display: flex;
+        gap: 12px;
+        align-items: baseline;
+    }
+
+    .sb-alias-label {
+        font-size: var(--fs-meta);
+        color: var(--text-muted);
+    }
+
+    /* Radius: three demo boxes. */
+    .sb-radius {
+        display: flex;
+        gap: 16px;
+    }
+
+    .sb-radius-box {
+        width: 72px;
+        height: 48px;
+        border: 1px solid var(--border);
+        background-color: var(--bg-muted);
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-mono);
+        font-size: var(--fs-meta);
+    }
+
+    /* Transitions: demo links with a hover color swap. */
+    .sb-transitions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .sb-transition-link {
+        font-family: var(--font-mono);
+        color: var(--text-muted);
+    }
+
+    .sb-transition-link:hover {
+        color: var(--text-emphasis);
+    }
+
+    /* States: helper layout. */
+    .sb-states-line {
+        margin: 4px 0;
+        color: var(--text);
+    }
+
+    .sb-project-demo .project-card {
+        max-width: 280px;
+    }
+
+    /* The section-samples sheet: constrain so the masonry / floats behave. */
+    .sb-block .wrapper {
+        padding: 24px 0;
+    }
+</style>

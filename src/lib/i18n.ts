@@ -15,21 +15,18 @@ type Dict = {
     courses: string;
     projects: string;
     publications: string;
-    awards: string;
-    // awards: note that document originals/scans are available on request
+    achievements: string;
+    // achievements: note that document originals/scans are available on request
     scansOnRequest: string;
     // "About" block labels
     birthDate: string;
     city: string;
     // contacts
     archived: string;
-    // contacts: email copy
-    copyEmail: string;
-    copied: string;
+    // contacts: mailto link tooltip
+    sendEmail: string;
     // external link tooltip (hover)
     openInNewTab: string;
-    // copy button tooltip (hover, before click)
-    copy: string;
     // publications: kind
     kindArticle: string;
     kindThesis: string;
@@ -51,6 +48,10 @@ type Dict = {
     downloadPdf: string;
     print: string;
     sourceCode: string;
+    // dock: stylebook (DEV-only page of design tokens)
+    stylebook: string;
+    // page main heading (visually hidden, for screen readers / outline)
+    resumeTitle: string;
 };
 
 const ui: Record<Locale, Dict> = {
@@ -63,15 +64,13 @@ const ui: Record<Locale, Dict> = {
         courses: "Повышение квалификации",
         projects: "Проекты",
         publications: "Публикации",
-        awards: "Награды",
+        achievements: "Достижения",
         scansOnRequest: "Сканы оригиналов и другие документы - по запросу",
         birthDate: "Дата рождения",
         city: "Город",
         archived: "archived",
-        copyEmail: "Скопировать почту",
-        copied: "Скопировано",
+        sendEmail: "Написать на почту",
         openInNewTab: "Открыть в новой вкладке",
-        copy: "Скопировать",
         kindArticle: "Статья",
         kindThesis: "Тезисы",
         kindPatent: "Патент",
@@ -88,6 +87,8 @@ const ui: Record<Locale, Dict> = {
         downloadPdf: "Скачать PDF",
         print: "Печать",
         sourceCode: "Исходный код резюме",
+        stylebook: "Стилгайд",
+        resumeTitle: "Резюме",
     },
     en: {
         about: "About",
@@ -98,16 +99,14 @@ const ui: Record<Locale, Dict> = {
         courses: "Professional development",
         projects: "Projects",
         publications: "Publications",
-        awards: "Awards",
+        achievements: "Achievements",
         scansOnRequest:
             "Scans of originals and other documents available on request",
         birthDate: "Date of birth",
         city: "City",
         archived: "archived",
-        copyEmail: "Copy email",
-        copied: "Copied",
+        sendEmail: "Send email",
         openInNewTab: "Open in a new tab",
-        copy: "Copy",
         kindArticle: "Article",
         kindThesis: "Conference paper",
         kindPatent: "Patent",
@@ -124,6 +123,8 @@ const ui: Record<Locale, Dict> = {
         downloadPdf: "Download PDF",
         print: "Print",
         sourceCode: "Resume source code",
+        stylebook: "Stylebook",
+        resumeTitle: "Resume",
     },
 };
 

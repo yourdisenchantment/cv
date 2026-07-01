@@ -36,7 +36,7 @@ const grouped = groupOrder
                 <ul class="contact-group">
                     {items.map((c) => (
                         <li>
-                            <strong>{c.label}:</strong>
+                            <strong>{c.label}:</strong>{" "}
                             {c.href ? (
                                 <a
                                     class="animated-link"
@@ -48,15 +48,13 @@ const grouped = groupOrder
                                     {linkHostPath(c.href)}
                                 </a>
                             ) : (
-                                <button
-                                    class="copy-text"
-                                    type="button"
-                                    data-copy={c.value}
-                                    data-tooltip={t(lang, "copy")}
-                                    aria-label={`${t(lang, "copyEmail")}: ${c.value}`}
+                                <a
+                                    class="animated-link"
+                                    href={`mailto:${c.value}`}
+                                    data-tooltip={t(lang, "sendEmail")}
                                 >
                                     {c.value}
-                                </button>
+                                </a>
                             )}
                             {c.archived && (
                                 <span class="archived">
@@ -69,40 +67,4 @@ const grouped = groupOrder
             ))
         }
     </div>
-    <span
-        class="visually-hidden"
-        aria-live="polite"
-        data-copy-status
-        data-copied-text={t(lang, "copied")}></span>
 </section>
-
-<!-- Email copy: .copy-text buttons (contacts without href are always email).
-     Click -> navigator.clipboard, a visual .copied mark, swap the tooltip to
-     "Copied" and announce it in an aria-live region for screen readers. After
-     1.2s everything returns to the initial state. No clipboard API - silent. -->
-<script is:inline>
-    (function () {
-        var buttons = document.querySelectorAll(".copy-text");
-        var status = document.querySelector("[data-copy-status]");
-        if (!buttons.length || !navigator.clipboard) return;
-        var copiedText = status ? status.getAttribute("data-copied-text") : "";
-        buttons.forEach(function (b) {
-            var copyTip = b.getAttribute("data-tooltip");
-            b.addEventListener("click", function () {
-                var value = b.getAttribute("data-copy");
-                navigator.clipboard.writeText(value).then(function () {
-                    b.classList.add("copied");
-                    if (copiedText) b.setAttribute("data-tooltip", copiedText);
-                    if (status && copiedText) {
-                        status.textContent = "";
-                        status.textContent = copiedText;
-                    }
-                    setTimeout(function () {
-                        b.classList.remove("copied");
-                        if (copyTip) b.setAttribute("data-tooltip", copyTip);
-                    }, 1200);
-                });
-            });
-        });
-    })();
-</script>

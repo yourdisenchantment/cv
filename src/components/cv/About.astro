@@ -25,14 +25,17 @@ const photoSrc = import.meta.env.BASE_URL + about.photo.replace(/^\//, "");
             <img alt={`${about.name}, ${about.role}`} src={photoSrc} />
         </span>
         <div class="about-info">
-            <h1 id="about-heading">{about.name}</h1>
+            <h1 class="visually-hidden">{t(lang, "resumeTitle")}</h1>
+            <h2 class="container-heading" id="about-heading">{about.name}</h2>
             <p class="role">{about.role}</p>
             <p>
                 <strong>{t(lang, "birthDate")}:</strong>
+                {" "}
                 {formatBirthDate(about.birthDate, lang)}
             </p>
             <p>
                 <strong>{t(lang, "city")}:</strong>
+                {" "}
                 {about.city}
             </p>
             {
@@ -44,34 +47,3 @@ const photoSrc = import.meta.env.BASE_URL + about.photo.replace(/^\//, "");
         <p class="summary">{about.summary}</p>
     </div>
 </section>
-
-<!-- Easter egg: every 10 clicks on the photo toggle easter <-> original
-     (public/images/easter.png). No cursor:pointer - it stays hidden. Print/PDF
-     (beforeprint) - always the original photo, afterprint restores whatever
-     was shown before printing. -->
-<script is:inline>
-    (function () {
-        var img = document.querySelector("#about .about-container img");
-        if (!img) return;
-        var original = img.src;
-        // Derive the easter path from original (same folder, same base):
-        // only the file name changes. So base need not be passed to the script.
-        var egg = original.replace(/[^/]+$/, "easter.png");
-        var clicks = 0;
-        var onEgg = false; // easter is currently shown
-        img.addEventListener("click", function () {
-            clicks++;
-            if (clicks < 10) return;
-            clicks = 0; // reset: a toggle every 10 clicks
-            onEgg = !onEgg;
-            img.src = onEgg ? egg : original;
-        });
-        // Print and PDF - always the original photo.
-        window.addEventListener("beforeprint", function () {
-            img.src = original;
-        });
-        window.addEventListener("afterprint", function () {
-            img.src = onEgg ? egg : original;
-        });
-    })();
-</script>

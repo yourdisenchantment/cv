@@ -32,7 +32,8 @@ button:focus-visible,
     border-radius: var(--radius-sm);
 }
 
-/* Screen reader: visually hidden but available to AT (aria-live). */
+/* Visually hidden but available to screen readers and the page outline. Used
+   by the h1 page heading (the name is the visible h2 section label). */
 .visually-hidden {
     position: absolute;
     width: 1px;

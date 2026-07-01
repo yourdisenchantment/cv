@@ -2,6 +2,7 @@
 import type { Cv } from "../../data/cv/schema";
 import { type Locale } from "../../lib/format";
 import { t } from "../../lib/i18n";
+import PublicationItem from "./PublicationItem.astro";
 
 interface Props {
     lang: Locale;
@@ -10,83 +11,25 @@ interface Props {
 
 const { lang, publications } = Astro.props;
 
-// kind -> i18n label key. level -> i18n label key (graduation thesis only).
-const kindKey = {
-    article: "kindArticle",
-    thesis: "kindThesis",
-    patent: "kindPatent",
-    vkr: "kindVkr",
-    dataset: "kindDataset",
-    collection: "kindCollection",
-    journal: "kindJournal",
-} as const;
-const levelKey = {
-    bachelor: "levelBachelor",
-    master: "levelMaster",
-} as const;
-
-// Publication label: for a graduation thesis - "ВКР (Магистратура), 2 курс" /
-// "Graduation thesis (Master), Year 2"; otherwise just the kind. The position
-// of the "year" word depends on locale: ru "2 курс", en "Year 2".
-function meta(pub: Cv["publications"][number]): string {
-    const kind = t(lang, kindKey[pub.kind]);
-    if (pub.kind === "vkr" && pub.level) {
-        const level = t(lang, levelKey[pub.level]);
-        const course = pub.course
-            ? lang === "en"
-                ? `, ${t(lang, "course")} ${pub.course}`
-                : `, ${pub.course} ${t(lang, "course")}`
-            : "";
-        return `${kind} (${level})${course}`;
-    }
-    return kind;
-}
-
-// Link text: the full address without the scheme (https://), so in the PDF the
-// link reads in full and identical domains (e.g. elibrary.ru) stay distinct.
-function linkText(url: string): string {
-    return url.replace(/^https?:\/\//, "");
-}
+// The first publication is glued to the heading (.section-lead) so the heading
+// is never orphaned at a page bottom in print; the rest of the list flows after.
+const [first, ...rest] = publications;
 ---
 
 <section aria-labelledby="publications-heading" id="publications">
-    <div class="publications">
-        {
-            publications.map((pub, i) => {
-                const block = (
-                    <div class="publication-item">
-                        <span class="publication-meta">{meta(pub)}</span>
-                        <span class="publication-title">{pub.title}</span>
-                        <ul class="publication-links">
-                            {pub.urls.map((u) => (
-                                <li>
-                                    <a
-                                        class="animated-link"
-                                        href={u}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        data-tooltip={t(lang, "openInNewTab")}
-                                    >
-                                        {linkText(u)}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                );
-                // Heading + first entry in one box (.section-lead) so the
-                // heading does not get orphaned from its content when printing.
-                return i === 0 ? (
-                    <div class="section-lead">
-                        <h2 class="container-heading" id="publications-heading">
-                            {t(lang, "publications")}
-                        </h2>
-                        {block}
-                    </div>
-                ) : (
-                    block
-                );
-            })
-        }
+    <div class="section-lead">
+        <h2 class="container-heading" id="publications-heading">
+            {t(lang, "publications")}
+        </h2>
+        {first && <PublicationItem pub={first} lang={lang} />}
     </div>
+    {
+        rest.length > 0 && (
+            <div class="publications">
+                {rest.map((pub) => (
+                    <PublicationItem pub={pub} lang={lang} />
+                ))}
+            </div>
+        )
+    }
 </section>
