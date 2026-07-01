@@ -115,9 +115,12 @@
 
     /* A section heading is glued to its first entry (.section-lead) so it is
        never orphaned at a page bottom - break-after: avoid does not work in
-       Gecko. The rest of the entries flow freely; the margin restores the
-       first->second gap that pulling the first entry out would otherwise drop. */
+       Gecko. display:block is required: WebKit/Blink honor break-inside only on
+       block boxes, not on the flex container .section-lead uses on screen. The
+       rest of the entries flow freely; the margin restores the first->second gap
+       that pulling the first entry out would otherwise drop. */
     .section-lead {
+        display: block;
         break-inside: avoid;
     }
 
@@ -136,4 +139,11 @@
 
     /* Projects are temporarily printed too (to review the full state). To hide
        them again in print/PDF, restore: #projects { display: none } */
+
+    /* CSS multicol masonry does not survive page fragmentation cross-engine
+       (WebKit overflows the page, Blink collapses to one column mid-flow). Fall
+       back to a single column for print - a clean vertical list of cards. */
+    .projects-container {
+        columns: auto;
+    }
 }
