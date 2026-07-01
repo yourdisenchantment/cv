@@ -2,70 +2,108 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+> Рядом лежит `AGENTS.md` (на английском) с тем же содержанием для других
+> агентов - правь оба файла согласованно при изменениях. Источник истины -
+> исполняемые файлы (`package.json`, `astro.config.mjs`, хуки), а не проза.
+
 ## Проект
 
-Персональное резюме (CV) Павла Михеева. На ветке `dev` идет переписывание статичного HTML/CSS/JS-сайта в Astro. `main` - предыдущая (legacy) версия, оригинал сайта сохранен в ней.
+Персональное резюме (CV) Павла Михеева - статичный сайт на Astro (SSG),
+деплоится на GitHub Pages как project page по адресу `/cv/`. Двуязычный
+(Astro i18n, модель B - `prefixDefaultLocale: false`): английский на `/`,
+русский на `/ru/`. Ветка `main` - деплоится; `dev` - рабочая, **не**
+деплоится. (Исторически `main` хранит и legacy-оригинал статичного сайта.)
 
-- Пакетный менеджер: **bun**. Node `>=22.12.0`.
-- Контент резюме на русском, язык страницы `ru`.
+- Пакетный менеджер: **bun**. Node `>=22.12.0` (`.nvmrc` пинит 26).
+- Контент резюме - JSON на en/ru, валидируется zod-схемой на сборке.
 
 ## Команды
 
 - `bun install` - установка зависимостей.
-- `bun dev` - дев-сервер на `localhost:4321`.
+- `bun dev` - дев-сервер на `localhost:4321/cv/` (учитывай `base`, не `/`).
 - `bun run build` - продакшен-сборка в `./dist/`.
 - `bun run preview` - локальный предпросмотр сборки.
-- `bunx astro check` - проверка типов `.astro`/TS (диагностика шаблонов).
-- `bun run lint` - ESLint (astro + jsx-a11y правила).
-- `bun run format` / `bun run format:check` - Prettier.
+- `bunx astro check` - проверка типов `.astro`/TS (единственный typecheck).
+- `bun run lint` - ESLint (astro + jsx-a11y).
+- `bun run format` / `bun run format:check` - Prettier write / check.
 
-Тестов нет; линтер - ESLint (flat config `eslint.config.mjs`), форматтер -
-Prettier. Проверка типов - `astro check`. Git-хуки (husky + lint-staged):
-`pre-commit` форматирует/линтит staged-файлы, `pre-push` гоняет полный
-`astro check`, `commit-msg` проверяет стиль коммита через commitlint
-(Conventional Commits, конфиг `commitlint.config.mjs`). Коммиты - на английском
-в Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:` и т.п.).
+Тестов нет. Проверять изменения цепочкой: `bun run lint` ->
+`bun run format:check` -> `bunx astro check` -> `bun run build`.
+
+Git-хуки (husky + lint-staged): `pre-commit` - lint-staged (eslint --fix +
+prettier на staged-файлах); `pre-push` - полный `bunx astro check`;
+`commit-msg` - commitlint (Conventional Commits). ESLint игнорирует
+`dist/`, `.astro/`, `node_modules/`, `legacy/`. TS во фронтматтере `.astro`
+парсится `@typescript-eslint/parser`, но **без** type-aware линтинга - типы
+проверяет только `astro check`.
+
+## Архитектура
+
+Контент резюме - `src/data/cv/{en,ru}.json`, валидируется на сборке через
+Astro content collection (`src/content.config.ts` -> zod-схема в
+`src/data/cv/schema.ts`); компоненты получают выведенный тип `Cv`. Страницы
+грузят запись через `getEntry("cv", lang)`:
+
+- `src/pages/index.astro` -> en (корневой роут `/`).
+- `src/pages/ru/index.astro` -> ru (`/ru/`).
+- `src/layouts/BaseLayout.astro` - каркас `html`/`head`, инлайн-скрипты темы
+  (применяется до первой отрисовки) и тултипов; принимает `jsonLd`.
+- `src/components/cv/*` - секции резюме, собираются в `Resume.astro`.
+- `src/components/Dock.astro` - плавающая панель (тема, язык, печать/PDF,
+  исходник; ссылка на stylebook - только в DEV).
+
+Вспомогательное в `src/lib/`:
+
+- `i18n.ts` - плоский словарь UI-строк, доступ через `t(lang, key)`; `t()`
+  падает обратно на `ru`, если значение `en` пустое.
+- `format.ts` - формат дат/ссылок; периоды в `"YYYY-MM"`, `end: null` =
+  "по настоящее время"; дата рождения - `"YYYY-MM-DD"`.
+- `jsonld.ts` - сборка JSON-LD `schema.org/Person` из записи CV + `Astro.site`
+    - `BASE_URL`.
+
+Стили - обычный CSS в `src/styles/` (токены `variables.css`, layout, печать,
+шрифты). `print.css` дает черно-белый A4 независимо от темы. Тема - атрибут
+`data-theme` на `<html>`, хранится в `localStorage`.
+
+**Stylebook** (`src/pages/stylebook/[...slug].astro`) - DEV-only страница с
+токенами и живыми сэмплами секций. Исключается из прод-сборки пустым
+`getStaticPaths()` при `import.meta.env.PROD`. Роут `/stylebook` (не
+`/__stylebook`: Astro выкидывает из роутинга пути с подчеркиванием).
+
+### Важные инварианты
+
+- **Держи оба locale-JSON в одинаковой форме.** `experience`, `education`,
+  `courses` сортируются по дате в коде - порядок записей в JSON не важен.
+- `base: "/cv/"` действует и в dev. `import.meta.env.BASE_URL` отдается ровно
+  как `/cv/` (с конечным слешем) - на это опираются строковые склейки путей
+  (favicon, фото, языковой префикс в `jsonld.ts`). Слеш не убирать.
+
+### legacy/ (референс миграции)
+
+`legacy/` - исходный статичный HTML/CSS/JS-сайт как **локальный** референс
+для миграции: gitignored, в репозиторий не идет (оригинал в `main`). Читать
+при воспроизведении верстки/поведения, но **не** редактировать и не коммитить.
 
 ## Рабочий цикл и коммиты
 
-- Работа идет по этапам ROADMAP.md: берется пункт -> расписывается TASK.md ->
-  выполняется -> под каждой задачей в TASK.md пишется краткий результат.
-- `ROADMAP.md`, `TASK.md`, `overview.txt` - служебные файлы текущей сессии,
-  лежат в `tmp/` (каталог в `.gitignore`, не отслеживается и не пушится). В новой
-  сессии создаются заново; в репозиторий не идут.
-- Коммитишь ты сам; я не коммичу без явного запроса.
-- После каждого завершенного этапа я готовлю коммит: пишу сообщение в файл
-  (по умолчанию `/tmp/cv-commit-msg.txt`) и предлагаю команду
-  `git commit -F /tmp/cv-commit-msg.txt`. Сообщение - английский, Conventional
-  Commits (тип по содержанию: `feat`/`fix`/`chore`/`docs`/...), subject в
-  повелительном наклонении, lowercase, без точки, <=72 символов; тело с
-  буллетами, пустая строка между subject и телом, строки тела <=100 символов.
-- Стиль коммита проверяется хуком `commit-msg` (commitlint), так что невалидное
-  сообщение будет отклонено - поэтому файл, а не `-m` (кавычки многострочного
-  `-m` легко ломаются в шелле).
+- Служебные файлы сессии (`ROADMAP.md`, `TASK.md`, `OVERVIEW.md` и т.п.) лежат
+  в `tmp/` (в `.gitignore`), создаются заново в каждой сессии, в репозиторий
+  не идут.
+- Коммитишь ты сам; агент не запускает мутирующие git-команды - только готовит
+  план. Сообщение пишется в файл и предлагается команда
+  `git commit -F /tmp/cv-commit-msg.txt`.
+- Стиль коммита: английский, Conventional Commits (`feat`/`fix`/`chore`/
+  `docs`/...), subject в повелительном наклонении, lowercase, без точки,
+  `<=72` символов; тело с буллетами, пустая строка после subject, строки тела
+  `<=100`. Использовать **файл**, а не многострочный `-m` (кавычки ломаются в
+  шелле, хук `commit-msg` отклонит невалидное сообщение).
 - Перед коммитом убеждаться, что staged-файлы не пересекаются с `.gitignore`
-  (иначе lint-staged упадет на "paths ignored").
+  (иначе lint-staged падает с "paths ignored"). Версию пакета без явной
+  команды не бампить.
 
-## Структура
+## Деплой
 
-- `src/pages/index.astro` - ru-страница резюме (скелет; контент появится на этапах 2-3).
-- `src/layouts/BaseLayout.astro` - каркас страницы (`html`/`head`/`body`, `<slot />` для контента).
-- `src/components/`, `src/data/` - под компоненты секций (этап 3) и zod-схему/JSON (этап 2).
-- `public/` - статические ассеты (favicon).
-- `astro.config.mjs` - `site` + `i18n` (ru по умолчанию на `/`, en на `/en/`); интеграций нет.
-- `tsconfig.json` - extends `astro/tsconfigs/strict`.
-
-### legacy/ (источник миграции)
-
-Исходный статичный сайт, с которого переносится контент. Хранится локально
-как референс: убран из отслеживания и добавлен в `.gitignore` (в репозиторий не
-идет, оригинал сохранен в `main`). Файлы на диске нужны для чтения при миграции:
-
-- `legacy/index.html` - верстка резюме, темы (`data-theme="light"`), SEO-мета, JSON-LD.
-- `legacy/css/` - `reset.css`, `variables.css` (CSS-переменные тем), `styles.css`, `cv-layout.css`, `print.css` (стили печати).
-- `legacy/js/script.js` - вставка JSON-LD `schema.org/Person`, копирование текста из элементов, переключение темы.
-- `legacy/images/` - изображения резюме.
-
-## Архитектура миграции
-
-Цель - воспроизвести `legacy/` внутри Astro: разнести верстку по `.astro`-компонентам, перенести CSS (переменные тем, печать), сохранить JS-поведение (тема, копирование, JSON-LD) и SEO-мета. Сейчас Astro-проект пустой, поэтому любая задача - это перенос очередного куска из `legacy/` с сохранением внешнего вида и поведения, а не доработка существующих абстракций.
+GitHub Actions (`.github/workflows/deploy.yml`) на push в `main`: через
+`oven-sh/setup-bun@2` (bun пинится) -> `bun install --frozen-lockfile` ->
+`bun run build` -> публикация на Pages. Один раз в настройках репозитория:
+Settings -> Pages -> Source = GitHub Actions.
