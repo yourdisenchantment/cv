@@ -18,14 +18,14 @@ const [first, ...rest] = publications;
 
 <section aria-labelledby="publications-heading" id="publications">
     <div class="section-lead">
-        <h2 class="container-heading" id="publications-heading">
+        <h2 class="section-heading" id="publications-heading">
             {t(lang, "publications")}
         </h2>
         {first && <PublicationItem pub={first} lang={lang} />}
     </div>
     {
         rest.length > 0 && (
-            <div class="publications">
+            <div class="section-body">
                 {rest.map((pub) => (
                     <PublicationItem pub={pub} lang={lang} />
                 ))}

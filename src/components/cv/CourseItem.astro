@@ -1,0 +1,22 @@
+---
+import type { Cv } from "../../data/cv/schema";
+import { formatPeriod, type Locale } from "../../lib/format";
+
+interface Props {
+    lang: Locale;
+    course: Cv["courses"][number];
+}
+
+const { lang, course } = Astro.props;
+---
+
+<div class="course-block">
+    <p class="timestamp">{formatPeriod(course.period, lang)}</p>
+    <div class="course-info">
+        <h3>{course.institution}</h3>
+        <h4>{course.course}</h4>
+        <ul class="skill-list">
+            {course.skills.map((s) => <li>{s}</li>)}
+        </ul>
+    </div>
+</div>

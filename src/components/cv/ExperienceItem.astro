@@ -1,0 +1,27 @@
+---
+import type { Cv } from "../../data/cv/schema";
+import { formatPeriod, type Locale } from "../../lib/format";
+
+interface Props {
+    lang: Locale;
+    job: Cv["experience"][number];
+}
+
+const { lang, job } = Astro.props;
+---
+
+<div class="job-block">
+    <p class="timestamp">{formatPeriod(job.period, lang)}</p>
+    <div class="job-info">
+        <div class="entry-head">
+            <h3>{job.company}</h3>
+            <h4>{job.role}</h4>
+        </div>
+        <ul class="achievements">
+            {job.achievements.map((a) => <li>{a}</li>)}
+        </ul>
+        <ul class="skill-list">
+            {job.skills.map((s) => <li>{s}</li>)}
+        </ul>
+    </div>
+</div>

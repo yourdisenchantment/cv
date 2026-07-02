@@ -1,7 +1,8 @@
 ---
 import type { Cv } from "../../data/cv/schema";
-import { formatPeriod, type Locale } from "../../lib/format";
+import { type Locale } from "../../lib/format";
 import { t } from "../../lib/i18n";
+import CourseItem from "./CourseItem.astro";
 
 interface Props {
     lang: Locale;
@@ -15,28 +16,26 @@ const { lang, courses } = Astro.props;
 const sorted = [...courses].sort((a, b) =>
     b.period.start.localeCompare(a.period.start),
 );
+
+// First entry is glued to the heading (.section-lead) so the heading is not
+// orphaned at a page bottom in print; the rest flow in .section-body.
+const [first, ...rest] = sorted;
 ---
 
 <section aria-labelledby="courses-heading" id="courses">
-    <h2 class="container-heading" id="courses-heading">
-        {t(lang, "courses")}
-    </h2>
-    <div class="courses-container">
-        {
-            sorted.map((c) => (
-                <div class="course-block">
-                    <p class="timestamp">{formatPeriod(c.period, lang)}</p>
-                    <div class="course-info">
-                        <h3>{c.institution}</h3>
-                        <h4>{c.course}</h4>
-                        <ul class="skill-list">
-                            {c.skills.map((s) => (
-                                <li>{s}</li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-            ))
-        }
+    <div class="section-lead">
+        <h2 class="section-heading" id="courses-heading">
+            {t(lang, "courses")}
+        </h2>
+        {first && <CourseItem course={first} lang={lang} />}
     </div>
+    {
+        rest.length > 0 && (
+            <div class="section-body">
+                {rest.map((course) => (
+                    <CourseItem course={course} lang={lang} />
+                ))}
+            </div>
+        )
+    }
 </section>

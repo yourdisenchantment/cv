@@ -24,14 +24,14 @@ const [first, ...rest] = sorted;
 
 <section aria-labelledby="education-heading" id="education">
     <div class="section-lead">
-        <h2 class="container-heading" id="education-heading">
+        <h2 class="section-heading" id="education-heading">
             {t(lang, "education")}
         </h2>
         {first && <EducationItem edu={first} lang={lang} />}
     </div>
     {
         rest.length > 0 && (
-            <div class="education-container">
+            <div class="section-body">
                 {rest.map((edu) => (
                     <EducationItem edu={edu} lang={lang} />
                 ))}

@@ -31,6 +31,14 @@
         color-scheme: light;
     }
 
+    /* Print-only layout token. The screen date column is `flex: 0 0 28ch` on
+       .timestamp; ch is font-relative, so the same length cannot be shared with
+       the info block's margin-left (different font). Express it in px instead:
+       28ch of --fs-date JetBrains Mono (advance width 0.6em). */
+    :root {
+        --print-date-col: calc(28 * 0.6 * var(--fs-date));
+    }
+
     /* height:100% + overflow-x:hidden (the screen rules) clip the print to a
        single page. Reset them so the content breaks across A4 pages. */
     html,
@@ -69,31 +77,22 @@
         display: block;
     }
 
-    .experience-container,
-    .education-container,
-    .courses-container,
-    .publications {
+    .section-body {
         display: block;
     }
 
-    .experience-container > * + *,
-    .education-container > * + *,
-    .courses-container > * + * {
-        margin-top: var(--space-entry-gap); /* was gap: 40px between entries */
+    .section-body > * + * {
+        margin-top: var(--space-entry-gap); /* between entries */
     }
 
-    .publications > * + * {
-        margin-top: var(
-            --space-publication-gap
-        ); /* was gap: 12px between publications */
+    #publications .section-body > * + * {
+        margin-top: var(--space-publication-gap); /* tighter for cards */
     }
 
-    /* break-after:avoid keeps the heading attached to the next line. ~90%
-        reliable in Chrome print; chosen over the former .section-lead
-        (heading+first-entry break-inside:avoid) which caused large empty
-        gaps when the unbreakable block didn't fit. The margin-bottom
-        replaces the former section gap (heading -> content). */
-    .container-heading {
+    /* margin-bottom gives the heading -> content spacing (replaces the screen
+       section gap). break-after: avoid is a harmless hint for Blink/WebKit;
+       Gecko ignores it, so the real glue is .section-lead below. */
+    .section-heading {
         margin-bottom: var(--space-block-gap);
         break-after: avoid;
     }
@@ -101,14 +100,56 @@
     /* Divisibility model: everything may split across pages EXCEPT cards, whose
        visible box would be cut in half. Only publications and projects are
        cards. break-inside is the sole cross-engine tool (Blink/Gecko/WebKit);
-       break-after: avoid is ignored by Gecko, so nothing relies on it. */
+       break-after: avoid is ignored by Gecko, so nothing relies on it. Note:
+       break-inside: avoid is only reliable on BLOCK boxes - WebKit/Blink treat
+       flex containers as monolithic and ignore break-* inside them, so every
+       box that must break or must not break is display: block/flow-root here. */
     .publication-item {
+        display: block;
         break-inside: avoid;
     }
-    /* .project-card already carries break-inside: avoid globally (cv-layout). */
 
-    /* Long experience entries split instead of jumping whole and leaving a
-       half-empty page; the head (company - role on one line) is kept whole. */
+    .publication-item > * + * {
+        margin-top: var(--space-publication-item-gap); /* was flex gap */
+    }
+
+    /* Dated entries (experience/education/courses) are flex rows on screen, and
+       flex boxes do not fragment - a tall entry jumps to the next page whole,
+       leaving a half-empty page. Rebuild the same geometry in block flow: the
+       date floats left in a fixed column, the info block is indented past it.
+       Visually identical, but the entry can now split across pages. flow-root
+       makes the entry contain its float. */
+    .job-block,
+    .edu-block,
+    .course-block {
+        display: flow-root;
+    }
+
+    .timestamp {
+        float: left;
+        width: var(--print-date-col);
+        /* flex aligned the date to the h3 baseline; a float sits on the line
+           top instead. Compensates the 12 vs 14px difference at line-height
+           1.6. Eyeball-tuned - adjust if fonts or sizes change. */
+        margin-top: 2px;
+    }
+
+    .job-info,
+    .edu-info,
+    .course-info {
+        display: block;
+        margin-left: calc(
+            var(--print-date-col) + var(--space-entry-internal-gap)
+        );
+    }
+
+    .job-info > * + *,
+    .edu-info > * + *,
+    .course-info > * + * {
+        margin-top: var(--space-info-gap); /* was flex gap */
+    }
+
+    /* The entry head (company - role on one line) never splits. */
     .entry-head {
         break-inside: avoid;
     }
@@ -124,12 +165,38 @@
         break-inside: avoid;
     }
 
-    #publications > .publications {
-        margin-top: var(--space-publication-gap);
+    /* Experience is the one section with tall entries: gluing the WHOLE first
+       entry to the heading (like the other sections) would drag a half-page
+       block to the next page. Instead only .section-glue (heading + date +
+       company - role) is atomic; the achievements (.job-cont) flow freely right
+       after it and may split. */
+    #experience .section-lead {
+        break-inside: auto;
     }
 
-    #education > .education-container {
+    .section-glue {
+        display: block;
+        break-inside: avoid;
+    }
+
+    .job-cont {
+        margin-top: var(--space-info-gap); /* head -> achievements rhythm */
+    }
+
+    /* The screen-only spacer that fakes the date column in the flex row; block
+       flow indents via margin-left on .job-info instead. */
+    .job-cont::before {
+        content: none;
+    }
+
+    #experience > .section-body,
+    #education > .section-body,
+    #courses > .section-body {
         margin-top: var(--space-entry-gap);
+    }
+
+    #publications > .section-body {
+        margin-top: var(--space-publication-gap);
     }
 
     /* Skill chips - outlined (border instead of gray fill), saves ink. */
@@ -145,5 +212,25 @@
        back to a single column for print - a clean vertical list of cards. */
     .projects-container {
         columns: auto;
+    }
+
+    /* Projects print like publications: a plain single-column list without the
+       card border (a full-width outlined box is just noise on paper). The
+       source link is dropped - its URL is not printed anyway. */
+    .project-card {
+        display: block; /* reliable break-inside: avoid needs a block box */
+        border: none;
+    }
+
+    .project-card > * + * {
+        margin-top: var(--space-card-gap); /* was flex gap */
+    }
+
+    .project-header {
+        display: block;
+    }
+
+    .project-header a {
+        display: none;
     }
 }

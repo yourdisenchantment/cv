@@ -27,44 +27,46 @@ const grouped = groupOrder
 ---
 
 <section aria-labelledby="contacts-heading" id="contacts">
-    <h2 class="container-heading" id="contacts-heading">
-        {t(lang, "contacts")}
-    </h2>
-    <div class="contact-container">
-        {
-            grouped.map(({ items }) => (
-                <ul class="contact-group">
-                    {items.map((c) => (
-                        <li>
-                            <strong>{c.label}:</strong>{" "}
-                            {c.href ? (
-                                <a
-                                    class="animated-link"
-                                    href={c.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    data-tooltip={t(lang, "openInNewTab")}
-                                >
-                                    {linkHostPath(c.href)}
-                                </a>
-                            ) : (
-                                <a
-                                    class="animated-link"
-                                    href={`mailto:${c.value}`}
-                                    data-tooltip={t(lang, "sendEmail")}
-                                >
-                                    {c.value}
-                                </a>
-                            )}
-                            {c.archived && (
-                                <span class="archived">
-                                    ({t(lang, "archived")})
-                                </span>
-                            )}
-                        </li>
-                    ))}
-                </ul>
-            ))
-        }
+    <div class="section-lead">
+        <h2 class="section-heading" id="contacts-heading">
+            {t(lang, "contacts")}
+        </h2>
+        <div class="contact-container">
+            {
+                grouped.map(({ items }) => (
+                    <ul class="contact-group">
+                        {items.map((c) => (
+                            <li>
+                                <strong>{c.label}:</strong>{" "}
+                                {c.href ? (
+                                    <a
+                                        class="animated-link"
+                                        href={c.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        data-tooltip={t(lang, "openInNewTab")}
+                                    >
+                                        {linkHostPath(c.href)}
+                                    </a>
+                                ) : (
+                                    <a
+                                        class="animated-link"
+                                        href={`mailto:${c.value}`}
+                                        data-tooltip={t(lang, "sendEmail")}
+                                    >
+                                        {c.value}
+                                    </a>
+                                )}
+                                {c.archived && (
+                                    <span class="archived">
+                                        ({t(lang, "archived")})
+                                    </span>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                ))
+            }
+        </div>
     </div>
 </section>

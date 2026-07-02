@@ -21,7 +21,7 @@ section {
     gap: var(--space-block-gap);
 }
 
-.container-heading {
+.section-heading {
     width: 100%;
     font-size: var(--fs-section-heading);
     color: var(--text-strong);
@@ -206,12 +206,11 @@ strong {
     background-color: var(--bg-muted-hover);
 }
 
-/* --- Experience / Education / Courses --- */
-/* Three sections with the same structure "date on the side + info block in a
-   column". Shared rules here, specifics (achievements / degree / honors) below. */
-.experience-container,
-.education-container,
-.courses-container {
+/* --- Section body (entries after the lead) --- */
+/* Uniform container for every multi-entry section: a column of entries. The
+   inter-entry gap defaults to the dated-entry rhythm (experience/education/
+   courses); publications override it below. */
+.section-body {
     display: flex;
     flex-direction: column;
     gap: var(--space-entry-gap);
@@ -405,18 +404,43 @@ strong {
     gap: var(--space-block-gap);
 }
 
+/* Experience only: its entries are tall, so print glues just the heading + the
+   first entry's head (.section-glue) and lets the achievements (.job-cont) flow
+   (see print.css). On screen the two rows must read as one entry: the glue keeps
+   the heading -> content gap, the lead's own gap shrinks to the entry-internal
+   rhythm. */
+.section-glue {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-block-gap);
+}
+
+#experience .section-lead {
+    gap: var(--space-info-gap);
+}
+
+/* Fake date column: keeps the continuation row aligned with the head row above
+   (same flex basis as .timestamp, resolved against the same font). */
+.job-cont::before {
+    content: "";
+    font-family: var(--font-mono);
+    font-size: var(--fs-date);
+    flex: 0 0 28ch;
+}
+
+#experience,
+#education,
+#courses {
+    gap: var(--space-entry-gap);
+}
+
 #publications {
     gap: var(--space-publication-gap);
 }
 
-#education {
-    gap: var(--space-entry-gap);
-}
-
 /* --- Publications --- */
-.publications {
-    display: flex;
-    flex-direction: column;
+/* Publications use a tighter inter-entry gap than dated entries. */
+#publications .section-body {
     gap: var(--space-publication-gap);
 }
 
