@@ -12,10 +12,10 @@ const { lang, achievements } = Astro.props;
 ---
 
 <section aria-labelledby="achievements-heading" id="achievements">
-    <div class="section-lead">
-        <h2 class="section-heading" id="achievements-heading">
-            {t(lang, "achievements")}
-        </h2>
+    <h2 class="section-heading" id="achievements-heading">
+        {t(lang, "achievements")}
+    </h2>
+    <div class="section-body">
         <ul class="awards-list">
             {achievements.map((a) => <li>{a}</li>)}
         </ul>

@@ -16,26 +16,13 @@ const { lang, courses } = Astro.props;
 const sorted = [...courses].sort((a, b) =>
     b.period.start.localeCompare(a.period.start),
 );
-
-// First entry is glued to the heading (.section-lead) so the heading is not
-// orphaned at a page bottom in print; the rest flow in .section-body.
-const [first, ...rest] = sorted;
 ---
 
 <section aria-labelledby="courses-heading" id="courses">
-    <div class="section-lead">
-        <h2 class="section-heading" id="courses-heading">
-            {t(lang, "courses")}
-        </h2>
-        {first && <CourseItem course={first} lang={lang} />}
+    <h2 class="section-heading" id="courses-heading">
+        {t(lang, "courses")}
+    </h2>
+    <div class="section-body">
+        {sorted.map((course) => <CourseItem course={course} lang={lang} />)}
     </div>
-    {
-        rest.length > 0 && (
-            <div class="section-body">
-                {rest.map((course) => (
-                    <CourseItem course={course} lang={lang} />
-                ))}
-            </div>
-        )
-    }
 </section>

@@ -15,23 +15,27 @@ const { lang, projects } = Astro.props;
     <h2 class="section-heading" id="projects-heading">
         {t(lang, "projects")}
     </h2>
-    <div class="projects-container">
+    <div class="section-body">
         {
             projects.map((p) => (
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>{p.name}</h3>
+                <article class="project-entry">
+                    <div class="entry-head">
+                        <h3 class="entry-title">{p.name}</h3>
+                        {/* aria-label disambiguates the repeated "Code" link
+                            text (WCAG 2.4.4) and starts with the visible
+                            label (WCAG 2.5.3). */}
                         <a
                             class="animated-link"
                             href={p.url}
                             target="_blank"
                             rel="noopener noreferrer"
+                            aria-label={`${t(lang, "sourceLink")}: ${p.name}`}
                             data-tooltip={t(lang, "openInNewTab")}
                         >
                             {t(lang, "sourceLink")}
                         </a>
                     </div>
-                    {p.description && <p>{p.description}</p>}
+                    {p.description && <p class="entry-text">{p.description}</p>}
                     {p.stack && (
                         <ul class="skill-list">
                             {p.stack.map((s) => (
@@ -39,7 +43,7 @@ const { lang, projects } = Astro.props;
                             ))}
                         </ul>
                     )}
-                </div>
+                </article>
             ))
         }
     </div>

@@ -27,17 +27,19 @@ const grouped = groupOrder
 ---
 
 <section aria-labelledby="contacts-heading" id="contacts">
-    <div class="section-lead">
-        <h2 class="section-heading" id="contacts-heading">
-            {t(lang, "contacts")}
-        </h2>
-        <div class="contact-container">
-            {
-                grouped.map(({ items }) => (
-                    <ul class="contact-group">
-                        {items.map((c) => (
-                            <li>
-                                <strong>{c.label}:</strong>{" "}
+    <h2 class="section-heading" id="contacts-heading">
+        {t(lang, "contacts")}
+    </h2>
+    <!-- <address>: the element for the page author's contact information.
+         Each group is a <dl> of label: value pairs. -->
+    <address class="section-body">
+        {
+            grouped.map(({ items }) => (
+                <dl class="contact-group">
+                    {items.map((c) => (
+                        <div>
+                            <dt>{c.label}:</dt>
+                            <dd>
                                 {c.href ? (
                                     <a
                                         class="animated-link"
@@ -62,11 +64,11 @@ const grouped = groupOrder
                                         ({t(lang, "archived")})
                                     </span>
                                 )}
-                            </li>
-                        ))}
-                    </ul>
-                ))
-            }
-        </div>
-    </div>
+                            </dd>
+                        </div>
+                    ))}
+                </dl>
+            ))
+        }
+    </address>
 </section>

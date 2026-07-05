@@ -114,17 +114,17 @@
     ); /* margin-bottom on bulleted list items */
     --space-info-gap: var(
         --space-2
-    ); /* tight gap inside .about-info / .job-info */
+    ); /* tight gap inside .about-info / .entry-info */
     --space-entry-internal-gap: var(
         --space-8
-    ); /* row gap: timestamp <-> info block */
+    ); /* row gap: entry-period <-> info block */
     --space-photo-margin: var(--space-7); /* about-photo margin-bottom */
 
     /* Photo height: one knob for the portrait size (screen height + mobile
        max-height share it). */
     --photo-height: 200px;
 
-    /* Bulleted list indent (achievements, awards, publication-links) - em
+    /* Bulleted list indent (achievements, awards, entry-links) - em
        based so it scales with font-size. */
     --space-list-indent: 1.4em;
 

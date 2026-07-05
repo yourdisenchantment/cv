@@ -111,7 +111,7 @@ const dummyCv: Cv = {
         birthDate: "2000-01-15",
         city: "Sample City",
         summary:
-            "A short summary line to show the .summary style: italic, muted, wrapping under the floated photo.",
+            "A short summary line to show the .about-summary style: italic, muted, wrapping under the floated photo.",
         availability: "Open to remote work",
     },
     contacts: [
@@ -428,11 +428,11 @@ const dummyCv: Cv = {
                     <li>chip</li>
                     <li>chip-hover</li>
                 </ul>
-                <h3 class="sb-subtitle">.project-card</h3>
+                <h3 class="sb-subtitle">.project-entry</h3>
                 <div class="sb-project-demo">
-                    <div class="project-card">
-                        <div class="project-header">
-                            <h3>card</h3>
+                    <article class="project-entry">
+                        <div class="entry-head">
+                            <h3 class="entry-title">card</h3>
                             <a
                                 class="animated-link"
                                 href="https://example.com/"
@@ -441,8 +441,8 @@ const dummyCv: Cv = {
                                 Code
                             </a>
                         </div>
-                        <p>description line</p>
-                    </div>
+                        <p class="entry-text">description line</p>
+                    </article>
                 </div>
             </section>
 
@@ -706,7 +706,7 @@ const dummyCv: Cv = {
         color: var(--text);
     }
 
-    .sb-project-demo .project-card {
+    .sb-project-demo .project-entry {
         max-width: 280px;
     }
 

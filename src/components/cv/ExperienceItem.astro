@@ -10,13 +10,15 @@ interface Props {
 const { lang, job } = Astro.props;
 ---
 
-<div class="job-block">
-    <p class="timestamp">{formatPeriod(job.period, lang)}</p>
-    <div class="job-info">
-        <div class="entry-head">
-            <h3>{job.company}</h3>
-            <h4>{job.role}</h4>
-        </div>
+<article class="dated-entry">
+    <p class="entry-period">{formatPeriod(job.period, lang)}</p>
+    <div class="entry-info">
+        <!-- hgroup: a heading with its subtitle. The role is a paragraph, not
+             a lower heading - it labels the same entry, not a subsection. -->
+        <hgroup class="entry-head">
+            <h3 class="entry-title">{job.company}</h3>
+            <p class="entry-subtitle">{job.role}</p>
+        </hgroup>
         <ul class="achievements">
             {job.achievements.map((a) => <li>{a}</li>)}
         </ul>
@@ -24,4 +26,4 @@ const { lang, job } = Astro.props;
             {job.skills.map((s) => <li>{s}</li>)}
         </ul>
     </div>
-</div>
+</article>

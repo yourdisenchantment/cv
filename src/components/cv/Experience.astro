@@ -1,6 +1,6 @@
 ---
 import type { Cv } from "../../data/cv/schema";
-import { formatPeriod, type Locale } from "../../lib/format";
+import { type Locale } from "../../lib/format";
 import { t } from "../../lib/i18n";
 import ExperienceItem from "./ExperienceItem.astro";
 
@@ -12,67 +12,17 @@ interface Props {
 const { lang, experience } = Astro.props;
 
 // Most recent job on top: sort by start (YYYY-MM) descending. String sorting
-// of "YYYY-MM" matches chronological order.
+// of "YYYY-MM" matches chronological order. JSON order does not matter.
 const sorted = [...experience].sort((a, b) =>
     b.period.start.localeCompare(a.period.start),
 );
-
-// The first entry is inlined (mirrors ExperienceItem) and split in two rows:
-// .section-glue holds heading + date + company/role so print keeps them on one
-// page, while the achievements (.job-cont) flow freely and may split across
-// pages - gluing the whole tall entry would leave a half-empty page. The rest
-// flow in .section-body as regular items.
-const [first, ...rest] = sorted;
 ---
 
 <section aria-labelledby="experience-heading" id="experience">
-    <div class="section-lead">
-        <div class="section-glue">
-            <h2 class="section-heading" id="experience-heading">
-                {t(lang, "experience")}
-            </h2>
-            {
-                first && (
-                    <div class="job-block">
-                        <p class="timestamp">
-                            {formatPeriod(first.period, lang)}
-                        </p>
-                        <div class="job-info">
-                            <div class="entry-head">
-                                <h3>{first.company}</h3>
-                                <h4>{first.role}</h4>
-                            </div>
-                        </div>
-                    </div>
-                )
-            }
-        </div>
-        {
-            first && (
-                <div class="job-block job-cont">
-                    <div class="job-info">
-                        <ul class="achievements">
-                            {first.achievements.map((a) => (
-                                <li>{a}</li>
-                            ))}
-                        </ul>
-                        <ul class="skill-list">
-                            {first.skills.map((s) => (
-                                <li>{s}</li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-            )
-        }
+    <h2 class="section-heading" id="experience-heading">
+        {t(lang, "experience")}
+    </h2>
+    <div class="section-body">
+        {sorted.map((job) => <ExperienceItem job={job} lang={lang} />)}
     </div>
-    {
-        rest.length > 0 && (
-            <div class="section-body">
-                {rest.map((job) => (
-                    <ExperienceItem job={job} lang={lang} />
-                ))}
-            </div>
-        )
-    }
 </section>

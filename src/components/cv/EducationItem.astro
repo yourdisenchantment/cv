@@ -20,12 +20,12 @@ const degreeLine = edu.honors
     : edu.degree;
 ---
 
-<div class="edu-block">
-    <p class="timestamp">{formatPeriod(edu.period, lang)}</p>
-    <div class="edu-info">
-        <h3>{edu.institution}</h3>
-        <h4>{edu.faculty}</h4>
-        {edu.department && <p class="department">{edu.department}</p>}
-        <p>{degreeLine}</p>
+<article class="dated-entry">
+    <p class="entry-period">{formatPeriod(edu.period, lang)}</p>
+    <div class="entry-info">
+        <h3 class="entry-title">{edu.institution}</h3>
+        <p class="entry-subtitle">{edu.faculty}</p>
+        {edu.department && <p class="entry-note">{edu.department}</p>}
+        <p class="entry-text">{degreeLine}</p>
     </div>
-</div>
+</article>

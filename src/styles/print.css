@@ -1,5 +1,7 @@
-/* Print: the resume as an A4 document. All screen effects are disabled, the
-   sheet prints on white with dark text regardless of theme. Imported last so it
+/* Print: the resume as an A4 document, paginated by the browser's default
+   rules - no break control on purpose (engines disagree; where a page splits
+   is left to them). This layer only sets up the sheet (A4 page, B/W palette,
+   no screen chrome) and strips decoration that wastes ink. Imported last so it
    overrides tokens and layout. */
 @media print {
     /* Real A4 page with margins. The sheet's inner padding (.main padding 2cm)
@@ -31,14 +33,6 @@
         color-scheme: light;
     }
 
-    /* Print-only layout token. The screen date column is `flex: 0 0 28ch` on
-       .timestamp; ch is font-relative, so the same length cannot be shared with
-       the info block's margin-left (different font). Express it in px instead:
-       28ch of --fs-date JetBrains Mono (advance width 0.6em). */
-    :root {
-        --print-date-col: calc(28 * 0.6 * var(--fs-date));
-    }
-
     /* height:100% + overflow-x:hidden (the screen rules) clip the print to a
        single page. Reset them so the content breaks across A4 pages. */
     html,
@@ -54,149 +48,13 @@
         padding: 0;
     }
 
-    /* Block flow for print: Chrome ignores break-* (headings/breaks) under flex
-       fragmentation but honors it in block flow. So containers that must break
-       across pages and hold headings are made block, and gap is replaced with
-       margin between children. @page provides the margins - the sheet drops its
-       inner padding and backdrop. */
+    /* @page provides the margins - the sheet drops its inner padding and
+       backdrop. */
     .main {
-        display: block;
         max-width: none;
         width: 100%;
         padding: 0;
         border-radius: 0;
-    }
-
-    .main > * + * {
-        margin-top: var(
-            --space-section-gap
-        ); /* was gap: 30px between sections */
-    }
-
-    section {
-        display: block;
-    }
-
-    .section-body {
-        display: block;
-    }
-
-    .section-body > * + * {
-        margin-top: var(--space-entry-gap); /* between entries */
-    }
-
-    #publications .section-body > * + * {
-        margin-top: var(--space-publication-gap); /* tighter for cards */
-    }
-
-    /* margin-bottom gives the heading -> content spacing (replaces the screen
-       section gap). break-after: avoid is a harmless hint for Blink/WebKit;
-       Gecko ignores it, so the real glue is .section-lead below. */
-    .section-heading {
-        margin-bottom: var(--space-block-gap);
-        break-after: avoid;
-    }
-
-    /* Divisibility model: everything may split across pages EXCEPT cards, whose
-       visible box would be cut in half. Only publications and projects are
-       cards. break-inside is the sole cross-engine tool (Blink/Gecko/WebKit);
-       break-after: avoid is ignored by Gecko, so nothing relies on it. Note:
-       break-inside: avoid is only reliable on BLOCK boxes - WebKit/Blink treat
-       flex containers as monolithic and ignore break-* inside them, so every
-       box that must break or must not break is display: block/flow-root here. */
-    .publication-item {
-        display: block;
-        break-inside: avoid;
-    }
-
-    .publication-item > * + * {
-        margin-top: var(--space-publication-item-gap); /* was flex gap */
-    }
-
-    /* Dated entries (experience/education/courses) are flex rows on screen, and
-       flex boxes do not fragment - a tall entry jumps to the next page whole,
-       leaving a half-empty page. Rebuild the same geometry in block flow: the
-       date floats left in a fixed column, the info block is indented past it.
-       Visually identical, but the entry can now split across pages. flow-root
-       makes the entry contain its float. */
-    .job-block,
-    .edu-block,
-    .course-block {
-        display: flow-root;
-    }
-
-    .timestamp {
-        float: left;
-        width: var(--print-date-col);
-        /* flex aligned the date to the h3 baseline; a float sits on the line
-           top instead. Compensates the 12 vs 14px difference at line-height
-           1.6. Eyeball-tuned - adjust if fonts or sizes change. */
-        margin-top: 2px;
-    }
-
-    .job-info,
-    .edu-info,
-    .course-info {
-        display: block;
-        margin-left: calc(
-            var(--print-date-col) + var(--space-entry-internal-gap)
-        );
-    }
-
-    .job-info > * + *,
-    .edu-info > * + *,
-    .course-info > * + * {
-        margin-top: var(--space-info-gap); /* was flex gap */
-    }
-
-    /* The entry head (company - role on one line) never splits. */
-    .entry-head {
-        break-inside: avoid;
-    }
-
-    /* A section heading is glued to its first entry (.section-lead) so it is
-       never orphaned at a page bottom - break-after: avoid does not work in
-       Gecko. display:block is required: WebKit/Blink honor break-inside only on
-       block boxes, not on the flex container .section-lead uses on screen. The
-       rest of the entries flow freely; the margin restores the first->second gap
-       that pulling the first entry out would otherwise drop. */
-    .section-lead {
-        display: block;
-        break-inside: avoid;
-    }
-
-    /* Experience is the one section with tall entries: gluing the WHOLE first
-       entry to the heading (like the other sections) would drag a half-page
-       block to the next page. Instead only .section-glue (heading + date +
-       company - role) is atomic; the achievements (.job-cont) flow freely right
-       after it and may split. */
-    #experience .section-lead {
-        break-inside: auto;
-    }
-
-    .section-glue {
-        display: block;
-        break-inside: avoid;
-    }
-
-    .job-cont {
-        margin-top: var(--space-info-gap); /* head -> achievements rhythm */
-    }
-
-    /* The screen-only spacer that fakes the date column in the flex row; block
-       flow indents via margin-left on .job-info instead. */
-    .job-cont::before {
-        content: none;
-    }
-
-    #experience > .section-body,
-    #education > .section-body,
-    #courses > .section-body {
-        margin-top: var(--space-entry-gap);
-    }
-
-    #publications > .section-body {
-        margin-top: var(--space-publication-gap);
     }
 
     /* Skill chips - outlined (border instead of gray fill), saves ink. */
@@ -204,33 +62,20 @@
         border: 1px solid var(--border);
     }
 
-    /* Projects are temporarily printed too (to review the full state). To hide
-       them again in print/PDF, restore: #projects { display: none } */
-
     /* CSS multicol masonry does not survive page fragmentation cross-engine
-       (WebKit overflows the page, Blink collapses to one column mid-flow). Fall
-       back to a single column for print - a clean vertical list of cards. */
-    .projects-container {
+       (WebKit overflows the page, Blink collapses to one column mid-flow).
+       Print projects as a single-column list of borderless cards - a
+       full-width outlined box is just noise on paper. The repository link is
+       dropped: its URL is not printed anyway. */
+    #projects .section-body {
         columns: auto;
     }
 
-    /* Projects print like publications: a plain single-column list without the
-       card border (a full-width outlined box is just noise on paper). The
-       source link is dropped - its URL is not printed anyway. */
-    .project-card {
-        display: block; /* reliable break-inside: avoid needs a block box */
+    .project-entry {
         border: none;
     }
 
-    .project-card > * + * {
-        margin-top: var(--space-card-gap); /* was flex gap */
-    }
-
-    .project-header {
-        display: block;
-    }
-
-    .project-header a {
+    .project-entry .entry-head a {
         display: none;
     }
 }

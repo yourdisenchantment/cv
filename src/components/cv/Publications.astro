@@ -10,26 +10,13 @@ interface Props {
 }
 
 const { lang, publications } = Astro.props;
-
-// The first publication is glued to the heading (.section-lead) so the heading
-// is never orphaned at a page bottom in print; the rest of the list flows after.
-const [first, ...rest] = publications;
 ---
 
 <section aria-labelledby="publications-heading" id="publications">
-    <div class="section-lead">
-        <h2 class="section-heading" id="publications-heading">
-            {t(lang, "publications")}
-        </h2>
-        {first && <PublicationItem pub={first} lang={lang} />}
+    <h2 class="section-heading" id="publications-heading">
+        {t(lang, "publications")}
+    </h2>
+    <div class="section-body">
+        {publications.map((pub) => <PublicationItem pub={pub} lang={lang} />)}
     </div>
-    {
-        rest.length > 0 && (
-            <div class="section-body">
-                {rest.map((pub) => (
-                    <PublicationItem pub={pub} lang={lang} />
-                ))}
-            </div>
-        )
-    }
 </section>

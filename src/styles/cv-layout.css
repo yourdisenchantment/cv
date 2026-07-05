@@ -13,7 +13,10 @@
     align-self: flex-start;
 }
 
-/* --- Common styles --- */
+/* --- Section shell --- */
+/* Every section is the same shell: a .section-heading (h2) and a .section-body
+   with the content. The section gap is the heading -> body rhythm; the body's
+   own layout (entry column, chip row, masonry) is set per section below. */
 section {
     width: 100%;
     display: flex;
@@ -27,6 +30,15 @@ section {
     color: var(--text-strong);
 }
 
+/* Default body: a column of entries with the dated-entry rhythm (experience/
+   education/courses). Sections with another layout override it by id. */
+.section-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-entry-gap);
+}
+
+/* --- Common styles --- */
 /* All content links (contacts/projects/publications) carry the .animated-link
    class, so one selector is enough. */
 .animated-link {
@@ -61,11 +73,7 @@ section {
     transform: scaleX(1);
 }
 
-strong {
-    font-family: var(--font-mono);
-}
-
-.timestamp {
+.entry-period {
     font-family: var(--font-mono);
     font-size: var(--fs-date);
     /* 28ch: fits "Сентябрь 2024 - Сентябрь 2026" (29 chars) with room to spare
@@ -79,16 +87,25 @@ strong {
 /* Photo at the top right (float), about-info and summary wrap around it:
    summary starts right after about-info and hugs the photo corner. flow-root
    creates a BFC so the container contains the float (does not collapse). */
-.about-container {
+#about .section-body {
     display: flow-root;
 }
 
-/* The block's internal rhythm is gap (like the *-info of experience/education),
+/* The block's internal rhythm is gap (like .entry-info of dated entries),
    without margins on the children. */
 .about-info {
     display: flex;
     flex-direction: column;
     gap: var(--space-info-gap);
+}
+
+/* The name looks like a section heading but is a paragraph: the real (hidden)
+   section heading is "About", and a person is not a section title. UA h2 bold
+   is restored by hand. */
+.about-name {
+    font-size: var(--fs-name);
+    font-weight: bold;
+    color: var(--text-strong);
 }
 
 .about-info .role {
@@ -98,22 +115,37 @@ strong {
     color: var(--text-emphasis);
 }
 
-.about-info p {
+/* Label: value facts (birth date, city) as a definition list. dt keeps the
+   old <strong> look (mono); the small flex gap stands in for the text space
+   it replaces. */
+.about-facts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-info-gap);
     color: var(--text-muted);
 }
 
-/* summary is a separate paragraph below about-info (outside the flex, wraps the
-   photo), so its spacing is set explicitly. */
-.about-container .summary {
-    margin-top: var(--space-block-gap);
-    font-style: italic;
-    color: var(--text-muted);
+.about-facts > div {
+    display: flex;
+    gap: var(--space-info-gap);
+}
+
+.about-facts dt {
+    font-family: var(--font-mono);
 }
 
 .availability {
     font-family: var(--font-mono);
     font-size: var(--fs-body-text);
     color: var(--text-emphasis);
+}
+
+/* summary is a separate paragraph below about-info (outside the flex, wraps the
+   photo), so its spacing is set explicitly. */
+.about-summary {
+    margin-top: var(--space-block-gap);
+    font-style: italic;
+    color: var(--text-muted);
 }
 
 /* Photo: float right on the wrapper (which carries the tooltip), fixed height,
@@ -123,7 +155,7 @@ strong {
     margin: 0 0 var(--space-photo-margin) 20px;
 }
 
-.about-container img {
+.about-photo img {
     display: block;
     height: var(--photo-height);
     width: auto;
@@ -131,15 +163,17 @@ strong {
 }
 
 /* --- Contacts --- */
-.contact-container {
-    display: flex;
-    gap: var(--space-contact-gap);
+/* <address> carries the contact semantics; its UA italic is reset. Two groups
+   (contact / resources) side by side; on narrow widths they stack via wrap. */
+#contacts .section-body {
+    flex-direction: row;
     flex-wrap: wrap;
+    gap: var(--space-contact-gap);
+    font-style: normal;
 }
 
-/* Two groups (contact / resources) side by side; on narrow widths they stack
-   via wrap. min-width:0 lets a group shrink. The rhythm between contacts is the
-   group gap (the block's internal concern), without margins on li. */
+/* A group is a <dl> of label: value rows. min-width:0 lets a group shrink. The
+   rhythm between contacts is the group gap (the block's internal concern). */
 .contact-group {
     flex: 1 1 280px;
     min-width: 0;
@@ -149,9 +183,8 @@ strong {
 }
 
 /* Label and value on one baseline-aligned line: different sizes (14/12) do not
-   break alignment. The label does not shrink, the value takes the rest and
-   wraps long URLs. */
-.contact-group li {
+   break alignment. */
+.contact-group > div {
     display: flex;
     gap: var(--space-contact-item-gap);
     align-items: baseline;
@@ -160,8 +193,17 @@ strong {
     color: var(--text-muted);
 }
 
-.contact-group li strong {
+.contact-group dt {
     flex: none;
+}
+
+/* The value cell: link + optional "(archived)" mark. min-width:0 lets it
+   shrink so long URLs wrap instead of overflowing. */
+.contact-group dd {
+    display: flex;
+    gap: var(--space-contact-item-gap);
+    align-items: baseline;
+    min-width: 0;
 }
 
 /* The value is smaller than the label (--fs-contact-value < --fs-contact-label). */
@@ -177,12 +219,6 @@ strong {
 }
 
 /* --- Skills --- */
-.skills-container {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-block-gap);
-}
-
 .skill-list {
     display: flex;
     flex-wrap: wrap;
@@ -206,86 +242,83 @@ strong {
     background-color: var(--bg-muted-hover);
 }
 
-/* --- Section body (entries after the lead) --- */
-/* Uniform container for every multi-entry section: a column of entries. The
-   inter-entry gap defaults to the dated-entry rhythm (experience/education/
-   courses); publications override it below. */
-.section-body {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-entry-gap);
-}
-
-/* baseline: the date sits on the title's baseline (h3) instead of riding higher
-   because of its smaller size. */
-.job-block,
-.edu-block,
-.course-block {
+/* --- Dated entries (experience / education / courses) --- */
+/* One entry: date column on the left, info block on the right. baseline: the
+   date sits on the title's baseline (h3) instead of riding higher because of
+   its smaller size. */
+.dated-entry {
     display: flex;
     flex-direction: row;
     align-items: baseline;
     gap: var(--space-entry-internal-gap);
 }
 
-.job-info,
-.edu-info,
-.course-info {
+.entry-info {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: var(--space-info-gap);
 }
 
-/* Company and role on one line, separated by a middle dot (U+00B7, written as a
-   CSS escape to keep the source ASCII). h3/h4 go inline inside the .entry-head
-   box; the box also lets print keep the head together (break-inside: avoid, see
-   print.css). */
-.entry-head h3,
-.entry-head h4 {
+.entry-title {
+    font-size: var(--fs-item-title);
+    color: var(--text-strong);
+}
+
+/* Subtitle (role / faculty / course name): a paragraph, not a lower heading -
+   it labels the same entry, not a subsection. Bold restores the old h4 look. */
+.entry-subtitle {
+    font-size: var(--fs-item-subtitle);
+    font-weight: bold;
+    color: var(--text-muted);
+}
+
+/* Secondary quiet line (education department): subtitle look, regular weight. */
+.entry-note {
+    font-size: var(--fs-item-subtitle);
+    color: var(--text-muted);
+}
+
+/* Experience: company and role on one line inside hgroup.entry-head, separated
+   by a middle dot (U+00B7, written as a CSS escape to keep the source ASCII). */
+.dated-entry .entry-head .entry-title,
+.dated-entry .entry-head .entry-subtitle {
     display: inline;
 }
 
-.entry-head h4::before {
+.dated-entry .entry-head .entry-subtitle::before {
     content: "\00B7";
     margin: 0 0.5ch;
     color: var(--text-subtle);
 }
 
-.job-info h3,
-.edu-info h3,
-.course-info h3 {
-    font-size: var(--fs-item-title);
-    color: var(--text-strong);
+/* Education: degree line (degree text, with honors appended after a dot). */
+.dated-entry .entry-text {
+    font-size: var(--fs-body-text);
+    color: var(--text-emphasis);
 }
 
-.job-info h4,
-.edu-info h4,
-.course-info h4 {
-    font-size: var(--fs-item-subtitle);
-    color: var(--text-muted);
-}
-
-/* Experience: a bulleted list of achievements (shared style with the
-   publication list). The rhythm between items is margin-bottom (a list, not
-   flex); the rhythm to neighboring blocks is the parent gap. */
+/* Bulleted lists: experience achievements and publication links share the
+   style. The rhythm between items is margin-bottom (a list, not flex); the
+   rhythm to neighboring blocks is the parent gap. */
 .achievements,
-.publication-links {
+.entry-links {
     list-style: disc;
     padding-left: var(--space-list-indent);
 }
 
 .achievements li,
-.publication-links li {
+.entry-links li {
     margin-bottom: var(--space-list-item-gap);
 }
 
 .achievements li:last-child,
-.publication-links li:last-child {
+.entry-links li:last-child {
     margin-bottom: 0;
 }
 
 .achievements li::marker,
-.publication-links li::marker {
+.entry-links li::marker {
     color: var(--marker);
 }
 
@@ -294,21 +327,13 @@ strong {
     color: var(--text-emphasis);
 }
 
-/* Education: degree line (degree text, with honors appended after a period). */
-.edu-info p {
-    font-size: var(--fs-body-text);
-    color: var(--text-emphasis);
-}
-
-/* Department line under the faculty: same look as the faculty (h4) line. The
-   selector outranks `.edu-info p` so it is not styled like the degree. */
-.edu-info .department {
-    font-size: var(--fs-item-subtitle);
-    color: var(--text-muted);
-}
-
 /* --- Awards --- */
-/* Bulleted list like achievements; the scans note is a small muted line. */
+/* Bulleted list like achievements; the scans note is a small muted line. The
+   body keeps the tight heading-block rhythm between list and note. */
+#achievements .section-body {
+    gap: var(--space-block-gap);
+}
+
 .awards-list {
     list-style: disc;
     padding-left: var(--space-list-indent);
@@ -336,14 +361,14 @@ strong {
 /*--- Projects ---*/
 /* Masonry via CSS columns: cards of different heights, without stretching to
    match a neighbor. Order goes column by column, top to bottom. */
-.projects-container {
+#projects .section-body {
     /* columns needs a block container (it does not work on flex). */
     display: block;
     columns: 240px;
     column-gap: var(--space-card-margin);
 }
 
-.project-card {
+.project-entry {
     break-inside: avoid;
     margin-bottom: var(--space-card-margin);
     border: 1px solid var(--border);
@@ -355,24 +380,20 @@ strong {
     transition: border-color var(--transition);
 }
 
-.project-card:hover {
+.project-entry:hover {
     border-color: var(--border-hover);
 }
 
-.project-header {
+.project-entry .entry-head {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     gap: var(--space-entry-internal-gap);
 }
 
-.project-header h3 {
-    font-size: var(--fs-item-title);
-}
-
 /* line-height: normal - a tight line box so "Code" lines up with the heading
    (with body line-height 1.6 the link would sit lower). */
-.project-header a {
+.project-entry .entry-head a {
     font-size: var(--fs-body-text);
     position: relative;
     text-decoration: none;
@@ -381,61 +402,13 @@ strong {
     line-height: normal;
 }
 
-.project-card p {
+.project-entry .entry-text {
     font-size: var(--fs-meta);
     color: var(--text-muted);
 }
 
-.project-card .skill-list {
-    display: flex;
-    flex-wrap: wrap;
+.project-entry .skill-list {
     margin-top: auto;
-}
-
-/* --- Section lead (heading + first entry) --- */
-/* The heading + first entry live in .section-lead so print can keep them on one
-   page (break-inside: avoid, see print.css). To match the original spacing: the
-   section gap becomes the inter-entry gap (first -> second), while .section-lead
-   keeps the heading -> content (block) gap internally. Each such section sets
-   its own inter-entry gap below. */
-.section-lead {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-block-gap);
-}
-
-/* Experience only: its entries are tall, so print glues just the heading + the
-   first entry's head (.section-glue) and lets the achievements (.job-cont) flow
-   (see print.css). On screen the two rows must read as one entry: the glue keeps
-   the heading -> content gap, the lead's own gap shrinks to the entry-internal
-   rhythm. */
-.section-glue {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-block-gap);
-}
-
-#experience .section-lead {
-    gap: var(--space-info-gap);
-}
-
-/* Fake date column: keeps the continuation row aligned with the head row above
-   (same flex basis as .timestamp, resolved against the same font). */
-.job-cont::before {
-    content: "";
-    font-family: var(--font-mono);
-    font-size: var(--fs-date);
-    flex: 0 0 28ch;
-}
-
-#experience,
-#education,
-#courses {
-    gap: var(--space-entry-gap);
-}
-
-#publications {
-    gap: var(--space-publication-gap);
 }
 
 /* --- Publications --- */
@@ -444,7 +417,8 @@ strong {
     gap: var(--space-publication-gap);
 }
 
-.publication-item {
+/* A quiet card: padding reserved, the border appears on hover. */
+.publication-entry {
     display: flex;
     flex-direction: column;
     gap: var(--space-publication-item-gap);
@@ -454,22 +428,25 @@ strong {
     transition: border-color var(--transition);
 }
 
-.publication-item:hover {
+.publication-entry:hover {
     border-color: var(--border);
 }
 
-.publication-meta {
+.entry-meta {
     font-family: var(--font-mono);
     font-size: var(--fs-meta);
     color: var(--text-subtle);
 }
 
-.publication-title {
+/* The title is an h3 for the outline but visually a regular line: UA bold is
+   reset back to the old plain look. */
+.publication-entry .entry-title {
     font-size: var(--fs-publication-title);
+    font-weight: normal;
     color: var(--text);
 }
 
-.publication-links li {
+.entry-links li {
     font-family: var(--font-mono);
     font-size: var(--fs-meta);
     /* A full URL has no spaces: allow breaking anywhere, otherwise a long
@@ -506,16 +483,14 @@ strong {
         padding: 16px;
     }
 
-    /* Experience/education/courses blocks: timestamp above the content, not on
-       the side. In a column baseline is not needed - back to left alignment. */
-    .job-block,
-    .edu-block,
-    .course-block {
+    /* Dated entries: the date above the content, not on the side. In a column
+       baseline is not needed - back to left alignment. */
+    .dated-entry {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    .timestamp {
+    .entry-period {
         flex: 0 0 auto;
         text-align: left;
     }
@@ -527,7 +502,7 @@ strong {
         margin: 0 0 var(--space-photo-margin) 0;
     }
 
-    .about-container img {
+    .about-photo img {
         height: auto;
         max-height: var(--photo-height);
         max-width: 100%;
@@ -535,5 +510,5 @@ strong {
 }
 
 /* --- Print lives in print.css (@media print): B/W on white, @page A4 margins,
-   outline chips, page-break control. The photo wrap (float: right + flow-root)
-   is preserved when printing. --- */
+   outline chips, projects as a plain list. Pagination is the browser's
+   default - no break control. --- */

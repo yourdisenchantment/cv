@@ -16,34 +16,37 @@ const photoSrc = import.meta.env.BASE_URL + about.photo.replace(/^\//, "");
 ---
 
 <section aria-labelledby="about-heading" id="about">
-    <div class="about-container">
-        <span
+    <h1 class="visually-hidden">{t(lang, "resumeTitle")}</h1>
+    <!-- The section label is a hidden "About" heading: the visible name is a
+         person, not a section title, so it stays a styled paragraph. -->
+    <h2 class="visually-hidden" id="about-heading">{t(lang, "about")}</h2>
+    <div class="section-body">
+        <div
             class="about-photo"
             data-tooltip={about.name}
             data-tooltip-pos="bottom"
         >
             <img alt={`${about.name}, ${about.role}`} src={photoSrc} />
-        </span>
+        </div>
         <div class="about-info">
-            <h1 class="visually-hidden">{t(lang, "resumeTitle")}</h1>
-            <h2 class="section-heading" id="about-heading">{about.name}</h2>
+            <p class="about-name">{about.name}</p>
             <p class="role">{about.role}</p>
-            <p>
-                <strong>{t(lang, "birthDate")}:</strong>
-                {" "}
-                {formatBirthDate(about.birthDate, lang)}
-            </p>
-            <p>
-                <strong>{t(lang, "city")}:</strong>
-                {" "}
-                {about.city}
-            </p>
+            <dl class="about-facts">
+                <div>
+                    <dt>{t(lang, "birthDate")}:</dt>
+                    <dd>{formatBirthDate(about.birthDate, lang)}</dd>
+                </div>
+                <div>
+                    <dt>{t(lang, "city")}:</dt>
+                    <dd>{about.city}</dd>
+                </div>
+            </dl>
             {
                 about.availability && (
                     <p class="availability">{about.availability}</p>
                 )
             }
         </div>
-        <p class="summary">{about.summary}</p>
+        <p class="about-summary">{about.summary}</p>
     </div>
 </section>

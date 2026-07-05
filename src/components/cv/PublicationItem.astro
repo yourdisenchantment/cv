@@ -49,10 +49,10 @@ function linkText(url: string): string {
 }
 ---
 
-<div class="publication-item">
-    <span class="publication-meta">{meta(pub)}</span>
-    <span class="publication-title">{pub.title}</span>
-    <ul class="publication-links">
+<article class="publication-entry">
+    <p class="entry-meta">{meta(pub)}</p>
+    <h3 class="entry-title">{pub.title}</h3>
+    <ul class="entry-links">
         {
             pub.urls.map((u) => (
                 <li>
@@ -69,4 +69,4 @@ function linkText(url: string): string {
             ))
         }
     </ul>
-</div>
+</article>
