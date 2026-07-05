@@ -1,8 +1,9 @@
 /* Print: the resume as an A4 document, paginated by the browser's default
-   rules - no break control on purpose (engines disagree; where a page splits
-   is left to them). This layer only sets up the sheet (A4 page, B/W palette,
-   no screen chrome) and strips decoration that wastes ink. Imported last so it
-   overrides tokens and layout. */
+   rules - no break control on purpose (where a page splits is left to the
+   engine). This layer sets up the sheet (A4 page, B/W palette, no screen
+   chrome), strips decoration that wastes ink, and switches page-spanning
+   containers to block flow (see below). Imported last so it overrides tokens
+   and layout. */
 @media print {
     /* Real A4 page with margins. The sheet's inner padding (.main padding 2cm)
        is removed when printing - otherwise margins would double. */
@@ -48,13 +49,54 @@
         padding: 0;
     }
 
-    /* @page provides the margins - the sheet drops its inner padding and
-       backdrop. */
+    /* Block flow for every container that spans page breaks. WebKit cannot
+       fragment flex containers: it slices line boxes in half at the page edge
+       and drops content past the overflow (Blink/Gecko fragment flex fine).
+       Leaf flex boxes (entries, chip rows) are left as is - they fit within a
+       page and at worst move to the next one whole. gap does not apply to
+       block flow, so it is replaced with margins between children. */
     .main {
+        display: block;
         max-width: none;
         width: 100%;
+        /* @page provides the margins - the sheet drops its inner padding and
+           backdrop. */
         padding: 0;
         border-radius: 0;
+    }
+
+    .main > * + * {
+        margin-top: var(--space-section-gap);
+    }
+
+    section {
+        display: block;
+    }
+
+    .section-heading {
+        margin-bottom: var(--space-block-gap);
+    }
+
+    .section-body {
+        display: block;
+    }
+
+    .section-body > * + * {
+        margin-top: var(--space-entry-gap);
+    }
+
+    #publications .section-body > * + * {
+        margin-top: var(--space-publication-gap);
+    }
+
+    #achievements .section-body > * + * {
+        margin-top: var(--space-block-gap);
+    }
+
+    /* Contacts keep the two groups side by side: the block is short, fits
+       within a page, so flex is safe here. */
+    #contacts .section-body {
+        display: flex;
     }
 
     /* Skill chips - outlined (border instead of gray fill), saves ink. */
@@ -69,6 +111,12 @@
        dropped: its URL is not printed anyway. */
     #projects .section-body {
         columns: auto;
+    }
+
+    /* Cards carry their own margin-bottom (masonry rhythm) - the generic
+       inter-entry margin would double the spacing. */
+    #projects .section-body > * + * {
+        margin-top: 0;
     }
 
     .project-entry {

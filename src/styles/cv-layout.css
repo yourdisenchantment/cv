@@ -43,7 +43,8 @@ section {
    class, so one selector is enough. */
 .animated-link {
     font-family: var(--font-mono);
-    color: var(--text-muted);
+    /* Near-black: links are content that gets read; hover goes full black. */
+    color: var(--text);
     position: relative;
     text-decoration: none;
     transition: color var(--transition-fast);
@@ -56,7 +57,7 @@ section {
     content: "";
     display: block;
     height: 1px;
-    background-color: var(--text-subtle);
+    background-color: var(--text-muted);
     width: 100%;
     position: absolute;
     left: 0;
@@ -66,7 +67,7 @@ section {
 }
 
 .animated-link:hover {
-    color: var(--text-emphasis);
+    color: var(--text-strong);
 }
 
 .animated-link:hover::after {
@@ -112,17 +113,16 @@ section {
     font-size: var(--fs-role);
     font-family: var(--font-mono);
     font-style: italic;
-    color: var(--text-emphasis);
+    color: var(--text-strong);
 }
 
-/* Label: value facts (birth date, city) as a definition list. dt keeps the
-   old <strong> look (mono); the small flex gap stands in for the text space
-   it replaces. */
+/* Label: value facts (birth date, city) as a definition list. Black like the
+   rest of the readable text; dt keeps the old <strong> look (mono). The small
+   flex gap stands in for the text space it replaces. */
 .about-facts {
     display: flex;
     flex-direction: column;
     gap: var(--space-info-gap);
-    color: var(--text-muted);
 }
 
 .about-facts > div {
@@ -137,7 +137,7 @@ section {
 .availability {
     font-family: var(--font-mono);
     font-size: var(--fs-body-text);
-    color: var(--text-emphasis);
+    color: var(--text-strong);
 }
 
 /* summary is a separate paragraph below about-info (outside the flex, wraps the
@@ -145,7 +145,7 @@ section {
 .about-summary {
     margin-top: var(--space-block-gap);
     font-style: italic;
-    color: var(--text-muted);
+    color: var(--text-strong);
 }
 
 /* Photo: float right on the wrapper (which carries the tooltip), fixed height,
@@ -190,7 +190,7 @@ section {
     align-items: baseline;
     font-family: var(--font-mono);
     font-size: var(--fs-contact-label);
-    color: var(--text-muted);
+    color: var(--text-strong);
 }
 
 .contact-group dt {
@@ -215,7 +215,7 @@ section {
 
 .archived {
     font-size: var(--fs-meta);
-    color: var(--text-faint);
+    color: var(--text-muted);
 }
 
 /* --- Skills --- */
@@ -289,13 +289,13 @@ section {
 .dated-entry .entry-head .entry-subtitle::before {
     content: "\00B7";
     margin: 0 0.5ch;
-    color: var(--text-subtle);
+    color: var(--text-muted);
 }
 
 /* Education: degree line (degree text, with honors appended after a dot). */
 .dated-entry .entry-text {
     font-size: var(--fs-body-text);
-    color: var(--text-emphasis);
+    color: var(--text-strong);
 }
 
 /* Bulleted lists: experience achievements and publication links share the
@@ -324,7 +324,7 @@ section {
 
 .achievements li {
     font-size: var(--fs-body-text);
-    color: var(--text-emphasis);
+    color: var(--text-strong);
 }
 
 /* --- Awards --- */
@@ -337,7 +337,7 @@ section {
 .awards-list {
     list-style: disc;
     padding-left: var(--space-list-indent);
-    color: var(--text-emphasis);
+    color: var(--text-strong);
 }
 
 .awards-list li {
@@ -355,7 +355,7 @@ section {
 
 .scans-note {
     font-size: var(--fs-meta);
-    color: var(--text-faint);
+    color: var(--text-muted);
 }
 
 /*--- Projects ---*/
@@ -404,7 +404,7 @@ section {
 
 .project-entry .entry-text {
     font-size: var(--fs-meta);
-    color: var(--text-muted);
+    color: var(--text-strong);
 }
 
 .project-entry .skill-list {
@@ -435,7 +435,7 @@ section {
 .entry-meta {
     font-family: var(--font-mono);
     font-size: var(--fs-meta);
-    color: var(--text-subtle);
+    color: var(--text-muted);
 }
 
 /* The title is an h3 for the outline but visually a regular line: UA bold is
@@ -443,7 +443,7 @@ section {
 .publication-entry .entry-title {
     font-size: var(--fs-publication-title);
     font-weight: normal;
-    color: var(--text);
+    color: var(--text-strong);
 }
 
 .entry-links li {
