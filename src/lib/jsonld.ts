@@ -5,13 +5,16 @@ import type { Locale } from "./format";
 
 // Builds the Person object for the markup. site - Astro.site (origin), base -
 // import.meta.env.BASE_URL ("/cv/"). root = origin+base (e.g. .../cv/); url
-// follows model B (en at root, ru at root+"ru/"). sameAs - external profiles
-// (contacts with href), excluding lost ones (archived).
+// follows model B (en at root, ru at root+"ru/"). imagePath - the optimized
+// photo URL from astro:assets (already includes base), absolutized against
+// site. sameAs - external profiles (contacts with href), excluding lost ones
+// (archived).
 export function personSchema(
     data: Cv,
     lang: Locale,
     site: URL | undefined,
     base: string,
+    imagePath: string,
 ) {
     const root = site ? new URL(base, site).href.replace(/\/?$/, "/") : base;
     const url = lang === "en" ? root : `${root}${lang}/`;
@@ -25,7 +28,7 @@ export function personSchema(
         name: data.about.name,
         jobTitle: data.about.role,
         url,
-        image: `${root}${data.about.photo.replace(/^\//, "")}`,
+        image: site ? new URL(imagePath, site).href : imagePath,
         sameAs,
     };
 }

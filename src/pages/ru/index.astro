@@ -1,7 +1,9 @@
 ---
+import { getImage } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Resume from "../../components/cv/Resume.astro";
 import { personSchema } from "../../lib/jsonld";
+import { photoMeta } from "../../lib/photo";
 import { getEntry } from "astro:content";
 
 // Russian version - '/ru/' route (model B: en by default at '/', ru manual).
@@ -9,11 +11,22 @@ const lang = "ru";
 const cv = await getEntry("cv", lang);
 if (!cv) throw new Error(`CV entry '${lang}' not found in collection 'cv'`);
 
+// JSON-LD points at the same optimized asset the visible <Image> uses
+// (webp, 2x of the 200px display height).
+const photoUrl = (
+    await getImage({
+        src: photoMeta(cv.data.about.photo),
+        format: "webp",
+        height: 400,
+    })
+).src;
+
 const jsonLd = personSchema(
     cv.data,
     lang,
     Astro.site,
     import.meta.env.BASE_URL,
+    photoUrl,
 );
 ---
 

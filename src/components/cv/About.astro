@@ -1,7 +1,9 @@
 ---
+import { Image } from "astro:assets";
 import type { Cv } from "../../data/cv/schema";
 import { formatBirthDate, type Locale } from "../../lib/format";
 import { t } from "../../lib/i18n";
+import { photoMeta } from "../../lib/photo";
 
 interface Props {
     lang: Locale;
@@ -10,9 +12,9 @@ interface Props {
 
 const { lang, about } = Astro.props;
 
-// The photo lives in public/ (about.photo - "/images/..."); under base it
-// needs a prefix: BASE_URL ("/cv/") + the path without a leading slash.
-const photoSrc = import.meta.env.BASE_URL + about.photo.replace(/^\//, "");
+// The photo is an src/assets asset optimized by astro:assets: webp, 1x/2x
+// variants for the fixed CSS height (--photo-height), hashed URL under base.
+const photo = photoMeta(about.photo);
 ---
 
 <section aria-labelledby="about-heading" id="about">
@@ -26,7 +28,14 @@ const photoSrc = import.meta.env.BASE_URL + about.photo.replace(/^\//, "");
             data-tooltip={about.name}
             data-tooltip-pos="bottom"
         >
-            <img alt={`${about.name}, ${about.role}`} src={photoSrc} />
+            <Image
+                alt={`${about.name}, ${about.role}`}
+                src={photo}
+                height={200}
+                densities={[1, 2]}
+                format="webp"
+                loading="eager"
+            />
         </div>
         <div class="about-info">
             <p class="about-name">{about.name}</p>

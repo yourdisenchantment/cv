@@ -14,7 +14,7 @@ const meta = z.object({
 });
 
 const about = z.object({
-    photo: z.string(), // path in public/, e.g. "/images/my-face.jpg"
+    photo: z.string(), // path under src/assets/, e.g. "/images/my-face.jpg"
     name: z.string(),
     role: z.string(),
     birthDate: z.string(), // ISO "YYYY-MM-DD"
