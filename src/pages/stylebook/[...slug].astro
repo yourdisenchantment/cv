@@ -7,6 +7,15 @@
 // Route: /stylebook (served under base as /cv/stylebook in dev). The original
 // spec asked for /__stylebook, but Astro excludes underscore-prefixed files and
 // directories from routing, so the route must not start with "_".
+// Global style stacks as JS imports, not CSS @import in the <style> block:
+// Vite then rewrites the font url()s against the bundle (hashed assets under
+// base) and does not emit a duplicate dead CSS chunk for the page.
+import "../../styles/reset.css";
+import "../../styles/fonts.css";
+import "../../styles/variables.css";
+import "../../styles/styles.css";
+import "../../styles/cv-layout.css";
+import "../../styles/dock.css";
 import type { Cv } from "../../data/cv/schema";
 import { type Locale } from "../../lib/format";
 import About from "../../components/cv/About.astro";
@@ -36,11 +45,8 @@ const colorTokens = [
     "bg-muted",
     "bg-muted-hover",
     "text-strong",
-    "text-emphasis",
     "text",
     "text-muted",
-    "text-subtle",
-    "text-faint",
     "border",
     "border-hover",
     "marker",
@@ -209,10 +215,13 @@ const dummyCv: Cv = {
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+        <link rel="icon" href={`${base}favicon.ico`} />
         <title>Stylebook (DEV)</title>
-        <!-- Standalone page: no BaseLayout, so import the token + base stacks
-             directly. cv-layout/dock/styles are needed for the section samples
-             and the dock button to render with real classes. -->
+        <!-- Standalone page: no BaseLayout - the token + base stacks are
+             JS-imported in the frontmatter. cv-layout/dock/styles are needed
+             for the section samples and the dock button to render with real
+             classes. -->
     </head>
     <body>
         <main class="stylebook">
@@ -446,7 +455,37 @@ const dummyCv: Cv = {
                 </div>
             </section>
 
-            <!-- 7. Section samples: each resume section rendered with dummy data
+            <!-- 7. Text patterns: the two recurring text constructs with real
+                 classes - a "label: value" row (about facts / contacts) and
+                 the dot-separated lines (entry-head, degree + honors). -->
+            <section class="sb-block">
+                <h2 class="sb-title">Text patterns</h2>
+                <h3 class="sb-subtitle">
+                    label: value (.about-facts / .contact-group)
+                </h3>
+                <dl class="about-facts">
+                    <div>
+                        <dt>Label:</dt>
+                        <dd>Value in black</dd>
+                    </div>
+                </dl>
+                <h3 class="sb-subtitle">
+                    dot separators (.entry-head / .entry-honors)
+                </h3>
+                <article class="dated-entry">
+                    <div class="entry-info">
+                        <hgroup class="entry-head">
+                            <h3 class="entry-title">Title</h3>
+                            <p class="entry-subtitle">Subtitle</p>
+                        </hgroup>
+                        <p class="entry-text">
+                            Degree<span class="entry-honors">Honors</span>
+                        </p>
+                    </div>
+                </article>
+            </section>
+
+            <!-- 8. Section samples: each resume section rendered with dummy data
                  via the real components, wrapped in a .main sheet so layout
                  tokens (gaps, sheet padding) apply. -->
             <section class="sb-block">
@@ -494,15 +533,9 @@ const dummyCv: Cv = {
 </html>
 
 <style>
-    /* Stylebook-only styles. Scoped under .stylebook so they never leak into
-       the real resume. Inline in the page (dev tool, not src/styles/). */
-    @import "../../styles/reset.css";
-    @import "../../styles/fonts.css";
-    @import "../../styles/variables.css";
-    @import "../../styles/styles.css";
-    @import "../../styles/cv-layout.css";
-    @import "../../styles/dock.css";
-
+    /* Stylebook-only styles (the global stacks are JS-imported in the
+       frontmatter). Astro-scoped, so they never leak into the real resume.
+       Inline in the page (dev tool, not src/styles/). */
     .stylebook {
         max-width: 920px;
         margin: 0 auto;
@@ -527,7 +560,7 @@ const dummyCv: Cv = {
     .sb-aliases code {
         font-family: var(--font-mono);
         font-size: var(--fs-meta);
-        color: var(--text-emphasis);
+        color: var(--text-strong);
     }
 
     .sb-block {
@@ -697,7 +730,7 @@ const dummyCv: Cv = {
     }
 
     .sb-transition-link:hover {
-        color: var(--text-emphasis);
+        color: var(--text-strong);
     }
 
     /* States: helper layout. */
