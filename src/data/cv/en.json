@@ -14,6 +14,12 @@
     },
     "contacts": [
         {
+            "label": "Site",
+            "value": "yourdisenchantment.github.io/cv",
+            "href": "https://yourdisenchantment.github.io/cv",
+            "group": "contact"
+        },
+        {
             "label": "Email",
             "value": "pavel.mikheyev.611@gmail.com",
             "group": "contact"
@@ -22,12 +28,6 @@
             "label": "Telegram",
             "value": "yourdisenchantment",
             "href": "https://t.me/yourdisenchantment",
-            "group": "contact"
-        },
-        {
-            "label": "Site",
-            "value": "yourdisenchantment.github.io/cv",
-            "href": "https://yourdisenchantment.github.io/cv",
             "group": "contact"
         },
         {
@@ -74,15 +74,26 @@
                 "end": "2026-02"
             },
             "company": "Thrive.io",
-            "role": "Fullstack Developer",
+            "role": "Full-Stack Developer",
             "achievements": [
                 "Independently led two internal projects in parallel with my master's studies",
-                "Real estate listings aggregator: parser and processing of 300k+ listings (~100 fields -> a 50-column table), location hierarchy, recommendations, split into archive/old/active/new to track price dynamics, served via FastAPI",
-                "Initiated the migration from Pandas to Polars due to memory and speed limits on large tables",
-                "End-to-end SAM 3D Body pipeline: dissecting the model, extracting joints, switching the skeleton to quaternions, adapting it to video, building a Gradio interface",
-                "Desktop viewer for SAM 3D Body results on Rerun and PySide (skeleton and mesh projection; shown to investors, used by the team)"
+                "Real estate aggregator: parsing and processing of 300k+ listings, location hierarchy, recommendations, served via FastAPI",
+                "Initiated the migration from Pandas to Polars (memory and speed on large tables)",
+                "End-to-end SAM 3D Body pipeline: from dissecting the model to video adaptation and a Gradio interface",
+                "Desktop viewer for SAM 3D Body results on Rerun and PySide; shown to investors, used by the team"
             ],
-            "skills": ["Rerun", "PySide", "Gradio"]
+            "skills": [
+                "Python",
+                "Polars",
+                "Pandas",
+                "FastAPI",
+                "PyTorch",
+                "Rerun",
+                "PySide",
+                "Gradio",
+                "Git",
+                "Linux"
+            ]
         },
         {
             "period": {
@@ -92,11 +103,11 @@
             "company": "Thrive.io",
             "role": "Intern",
             "achievements": [
-                "Merged real estate listings from two sources (~200k) by building ID and title similarity",
-                "Location hierarchy and its reconciliation across sources for autocomplete and recommendations of similar listings",
+                "Merged listings from two sources (~200k) by building ID and title similarity",
+                "Location hierarchy and its reconciliation across sources for autocomplete and recommendations",
                 "Filtering, parsing, and analysis of dataframes in Pandas (project was sold)"
             ],
-            "skills": []
+            "skills": ["Python", "Pandas", "FastAPI", "Git"]
         },
         {
             "period": {
@@ -107,10 +118,17 @@
             "role": "Intern",
             "achievements": [
                 "Thesis project: research on image alt-text generation, training VisualBERT on Conceptual Captions (3.3M pairs)",
-                "Given weak results - trained ResNet50 separately and reassembled it with BERT, experimented with GPT-2 as a decoder",
-                "Comparative analysis of approaches: Gemini 2.5 Pro/Flash versus Cloud Vision + the text part of Gemini"
+                "Architecture experiments: ResNet50 + BERT, GPT-2 as a decoder",
+                "Comparative analysis of approaches built on Gemini and Cloud Vision"
             ],
-            "skills": []
+            "skills": [
+                "Python",
+                "PyTorch",
+                "Transformers",
+                "Datasets",
+                "ResNet",
+                "Hugging Face"
+            ]
         },
         {
             "period": {
@@ -120,10 +138,10 @@
             "company": "Voda Kryma",
             "role": "Intern",
             "achievements": [
-                "Editing the corporate map of Simferopol on Yandex Maps (in a pair): infrastructure objects - schools, kindergartens, hospitals",
-                "Tried the Yandex Maps API and a Python script for annotation; labeled part of the data manually"
+                "Editing the corporate map of Simferopol on Yandex Maps: infrastructure objects",
+                "Annotation via the Yandex Maps API and a Python script, partly by hand"
             ],
-            "skills": ["JavaScript", "Yandex Maps API"]
+            "skills": ["Python", "JavaScript", "Yandex Maps API"]
         }
     ],
     "education": [
@@ -175,24 +193,34 @@
             "name": "Intelliant",
             "url": "https://github.com/yourdisenchantment/intelliant",
             "description": "An original ant-colony clustering algorithm: a KNN graph over embeddings, search for dense semantic cores. Numba and sparse matrices, published on PyPI, 56 tests. The basis of my master's thesis and planned PhD work.",
-            "stack": ["Numba"]
+            "stack": ["Python", "NumPy", "SciPy", "scikit-learn", "Numba"]
         },
         {
             "name": "WCAG Caption Research",
             "url": "https://github.com/yourdisenchantment/wcag-caption-research",
             "description": "Data-centric fine-tuning of a compact VLM for Russian WCAG image captions: CC3M clustering via Intelliant, Teacher-VLM relabeling, LoRA fine-tuning of Qwen2.5-VL-7B. Finding: 10k representative samples match the loss of 32k.",
-            "stack": ["intelliant", "mlx-vlm", "peft"]
+            "stack": [
+                "Python",
+                "PyTorch",
+                "Hugging Face",
+                "PEFT",
+                "mlx-vlm",
+                "Polars",
+                "NumPy",
+                "Intelliant"
+            ]
         },
         {
             "name": "ThermalVis of Indoor Environments",
             "url": "https://github.com/yourdisenchantment/ThermalVis-of-Indoor-Environments",
-            "description": "3D visualization of indoor temperature distribution from wall temperatures: two value sets with a shared color range and adjustable surface opacity."
+            "description": "3D visualization of indoor temperature distribution from wall temperatures: two value sets with a shared color range and adjustable surface opacity.",
+            "stack": ["Python", "NumPy", "SciPy"]
         },
         {
             "name": "Simple Pizza",
             "url": "https://github.com/yourdisenchantment/simple-pizza",
             "description": "Console app for managing a pizzeria: menu, ingredients, recipes and orders, with automatic stock deduction and pizza visibility control.",
-            "stack": ["SQLite"]
+            "stack": ["Python", "SQLite"]
         },
         {
             "name": "Untitled Text Game",
@@ -204,7 +232,7 @@
             "name": "SAM 3D Body",
             "url": "https://github.com/yourdisenchantment/sam-3d-body",
             "description": "Tooling for running the SAM 3D Body model (Meta) locally: CLI for batch dataset processing, a Gradio demo, and setup/debug scripts. Fork of the original repo.",
-            "stack": ["trimesh", "Gradio", "OpenCV"]
+            "stack": ["Python", "PyTorch", "trimesh", "Gradio", "OpenCV"]
         },
         {
             "name": "Logic and architecture of compute environments",
@@ -222,12 +250,13 @@
             "name": "SAM 3D Viewer",
             "url": "https://gitlab.com/yourdisenchantment/sam-3d-viewer",
             "description": "Desktop app for viewing 3D body reconstruction results from the SAM 3D Body neural network: synchronized RGB frames, meshes, and skeletons in Rerun.",
-            "stack": ["PySide6", "Rerun", "trimesh"]
+            "stack": ["Python", "PySide6", "Rerun", "trimesh", "NumPy"]
         },
         {
             "name": "Italian Listings Viewer",
             "url": "https://gitlab.com/yourdisenchantment/italian-listing-viewer",
-            "description": "Web app for browsing Italian real-estate listings: Google Drive sync, location hierarchy, filters, and autocomplete."
+            "description": "Web app for browsing Italian real-estate listings: Google Drive sync, location hierarchy, filters, and autocomplete.",
+            "stack": ["Python", "FastAPI", "Polars"]
         }
     ],
     "publications": [
