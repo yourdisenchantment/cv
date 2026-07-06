@@ -64,6 +64,11 @@ function linkText(url: string): string {
                         data-tooltip={t(lang, "openInNewTab")}
                     >
                         {linkText(u)}
+                        {/* Screen-reader announcement of the new tab (the
+                            tooltip is visual only). */}
+                        <span class="visually-hidden">
+                            ({t(lang, "openInNewTab")})
+                        </span>
                     </a>
                 </li>
             ))

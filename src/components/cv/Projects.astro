@@ -22,14 +22,14 @@ const { lang, projects } = Astro.props;
                     <div class="entry-head">
                         <h3 class="entry-title">{p.name}</h3>
                         {/* aria-label disambiguates the repeated "Code" link
-                            text (WCAG 2.4.4) and starts with the visible
-                            label (WCAG 2.5.3). */}
+                            text (WCAG 2.4.4), starts with the visible label
+                            (WCAG 2.5.3) and announces the new tab. */}
                         <a
                             class="animated-link"
                             href={p.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            aria-label={`${t(lang, "sourceLink")}: ${p.name}`}
+                            aria-label={`${t(lang, "sourceLink")}: ${p.name} (${t(lang, "openInNewTab")})`}
                             data-tooltip={t(lang, "openInNewTab")}
                         >
                             {t(lang, "sourceLink")}

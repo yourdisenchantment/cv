@@ -69,7 +69,7 @@ const langLabel = lang === "en" ? "Русский" : "English";
         target="_blank"
         rel="noopener noreferrer"
         data-tooltip={t(lang, "sourceCode")}
-        aria-label={t(lang, "sourceCode")}
+        aria-label={`${t(lang, "sourceCode")} (${t(lang, "openInNewTab")})`}
     >
         <span class="material-symbols-outlined" aria-hidden="true">code</span>
     </a>

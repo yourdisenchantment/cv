@@ -49,6 +49,12 @@ const grouped = groupOrder
                                         data-tooltip={t(lang, "openInNewTab")}
                                     >
                                         {linkHostPath(c.href)}
+                                        {/* The tooltip is visual only - this
+                                            line announces the new tab to
+                                            screen readers. */}
+                                        <span class="visually-hidden">
+                                            ({t(lang, "openInNewTab")})
+                                        </span>
                                     </a>
                                 ) : (
                                     <a
