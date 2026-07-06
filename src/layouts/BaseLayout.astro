@@ -13,9 +13,11 @@ interface Props {
     title: string;
     description?: string;
     jsonLd?: Record<string, unknown>;
+    // Easter-egg pages: excluded from search indexing.
+    noindex?: boolean;
 }
 
-const { lang, title, description, jsonLd } = Astro.props;
+const { lang, title, description, jsonLd, noindex = false } = Astro.props;
 
 // debug-boxes - dev only: red outline on hover (see debug.css).
 const isDev = import.meta.env.DEV;
@@ -30,6 +32,7 @@ const base = import.meta.env.BASE_URL;
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content={description ?? ""} />
+        {noindex && <meta name="robots" content="noindex" />}
         {
             jsonLd && (
                 <script

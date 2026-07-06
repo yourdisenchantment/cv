@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Resume from "../../components/cv/Resume.astro";
+import { getEntry } from "astro:content";
+
+// 1337 easter egg: the English resume on a green CRT, leetified client-side
+// (a text-node walk after load - components and data stay untouched).
+// noindex: a toy, not a page for crawlers.
+const lang = "en";
+const cv = await getEntry("cv", lang);
+if (!cv) throw new Error(`CV entry '${lang}' not found in collection 'cv'`);
+---
+
+<BaseLayout
+    lang={lang}
+    title="P4v3l M1kh3y3v - CV"
+    description={cv.data.meta.description}
+    noindex
+>
+    <!-- Sets [data-leet] before the resume below is painted (the script runs
+         during body parsing) and leetifies all text once the DOM is ready.
+         Material Symbols are skipped: the icons are ligatures of their names,
+         "pr1n7" would break the glyph. -->
+    <script is:inline>
+        (function () {
+            document.documentElement.setAttribute("data-leet", "");
+            var map = { a: "4", e: "3", i: "1", o: "0", t: "7", s: "5" };
+            document.addEventListener("DOMContentLoaded", function () {
+                var walker = document.createTreeWalker(
+                    document.body,
+                    NodeFilter.SHOW_TEXT,
+                    {
+                        acceptNode: function (node) {
+                            var el = node.parentElement;
+                            return el &&
+                                !el.closest(
+                                    "script, style, .material-symbols-outlined",
+                                )
+                                ? NodeFilter.FILTER_ACCEPT
+                                : NodeFilter.FILTER_REJECT;
+                        },
+                    },
+                );
+                var node;
+                while ((node = walker.nextNode())) {
+                    node.nodeValue = node.nodeValue.replace(
+                        /[aeiots]/gi,
+                        function (ch) {
+                            return map[ch.toLowerCase()] || ch;
+                        },
+                    );
+                }
+            });
+        })();
+    </script>
+    <Resume lang={lang} data={cv.data} />
+</BaseLayout>
+
+<style is:global>
+    /* CRT skin: overrides the semantic tokens under [data-leet]. Declared
+       after the imported stacks, so it wins over both themes regardless of
+       the dock toggle. screen only - print keeps its B/W overrides. */
+    @media screen {
+        [data-leet] {
+            color-scheme: dark;
+            --bg-page: #030a03;
+            --bg-surface: #051405;
+            --bg-muted: #0a220a;
+            --bg-muted-hover: #103310;
+            --text: #35e635;
+            --text-strong: #7dff7d;
+            --text-muted: #2aa82a;
+            --border: #1d5c1d;
+            --border-hover: #35e635;
+            --marker: #2aa82a;
+            --shadow: #000000;
+            --font-main: "JetBrains Mono";
+        }
+
+        /* The portrait joins the phosphor palette. */
+        [data-leet] .about-photo img {
+            filter: grayscale(1) brightness(0.9) sepia(1) hue-rotate(60deg)
+                saturate(3);
+        }
+    }
+</style>
