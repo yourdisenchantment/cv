@@ -97,7 +97,7 @@ section {
 .about-info {
     display: flex;
     flex-direction: column;
-    gap: var(--space-info-gap);
+    gap: var(--space-item-gap);
 }
 
 /* The name looks like a section heading but is a paragraph: the real (hidden)
@@ -122,12 +122,12 @@ section {
 .about-facts {
     display: flex;
     flex-direction: column;
-    gap: var(--space-info-gap);
+    gap: var(--space-item-gap);
 }
 
 .about-facts > div {
     display: flex;
-    gap: var(--space-info-gap);
+    gap: var(--space-item-gap);
 }
 
 .about-facts dt {
@@ -181,14 +181,14 @@ section {
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--space-contact-item-gap);
+    gap: var(--space-item-gap);
 }
 
 /* Label and value on one baseline-aligned line: different sizes (14/12) do not
    break alignment. */
 .contact-group > div {
     display: flex;
-    gap: var(--space-contact-item-gap);
+    gap: var(--space-item-gap);
     align-items: baseline;
     font-family: var(--font-mono);
     font-size: var(--fs-contact-label);
@@ -206,7 +206,7 @@ section {
    shrink so long URLs wrap instead of overflowing. */
 .contact-group dd {
     display: flex;
-    gap: var(--space-contact-item-gap);
+    gap: var(--space-item-gap);
     align-items: baseline;
     min-width: 0;
 }
@@ -261,7 +261,7 @@ section {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: var(--space-info-gap);
+    gap: var(--space-item-gap);
 }
 
 .entry-title {
@@ -317,7 +317,7 @@ section {
 
 .achievements li,
 .entry-links li {
-    margin-bottom: var(--space-list-item-gap);
+    margin-bottom: var(--space-item-gap);
 }
 
 .achievements li:last-child,
@@ -350,7 +350,7 @@ section {
 
 .awards-list li {
     font-size: var(--fs-body-text);
-    margin-bottom: var(--space-list-item-gap);
+    margin-bottom: var(--space-item-gap);
 }
 
 .awards-list li:last-child {
@@ -373,18 +373,18 @@ section {
     /* columns needs a block container (it does not work on flex). */
     display: block;
     columns: 240px;
-    column-gap: var(--space-card-margin);
+    column-gap: var(--space-entry-gap);
 }
 
 .project-entry {
     break-inside: avoid;
-    margin-bottom: var(--space-card-margin);
+    margin-bottom: var(--space-entry-gap);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     padding: var(--space-card-pad);
     display: flex;
     flex-direction: column;
-    gap: var(--space-card-gap);
+    gap: var(--space-item-gap);
     transition: border-color var(--transition);
 }
 
@@ -420,16 +420,11 @@ section {
 }
 
 /* --- Publications --- */
-/* Publications use a tighter inter-entry gap than dated entries. */
-#publications .section-body {
-    gap: var(--space-publication-gap);
-}
-
 /* A quiet card: padding reserved, the border appears on hover. */
 .publication-entry {
     display: flex;
     flex-direction: column;
-    gap: var(--space-publication-item-gap);
+    gap: var(--space-item-gap);
     border: 1px solid transparent;
     border-radius: var(--radius-md);
     padding: var(--space-card-pad);

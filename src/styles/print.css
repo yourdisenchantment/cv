@@ -82,10 +82,6 @@
         margin-top: var(--space-entry-gap);
     }
 
-    #publications .section-body > * + * {
-        margin-top: var(--space-publication-gap);
-    }
-
     #achievements .section-body > * + * {
         margin-top: var(--space-block-gap);
     }

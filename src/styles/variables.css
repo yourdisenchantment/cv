@@ -89,29 +89,22 @@
     --space-11: 40px;
 
     /* Semantic spacing aliases - role -> size. Change a value here and all
-       spacing of that kind updates on screen AND in print. */
+       spacing of that kind updates on screen AND in print. The vertical
+       rhythm is a 4-step ladder (section > entry > block > item); the rest
+       are non-rhythm roles (padding, horizontal gaps). */
     --space-section-gap: var(--space-10); /* between resume sections */
-    --space-entry-gap: var(--space-11); /* between jobs/courses/edu entries */
+    --space-entry-gap: var(
+        --space-9
+    ); /* between entries of any kind (dated / publications / cards) */
     --space-block-gap: var(
         --space-5
     ); /* heading -> content, inside a section */
-    --space-publication-gap: var(--space-6); /* between publications */
-    --space-publication-item-gap: var(
+    --space-item-gap: var(
         --space-3
-    ); /* publication card internal gap (meta -> title -> links) */
+    ); /* rhythm inside an entry: info lines, card internals, bullets,
+          label <-> value */
     --space-card-pad: var(--space-6); /* project/publication card padding */
-    --space-card-gap: var(--space-4); /* project card internal gap */
-    --space-card-margin: var(
-        --space-7
-    ); /* card margin-bottom + masonry column-gap */
     --space-contact-gap: var(--space-9); /* between contact groups */
-    --space-contact-item-gap: var(--space-3); /* between contacts in a group */
-    --space-list-item-gap: var(
-        --space-2
-    ); /* margin-bottom on bulleted list items */
-    --space-info-gap: var(
-        --space-2
-    ); /* tight gap inside .about-info / .entry-info */
     --space-entry-internal-gap: var(
         --space-8
     ); /* row gap: entry-period <-> info block */
