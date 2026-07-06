@@ -1,15 +1,15 @@
 {
     "meta": {
         "title": "Павел Михеев - резюме",
-        "description": "Резюме Павла Михеева, Data Scientist и ML-инженера."
+        "description": "Резюме Павла Михеева, ML-инженера и Data Scientist."
     },
     "about": {
         "photo": "/images/my-face.jpg",
         "name": "Михеев Павел Олегович",
-        "role": "Data Scientist, ML-инженер",
+        "role": "ML-инженер / Data Scientist",
         "birthDate": "2002-11-06",
         "city": "Симферополь, Россия",
-        "summary": "Инженер-программист с фундаментом в прикладной математике (бакалавр и магистр, два красных диплома) и фокусом на машинном обучении, работе с данными и исследованиях. Совмещал учебу с самостоятельными проектами на работе: парсинг и обработка сотен тысяч объявлений, доработка и развертывание моделей компьютерного зрения (SAM 3D Body) - от инференса до интерактивного вьювера. Ценю продуманную архитектуру и научный подход к задачам; развиваюсь в сторону ML-инженерии, рассматриваю аспирантуру.",
+        "summary": "ML/DS-инженер с фундаментом в прикладной математике и backend-бэкграундом. Сильная сторона - связка исследований и продакшена: от собственного алгоритма кластеризации (Intelliant, PyPI) и data-centric дообучения VLM до пайплайнов на сотни тысяч записей и сервисов на FastAPI. Тяготею к research; готовлюсь к аспирантуре по ML.",
         "availability": "Готов к удаленной работе"
     },
     "contacts": [
@@ -55,16 +55,17 @@
         "PyTorch",
         "Transformers",
         "Hugging Face",
-        "Polars",
-        "Pandas",
+        "scikit-learn",
         "NumPy",
         "SciPy",
-        "scikit-learn",
+        "Polars",
+        "Pandas",
         "FastAPI",
+        "Docker",
+        "pytest",
         "SQL",
         "Linux",
-        "Git",
-        "Java"
+        "Git"
     ],
     "experience": [
         {
@@ -81,18 +82,7 @@
                 "End-to-end пайплайн SAM 3D Body: разбор модели, извлечение джоинтов, перевод скелета на кватернионы, адаптация под видео, Gradio-интерфейс",
                 "Десктоп-вьювер результатов SAM 3D Body на Rerun и PySide (проекция скелетов и мешей; показан инвесторам, использовался командой)"
             ],
-            "skills": [
-                "Python",
-                "Polars",
-                "Pandas",
-                "FastAPI",
-                "PyTorch",
-                "Rerun",
-                "PySide",
-                "Gradio",
-                "Git",
-                "Linux"
-            ]
+            "skills": ["Rerun", "PySide", "Gradio"]
         },
         {
             "period": {
@@ -106,7 +96,7 @@
                 "Иерархия локаций и ее согласование между источниками для автодополнения и рекомендаций похожих объектов",
                 "Фильтрация, разбор и анализ датафреймов в Pandas (проект продан)"
             ],
-            "skills": ["Python", "Pandas", "FastAPI", "Git"]
+            "skills": []
         },
         {
             "period": {
@@ -120,14 +110,7 @@
                 "При слабых результатах - отдельное обучение ResNet50 и сборка с BERT, эксперименты с GPT-2 в роли декодера",
                 "Сравнительный анализ подходов: Gemini 2.5 Pro/Flash против связки Cloud Vision + текстовая часть Gemini"
             ],
-            "skills": [
-                "Python",
-                "PyTorch",
-                "Transformers",
-                "Datasets",
-                "ResNet",
-                "Hugging Face"
-            ]
+            "skills": []
         },
         {
             "period": {
@@ -140,7 +123,7 @@
                 "Редактирование корпоративной карты Симферополя на Яндекс.Картах (в паре): объекты инфраструктуры - школы, сады, больницы",
                 "Пробовал Yandex Maps API и Python-скрипт для разметки, часть данных размечал вручную"
             ],
-            "skills": ["Python", "JavaScript", "API Яндекс.Карты"]
+            "skills": ["JavaScript", "API Яндекс.Карты"]
         }
     ],
     "education": [
@@ -191,35 +174,25 @@
         {
             "name": "Intelliant",
             "url": "https://github.com/yourdisenchantment/intelliant",
-            "description": "Алгоритм кластеризации на основе муравьиной колонии: переводит многомерные данные (эмбеддинги) в граф ближайших соседей и ищет плотные семантические ядра. Оптимизирован через Numba и разреженные матрицы.",
-            "stack": ["Python", "NumPy", "SciPy", "scikit-learn"]
+            "description": "Авторский алгоритм кластеризации на основе муравьиной колонии: KNN-граф по эмбеддингам, поиск плотных семантических ядер. Numba и разреженные матрицы, опубликован на PyPI, 56 тестов. Основа магистерской и планируемой PhD-работы.",
+            "stack": ["Numba"]
         },
         {
             "name": "WCAG Caption Research",
             "url": "https://github.com/yourdisenchantment/wcag-caption-research",
-            "description": "Data-Centric обучение компактной VLM генерировать WCAG 2.2 описания изображений на русском: семантическая кластеризация датасета, переразметка через Teacher VLM и LoRA-дообучение.",
-            "stack": [
-                "Python",
-                "intelliant",
-                "PyTorch",
-                "datasets",
-                "Polars",
-                "NumPy",
-                "HuggingFace",
-                "MLX"
-            ]
+            "description": "Data-centric дообучение компактной VLM для WCAG-описаний изображений на русском: кластеризация CC3M через Intelliant, переразметка Teacher-VLM, LoRA-дообучение Qwen2.5-VL-7B. Вывод: 10k репрезентативных примеров дают тот же loss, что и 32k.",
+            "stack": ["intelliant", "mlx-vlm", "peft"]
         },
         {
             "name": "ThermalVis of Indoor Environments",
             "url": "https://github.com/yourdisenchantment/ThermalVis-of-Indoor-Environments",
-            "description": "Визуализация 3D-распределения температуры в помещении по температурам стен: два набора значений с общим цветовым диапазоном и регулируемой прозрачностью поверхностей.",
-            "stack": ["Python", "NumPy", "SciPy"]
+            "description": "Визуализация 3D-распределения температуры в помещении по температурам стен: два набора значений с общим цветовым диапазоном и регулируемой прозрачностью поверхностей."
         },
         {
             "name": "Simple Pizza",
             "url": "https://github.com/yourdisenchantment/simple-pizza",
             "description": "Консольное приложение для управления пиццерией: меню, ингредиенты, рецепты и заказы, с автоматическим списанием и управлением видимостью пицц.",
-            "stack": ["Python", "SQLite"]
+            "stack": ["SQLite"]
         },
         {
             "name": "Untitled Text Game",
@@ -231,7 +204,7 @@
             "name": "SAM 3D Body",
             "url": "https://github.com/yourdisenchantment/sam-3d-body",
             "description": "Обвязка для локального запуска модели SAM 3D Body (Meta): пакетная обработка датасета через CLI, Gradio-демо и скрипты установки и отладки. Форк оригинального репозитория.",
-            "stack": ["Python", "PyTorch", "trimesh", "Gradio", "OpenCV"]
+            "stack": ["trimesh", "Gradio", "OpenCV"]
         },
         {
             "name": "Логика и архитектура вычислительных сред",
@@ -249,13 +222,12 @@
             "name": "SAM 3D Viewer",
             "url": "https://gitlab.com/yourdisenchantment/sam-3d-viewer",
             "description": "Десктоп-приложение для просмотра результатов 3D-реконструкции тела нейросетью SAM 3D Body: синхронизированные RGB-кадры, меши и скелеты в Rerun.",
-            "stack": ["Python", "PySide6", "Rerun", "trimesh", "NumPy"]
+            "stack": ["PySide6", "Rerun", "trimesh"]
         },
         {
             "name": "Italian Listings Viewer",
             "url": "https://gitlab.com/yourdisenchantment/italian-listing-viewer",
-            "description": "Веб-приложение для просмотра объявлений о недвижимости в Италии: синхронизация с Google Drive, иерархия локаций, фильтры и автодополнение.",
-            "stack": ["Python", "FastAPI", "Polars"]
+            "description": "Веб-приложение для просмотра объявлений о недвижимости в Италии: синхронизация с Google Drive, иерархия локаций, фильтры и автодополнение."
         }
     ],
     "publications": [

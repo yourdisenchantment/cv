@@ -22,8 +22,16 @@ const { lang, job } = Astro.props;
         <ul class="achievements">
             {job.achievements.map((a) => <li>{a}</li>)}
         </ul>
-        <ul class="skill-list">
-            {job.skills.map((s) => <li>{s}</li>)}
-        </ul>
+        {
+            /* Chips list only the entry-specific stack on top of the core
+               skills section; entries with nothing specific render no list. */
+            job.skills.length > 0 && (
+                <ul class="skill-list">
+                    {job.skills.map((s) => (
+                        <li>{s}</li>
+                    ))}
+                </ul>
+            )
+        }
     </div>
 </article>
