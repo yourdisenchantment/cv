@@ -285,18 +285,17 @@ section {
     color: var(--text-muted);
 }
 
-/* Experience: company and role on one line inside hgroup.entry-head. Flex
-   (not inline children) so both boxes span the full line height - debug
-   outlines match the block-level titles of education/courses. */
-.dated-entry .entry-head {
+/* The "primary [dot] secondary" pattern, one implementation for the
+   experience company - role head and the education degree - honors line:
+   .dot-row is a baseline flex row (flex, not inline children, so both boxes
+   span the full line height in debug outlines), .dot-sep on the second
+   element draws the same dot as the list markers (U+2022, --marker). */
+.dot-row {
     display: flex;
     align-items: baseline;
     flex-wrap: wrap;
 }
 
-/* "Primary [dot] secondary" on one line: the second element carries .dot-sep
-   and draws the same dot as the list markers (U+2022, --marker). Used by the
-   experience role and the education honors. */
 .dot-sep::before {
     content: "\2022";
     margin: 0 0.5ch;
