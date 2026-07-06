@@ -285,18 +285,19 @@ section {
     color: var(--text-muted);
 }
 
-/* Experience: company and role on one line inside hgroup.entry-head, separated
-   by a middle dot (U+00B7, written as a CSS escape to keep the source ASCII). */
-.dated-entry .entry-head .entry-title,
-.dated-entry .entry-head .entry-subtitle {
-    display: inline;
+/* Experience: company and role on one line inside hgroup.entry-head. Flex
+   (not inline children) so both boxes span the full line height - debug
+   outlines match the block-level titles of education/courses. */
+.dated-entry .entry-head {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
 }
 
-/* One dot everywhere: the same bullet glyph and color as the list markers
-   (U+2022, --marker). .entry-honors is the honors part of the education
-   degree line, split into a span for the same separator. */
-.dated-entry .entry-head .entry-subtitle::before,
-.entry-honors::before {
+/* "Primary [dot] secondary" on one line: the second element carries .dot-sep
+   and draws the same dot as the list markers (U+2022, --marker). Used by the
+   experience role and the education honors. */
+.dot-sep::before {
     content: "\2022";
     margin: 0 0.5ch;
     font-weight: bold;

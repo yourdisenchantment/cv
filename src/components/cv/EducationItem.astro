@@ -16,12 +16,12 @@ const { lang, edu } = Astro.props;
         <h3 class="entry-title">{edu.institution}</h3>
         <p class="entry-subtitle">{edu.faculty}</p>
         {edu.department && <p class="entry-note">{edu.department}</p>}
-        <!-- Degree and honors on one line; the middle-dot separator comes from
-             .entry-honors::before (CSS), shared with the entry-head dot. The
+        <!-- Degree and honors on one line; the dot separator comes from
+             .dot-sep::before (CSS), shared with the entry-head dot. The
              expressions are adjacent so JSX does not slip in an extra space. -->
         <p class="entry-text">
             {edu.degree}{
-                edu.honors && <span class="entry-honors">{edu.honors}</span>
+                edu.honors && <span class="dot-sep">{edu.honors}</span>
             }
         </p>
     </div>

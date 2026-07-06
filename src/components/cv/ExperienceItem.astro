@@ -17,7 +17,7 @@ const { lang, job } = Astro.props;
              a lower heading - it labels the same entry, not a subsection. -->
         <hgroup class="entry-head">
             <h3 class="entry-title">{job.company}</h3>
-            <p class="entry-subtitle">{job.role}</p>
+            <p class="entry-subtitle dot-sep">{job.role}</p>
         </hgroup>
         <ul class="achievements">
             {job.achievements.map((a) => <li>{a}</li>)}
