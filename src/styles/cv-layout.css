@@ -125,9 +125,11 @@ section {
     gap: var(--space-item-gap);
 }
 
+/* baseline, like the contact rows - one behavior for every label: value row. */
 .about-facts > div {
     display: flex;
     gap: var(--space-item-gap);
+    align-items: baseline;
 }
 
 .about-facts dt {
@@ -290,14 +292,15 @@ section {
     display: inline;
 }
 
-/* One dot style everywhere: bold gray. .entry-honors is the honors part of
-   the education degree line, split into a span for the same separator. */
+/* One dot everywhere: the same bullet glyph and color as the list markers
+   (U+2022, --marker). .entry-honors is the honors part of the education
+   degree line, split into a span for the same separator. */
 .dated-entry .entry-head .entry-subtitle::before,
 .entry-honors::before {
-    content: "\00B7";
+    content: "\2022";
     margin: 0 0.5ch;
     font-weight: bold;
-    color: var(--text-muted);
+    color: var(--marker);
 }
 
 /* Education: degree line (degree text, with honors appended after a dot). */
@@ -392,22 +395,21 @@ section {
     border-color: var(--border-hover);
 }
 
+/* baseline: the "Code" link sits on the title's baseline, and both boxes
+   keep the same line height (no per-element line-height hacks). */
 .project-entry .entry-head {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: baseline;
     gap: var(--space-entry-internal-gap);
 }
 
-/* line-height: normal - a tight line box so "Code" lines up with the heading
-   (with body line-height 1.6 the link would sit lower). */
 .project-entry .entry-head a {
     font-size: var(--fs-body-text);
     position: relative;
     text-decoration: none;
     display: inline-block;
-    align-self: flex-start;
-    line-height: normal;
 }
 
 .project-entry .entry-text {
