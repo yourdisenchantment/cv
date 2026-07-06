@@ -8,16 +8,6 @@ interface Props {
 }
 
 const { lang, edu } = Astro.props;
-
-// Middle dot (U+00B7) separator for the degree line. Built via fromCharCode
-// to keep the source ASCII-only.
-const sep = String.fromCharCode(0xb7);
-
-// Degree and honors on one line, separated by the middle dot (sep, U+00B7).
-// Built as one string so JSX does not slip in an extra space.
-const degreeLine = edu.honors
-    ? `${edu.degree} ${sep} ${edu.honors}`
-    : edu.degree;
 ---
 
 <article class="dated-entry">
@@ -26,6 +16,13 @@ const degreeLine = edu.honors
         <h3 class="entry-title">{edu.institution}</h3>
         <p class="entry-subtitle">{edu.faculty}</p>
         {edu.department && <p class="entry-note">{edu.department}</p>}
-        <p class="entry-text">{degreeLine}</p>
+        <!-- Degree and honors on one line; the middle-dot separator comes from
+             .entry-honors::before (CSS), shared with the entry-head dot. The
+             expressions are adjacent so JSX does not slip in an extra space. -->
+        <p class="entry-text">
+            {edu.degree}{
+                edu.honors && <span class="entry-honors">{edu.honors}</span>
+            }
+        </p>
     </div>
 </article>

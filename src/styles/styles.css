@@ -7,6 +7,11 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
+    /* Inter and JetBrains Mono ship contextual alternates (calt): "->" turns
+       into an arrow glyph, "++" merges into one. The resume must render
+       characters literally. Only calt is disabled - standard ligatures (liga)
+       stay on, Material Symbols icons depend on them. */
+    font-variant-ligatures: no-contextual;
     /* The page never scrolls horizontally at any width (fixed elements like
        the dock, whose containing block = viewport, are not clipped by this). */
     overflow-x: hidden;

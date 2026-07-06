@@ -63,7 +63,7 @@
     /* Semantic tokens (style book): element role -> size. Change a value here
        and all elements of that kind update. The scale is above; these tokens
        reference it. */
-    --fs-date: var(--fs-small);
+    --fs-date: var(--fs-body);
     --fs-section-heading: var(--fs-heading);
     --fs-name: var(--fs-heading);
     --fs-role: var(--fs-body);
@@ -74,7 +74,7 @@
     --fs-meta: var(--fs-small);
     --fs-chip: var(--fs-body);
     --fs-contact-label: var(--fs-body);
-    --fs-contact-value: var(--fs-small);
+    --fs-contact-value: var(--fs-body);
 
     /* Spacing scale - absolute px tokens. Covers the distinct design values
        (not a pure 4-multiple: 6/10/12/20/30/40 are design-tuned, kept as-is).

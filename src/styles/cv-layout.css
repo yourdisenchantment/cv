@@ -116,9 +116,9 @@ section {
     color: var(--text-strong);
 }
 
-/* Label: value facts (birth date, city) as a definition list. Black like the
-   rest of the readable text; dt keeps the old <strong> look (mono). The small
-   flex gap stands in for the text space it replaces. */
+/* Label: value facts (birth date, city) as a definition list: bold gray mono
+   label, black value. The small flex gap stands in for the text space it
+   replaces. */
 .about-facts {
     display: flex;
     flex-direction: column;
@@ -132,6 +132,8 @@ section {
 
 .about-facts dt {
     font-family: var(--font-mono);
+    font-weight: bold;
+    color: var(--text-muted);
 }
 
 .availability {
@@ -193,8 +195,11 @@ section {
     color: var(--text-strong);
 }
 
+/* Bold gray label, like the About facts. */
 .contact-group dt {
     flex: none;
+    font-weight: bold;
+    color: var(--text-muted);
 }
 
 /* The value cell: link + optional "(archived)" mark. min-width:0 lets it
@@ -206,7 +211,6 @@ section {
     min-width: 0;
 }
 
-/* The value is smaller than the label (--fs-contact-value < --fs-contact-label). */
 .contact-group a {
     font-size: var(--fs-contact-value);
     min-width: 0;
@@ -286,9 +290,13 @@ section {
     display: inline;
 }
 
-.dated-entry .entry-head .entry-subtitle::before {
+/* One dot style everywhere: bold gray. .entry-honors is the honors part of
+   the education degree line, split into a span for the same separator. */
+.dated-entry .entry-head .entry-subtitle::before,
+.entry-honors::before {
     content: "\00B7";
     margin: 0 0.5ch;
+    font-weight: bold;
     color: var(--text-muted);
 }
 
