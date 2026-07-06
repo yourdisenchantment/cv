@@ -41,7 +41,9 @@ prettier на staged-файлах); `pre-push` - полный `bunx astro check`
 
 Контент резюме - `src/data/cv/{en,ru}.json`, валидируется на сборке через
 Astro content collection (`src/content.config.ts` -> zod-схема в
-`src/data/cv/schema.ts`); компоненты получают выведенный тип `Cv`. Страницы
+`src/data/cv/schema.ts`); компоненты получают выведенный тип `Cv`. Рядом
+лежит `en.example.json` - шаблон со всеми полями схемы; он тоже попадает в
+коллекцию и валидируется сборкой, но страницами не используется. Страницы
 грузят запись через `getEntry("cv", lang)`:
 
 - `src/pages/index.astro` -> en (корневой роут `/`).

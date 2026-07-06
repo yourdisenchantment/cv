@@ -18,6 +18,8 @@ type Dict = {
     achievements: string;
     // achievements: note that document originals/scans are available on request
     scansOnRequest: string;
+    // achievements: link text for an attached scan (PDF)
+    scanLink: string;
     // "About" block labels
     birthDate: string;
     city: string;
@@ -66,6 +68,7 @@ const ui: Record<Locale, Dict> = {
         publications: "Публикации",
         achievements: "Достижения",
         scansOnRequest: "Сканы оригиналов и другие документы - по запросу",
+        scanLink: "скан",
         birthDate: "Дата рождения",
         city: "Город",
         archived: "archived",
@@ -102,6 +105,7 @@ const ui: Record<Locale, Dict> = {
         achievements: "Achievements",
         scansOnRequest:
             "Scans of originals and other documents available on request",
+        scanLink: "scan",
         birthDate: "Date of birth",
         city: "City",
         archived: "archived",

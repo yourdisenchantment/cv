@@ -9,6 +9,14 @@ interface Props {
 }
 
 const { lang, achievements } = Astro.props;
+
+// Achievements are strings or { text, file? } objects - normalize to objects.
+// file - a path under public/ ("/documents/..."); under base it needs the
+// BASE_URL prefix, like the favicon.
+const base = import.meta.env.BASE_URL;
+const items = achievements.map((a) =>
+    typeof a === "string" ? { text: a, file: undefined } : a,
+);
 ---
 
 <section aria-labelledby="achievements-heading" id="achievements">
@@ -17,7 +25,27 @@ const { lang, achievements } = Astro.props;
     </h2>
     <div class="section-body">
         <ul class="awards-list">
-            {achievements.map((a) => <li>{a}</li>)}
+            {
+                items.map((a) => (
+                    <li>
+                        {a.text}
+                        {a.file && (
+                            <a
+                                class="animated-link"
+                                href={base + a.file.replace(/^\//, "")}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-tooltip={t(lang, "openInNewTab")}
+                            >
+                                {t(lang, "scanLink")}
+                                <span class="visually-hidden">
+                                    ({t(lang, "openInNewTab")})
+                                </span>
+                            </a>
+                        )}
+                    </li>
+                ))
+            }
         </ul>
         <p class="scans-note">{t(lang, "scansOnRequest")}</p>
     </div>

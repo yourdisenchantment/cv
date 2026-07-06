@@ -53,7 +53,9 @@ There is no test suite. Verify changes with: `bun run lint` ->
 Resume content lives in `src/data/cv/{en,ru}.json`, validated at build time
 through an Astro content collection (`src/content.config.ts` -> zod schema
 in `src/data/cv/schema.ts`). Components consume the inferred `Cv` type.
-Pages load the entry via `getEntry("cv", lang)`:
+`en.example.json` next to them is a template covering every schema field;
+it enters the collection and gets validated by the build, but no page uses
+it. Pages load the entry via `getEntry("cv", lang)`:
 
 - `src/pages/index.astro` -> en (root route)
 - `src/pages/ru/index.astro` -> ru

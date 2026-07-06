@@ -1,0 +1,122 @@
+{
+    "meta": {
+        "title": "Jane Doe - CV",
+        "description": "CV of Jane Doe, Sample Engineer."
+    },
+    "about": {
+        "photo": "/images/my-face.jpg",
+        "name": "Jane Doe",
+        "role": "Sample Engineer / Data Scientist",
+        "birthDate": "2000-01-15",
+        "city": "Sample City, Country",
+        "summary": "One or two sentences positioning the candidate: strongest skills, what kind of work they are after.",
+        "availability": "Open to remote work"
+    },
+    "contacts": [
+        {
+            "label": "Site",
+            "value": "example.com",
+            "href": "https://example.com",
+            "group": "contact"
+        },
+        {
+            "label": "Email",
+            "value": "jane@example.com",
+            "group": "contact"
+        },
+        {
+            "label": "GitHub",
+            "value": "janedoe",
+            "href": "https://github.com/janedoe",
+            "group": "resource"
+        },
+        {
+            "label": "GitLab",
+            "value": "old-janedoe",
+            "href": "https://gitlab.com/old-janedoe",
+            "archived": true,
+            "group": "resource"
+        }
+    ],
+    "skills": ["Python", "PyTorch", "FastAPI", "Docker", "Git"],
+    "experience": [
+        {
+            "period": {
+                "start": "2023-06",
+                "end": null
+            },
+            "company": "Sample Company",
+            "role": "Engineer",
+            "achievements": [
+                "Shipped a thing that does X and Y (scale marker: 100k+ records)",
+                "Led a sub-project with a measurable outcome Z"
+            ],
+            "skills": ["Python", "FastAPI", "SpecificTool"]
+        }
+    ],
+    "education": [
+        {
+            "period": {
+                "start": "2018-09",
+                "end": "2022-06"
+            },
+            "institution": "Sample University",
+            "faculty": "Faculty of Applied Mathematics",
+            "department": "Department of Something",
+            "degree": "Bachelor's",
+            "honors": "With honors"
+        }
+    ],
+    "courses": [
+        {
+            "period": {
+                "start": "2022-03",
+                "end": "2022-05"
+            },
+            "institution": "Course Provider",
+            "course": "Sample Course Title",
+            "skills": ["Skill One", "Skill Two"]
+        }
+    ],
+    "projects": [
+        {
+            "name": "Flagship Project",
+            "url": "https://github.com/janedoe/flagship",
+            "description": "What it is, the author's contribution, and one impact marker (published on PyPI, 56 tests, key finding).",
+            "stack": ["Python", "NumPy", "SpecificLib"]
+        },
+        {
+            "name": "Minimal Project",
+            "url": "https://github.com/janedoe/minimal"
+        }
+    ],
+    "publications": [
+        {
+            "kind": "article",
+            "title": "Sample Article Title",
+            "urls": [
+                "https://doi.org/10.0000/sample",
+                "https://example.com/mirror"
+            ]
+        },
+        {
+            "kind": "dataset",
+            "title": "Sample Published Dataset",
+            "urls": ["https://doi.org/10.0000/dataset"]
+        },
+        {
+            "kind": "vkr",
+            "title": "Sample Graduation Thesis",
+            "level": "master",
+            "course": 2,
+            "urls": ["https://example.edu/thesis.pdf"]
+        }
+    ],
+    "achievements": [
+        "A plain-string achievement",
+        {
+            "text": "An achievement with an attached scan (file lives in public/ and is published on deploy)",
+            "file": "/documents/example-scan.pdf"
+        }
+    ]
+}

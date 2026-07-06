@@ -364,6 +364,12 @@ section {
     color: var(--marker);
 }
 
+/* Optional scan link after an achievement: small mono, spaced off the text. */
+.awards-list .animated-link {
+    margin-left: 0.5ch;
+    font-size: var(--fs-meta);
+}
+
 .scans-note {
     font-size: var(--fs-meta);
     color: var(--text-muted);

@@ -65,6 +65,17 @@ const project = z.object({
     stack: z.array(z.string()).optional(),
 });
 
+// Achievement: a plain string, or an object with an optional attached scan
+// (file - path under public/, e.g. "/documents/scan.pdf"). Mind that
+// everything in public/ is published on deploy.
+const achievement = z.union([
+    z.string(),
+    z.object({
+        text: z.string(),
+        file: z.string().optional(),
+    }),
+]);
+
 // level/course - only for kind: "vkr" (bachelor's/master's graduation thesis).
 const publication = z.object({
     kind: z.enum([
@@ -92,7 +103,7 @@ export const cvSchema = z.object({
     courses: z.array(course),
     projects: z.array(project),
     publications: z.array(publication),
-    achievements: z.array(z.string()),
+    achievements: z.array(achievement),
 });
 
 export type Cv = z.infer<typeof cvSchema>;
