@@ -24,6 +24,10 @@ const levelKey = {
     bachelor: "levelBachelor",
     master: "levelMaster",
 } as const;
+const indexKey = {
+    vak: "indexVak",
+    rinc: "indexRinc",
+} as const;
 
 // Publication label: for a graduation thesis - "ВКР (Магистратура), 2 курс" /
 // "Graduation thesis (Master), Year 2"; otherwise just the kind. The position
@@ -50,7 +54,14 @@ function linkText(url: string): string {
 ---
 
 <article class="publication-entry">
-    <p class="entry-meta">{meta(pub)}</p>
+    <p class="entry-meta">
+        {meta(pub)}
+        {
+            pub.index && (
+                <span class="index-badge">{t(lang, indexKey[pub.index])}</span>
+            )
+        }
+    </p>
     <h3 class="entry-title">{pub.title}</h3>
     <ul class="entry-links">
         {

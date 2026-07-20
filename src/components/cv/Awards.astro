@@ -31,13 +31,13 @@ const items = achievements.map((a) =>
                         {a.text}
                         {a.file && (
                             <a
-                                class="animated-link"
+                                class="pdf-badge"
                                 href={base + a.file.replace(/^\//, "")}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 data-tooltip={t(lang, "openInNewTab")}
                             >
-                                {t(lang, "scanLink")}
+                                {t(lang, "pdfLink")}
                                 <span class="visually-hidden">
                                     ({t(lang, "openInNewTab")})
                                 </span>

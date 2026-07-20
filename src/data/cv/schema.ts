@@ -20,6 +20,7 @@ const about = z.object({
     birthDate: z.string(), // ISO "YYYY-MM-DD"
     city: z.string(),
     summary: z.string(),
+    research: z.string().optional(), // PhD research focus, accented under summary
     availability: z.string().optional(),
 });
 
@@ -47,6 +48,7 @@ const education = z.object({
     institution: z.string(),
     faculty: z.string(),
     department: z.string().optional(), // e.g. "Кафедра прикладной математики"
+    code: z.string().optional(), // field-of-study code, e.g. "01.03.04"
     degree: z.string(),
     honors: z.string().optional(), // e.g. "Красный диплом" (honors degree)
 });
@@ -90,6 +92,7 @@ const publication = z.object({
     title: z.string(),
     level: z.enum(["bachelor", "master"]).optional(),
     course: z.number().optional(),
+    index: z.enum(["vak", "rinc"]).optional(), // indexing badge (elibrary status)
     urls: z.array(z.url()),
 });
 

@@ -15,7 +15,18 @@ const { lang, edu } = Astro.props;
     <div class="entry-info">
         <h3 class="entry-title">{edu.institution}</h3>
         <p class="entry-subtitle">{edu.faculty}</p>
-        {edu.department && <p class="entry-note">{edu.department}</p>}
+        {
+            (edu.department || edu.code) && (
+                <p class="entry-note dot-row">
+                    {edu.department && <span>{edu.department}</span>}
+                    {edu.code && (
+                        <span class={edu.department ? "dot-sep" : ""}>
+                            {edu.code}
+                        </span>
+                    )}
+                </p>
+            )
+        }
         <!-- Degree and honors: the same dot-row + dot-sep pattern as the
              experience head (see cv-layout.css). -->
         <p class="entry-text dot-row">

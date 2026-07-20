@@ -10,6 +10,7 @@
         "birthDate": "2000-01-15",
         "city": "Sample City, Country",
         "summary": "One or two sentences positioning the candidate: strongest skills, what kind of work they are after.",
+        "research": "Optional PhD research focus, shown as an accent line under the summary",
         "availability": "Open to remote work"
     },
     "contacts": [
@@ -63,6 +64,7 @@
             "institution": "Sample University",
             "faculty": "Faculty of Applied Mathematics",
             "department": "Department of Something",
+            "code": "00.00.00",
             "degree": "Bachelor's",
             "honors": "With honors"
         }
@@ -94,6 +96,7 @@
         {
             "kind": "article",
             "title": "Sample Article Title",
+            "index": "vak",
             "urls": [
                 "https://doi.org/10.0000/sample",
                 "https://example.com/mirror"

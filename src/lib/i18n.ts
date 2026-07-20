@@ -18,11 +18,14 @@ type Dict = {
     achievements: string;
     // achievements: note that document originals/scans are available on request
     scansOnRequest: string;
-    // achievements: link text for an attached scan (PDF)
-    scanLink: string;
+    // achievements: label of the attached-scan pill button (same in both
+    // locales, kept in the dict like every user-visible string)
+    pdfLink: string;
     // "About" block labels
     birthDate: string;
     city: string;
+    // about: PhD research focus label (value comes from about.research)
+    researchFocus: string;
     // contacts
     archived: string;
     // contacts: mailto link tooltip
@@ -40,6 +43,9 @@ type Dict = {
     // publications: level (graduation thesis only)
     levelBachelor: string;
     levelMaster: string;
+    // publications: indexing badge (elibrary status)
+    indexVak: string;
+    indexRinc: string;
     // publications: the word "year" (for thesis: "2 курс" / "Year 2")
     course: string;
     // projects: repository link text
@@ -68,9 +74,10 @@ const ui: Record<Locale, Dict> = {
         publications: "Публикации",
         achievements: "Достижения",
         scansOnRequest: "Сканы оригиналов и другие документы - по запросу",
-        scanLink: "скан",
+        pdfLink: "PDF",
         birthDate: "Дата рождения",
         city: "Город",
+        researchFocus: "Тема исследования для аспирантуры",
         archived: "archived",
         sendEmail: "Написать на почту",
         openInNewTab: "Открыть в новой вкладке",
@@ -83,6 +90,8 @@ const ui: Record<Locale, Dict> = {
         kindJournal: "Журнал",
         levelBachelor: "Бакалавриат",
         levelMaster: "Магистратура",
+        indexVak: "ВАК",
+        indexRinc: "РИНЦ",
         course: "курс",
         sourceLink: "Код",
         dockNav: "Управление резюме",
@@ -105,9 +114,10 @@ const ui: Record<Locale, Dict> = {
         achievements: "Achievements",
         scansOnRequest:
             "Scans of originals and other documents available on request",
-        scanLink: "scan",
+        pdfLink: "PDF",
         birthDate: "Date of birth",
         city: "City",
+        researchFocus: "PhD research focus",
         archived: "archived",
         sendEmail: "Send email",
         openInNewTab: "Open in a new tab",
@@ -120,6 +130,8 @@ const ui: Record<Locale, Dict> = {
         kindJournal: "Journal",
         levelBachelor: "Bachelor",
         levelMaster: "Master",
+        indexVak: "VAK",
+        indexRinc: "RSCI",
         course: "Year",
         sourceLink: "Code",
         dockNav: "Resume controls",

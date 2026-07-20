@@ -152,6 +152,19 @@ section {
     color: var(--text-strong);
 }
 
+/* PhD research focus: a "label: value" row reusing the .about-facts pattern
+   (bold gray mono label, body-color value), placed as an accent under the
+   summary - so only its own top spacing is set here. The label stays on one
+   line (nowrap) so it does not fray into a narrow column beside the value. */
+.about-research {
+    margin-top: var(--space-block-gap);
+    color: var(--text-strong);
+}
+
+.about-research dt {
+    white-space: nowrap;
+}
+
 /* Photo: float right on the wrapper (which carries the tooltip), fixed height,
    width by proportion. Wrapped by the about-info and summary text. */
 .about-photo {
@@ -303,6 +316,27 @@ section {
     color: var(--marker);
 }
 
+/* Small mono pill appended to a text line - one box for the publication
+   indexing badge (ВАК / РИНЦ) and the achievement PDF button: the skill-chip
+   look at meta size. Both carry a 1px transparent border so the PDF hover
+   frame does not change the box; vertical-align: text-bottom pins the pill's
+   bottom edge to the text's across line heights (meta 12px, awards 14px). */
+.index-badge,
+.awards-list .pdf-badge {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: text-bottom;
+    margin-left: 0.75ch;
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    line-height: 1;
+    padding: 2px 8px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-lg);
+    background-color: var(--bg-muted);
+    color: var(--text);
+}
+
 /* Education: degree line (degree text, with honors appended after a dot). */
 .dated-entry .entry-text {
     font-size: var(--fs-body-text);
@@ -364,10 +398,17 @@ section {
     color: var(--marker);
 }
 
-/* Optional scan link after an achievement: small mono, spaced off the text. */
-.awards-list .animated-link {
-    margin-left: 0.5ch;
-    font-size: var(--fs-meta);
+/* PDF button after an achievement: the shared pill (see .index-badge above)
+   plus its clickable delta - on hover the transparent frame turns black. */
+.awards-list .pdf-badge {
+    transition:
+        background-color var(--transition),
+        border-color var(--transition);
+}
+
+.awards-list .pdf-badge:hover {
+    background-color: var(--bg-muted-hover);
+    border-color: var(--text-strong);
 }
 
 .scans-note {
@@ -448,6 +489,9 @@ section {
     font-size: var(--fs-meta);
     color: var(--text-muted);
 }
+
+/* The publication indexing badge (ВАК / РИНЦ) is the shared pill - styled
+   together with the achievement PDF button next to .dot-row above. */
 
 /* The title is an h3 for the outline but visually a regular line: UA bold is
    reset back to the old plain look. */
