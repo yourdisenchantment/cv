@@ -316,25 +316,18 @@ section {
     color: var(--marker);
 }
 
-/* Small mono pill appended to a text line - one box for the publication
-   indexing badge (ВАК / РИНЦ) and the achievement PDF button: the skill-chip
-   look at meta size. Both carry a 1px transparent border so the PDF hover
-   frame does not change the box; vertical-align: text-bottom pins the pill's
-   bottom edge to the text's across line heights (meta 12px, awards 14px). */
-.index-badge,
-.awards-list .pdf-badge {
-    display: inline-flex;
-    align-items: center;
-    vertical-align: text-bottom;
-    margin-left: 0.75ch;
-    font-family: var(--font-mono);
-    font-size: var(--fs-meta);
-    line-height: 1;
-    padding: 2px 8px;
-    border: 1px solid transparent;
-    border-radius: var(--radius-lg);
-    background-color: var(--bg-muted);
-    color: var(--text);
+/* ВАК / РИНЦ publication label: a plain dot-sep text after the meta, same
+   pattern as experience company - role and education degree - honors. The
+   label is short (3-4 chars), so it does not need its own pill - it reads as
+   a second fact about the entry, not a separate control. */
+.publication-entry .entry-meta {
+    font-size: var(--fs-item-subtitle);
+    color: var(--text-strong);
+}
+
+.publication-entry .entry-meta .dot-sep {
+    font-size: var(--fs-item-subtitle);
+    color: var(--text-muted);
 }
 
 /* Education: degree line (degree text, with honors appended after a dot). */
@@ -398,17 +391,42 @@ section {
     color: var(--marker);
 }
 
-/* PDF button after an achievement: the shared pill (see .index-badge above)
-   plus its clickable delta - on hover the transparent frame turns black. */
+/* PDF link in the awards list: a skill-chip-style pill in the same line as
+   the achievement text, at the end. The chip look (mono, rounded, muted
+   background) matches the skill chips so the awards section reads as a
+   single visual family.
+
+   Vertical alignment: the surrounding achievement text sits on the body's
+   line-box (~21px at 14px/1.5), while the chip text is 12px. A plain
+   inline-block with line-height:1 would sit baseline-aligned and visually
+   drop below the text. inline-flex + a fixed height matching the line-box,
+   with align-items:center on the chip and vertical-align:middle on the
+   inline, pins the chip's optical center to the line's optical center so
+   nothing "dances" relative to the text. The border is a fixed 1px (not
+   transparent-to-solid) so the box never reflows on hover. */
 .awards-list .pdf-badge {
+    display: inline-flex;
+    align-items: center;
+    height: 1.5em;
+    margin-left: 0.75ch;
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    line-height: 1;
+    padding: 0 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--bg-muted);
+    color: var(--text);
+    text-decoration: none;
+    vertical-align: middle;
     transition:
         background-color var(--transition),
-        border-color var(--transition);
+        color var(--transition);
 }
 
 .awards-list .pdf-badge:hover {
     background-color: var(--bg-muted-hover);
-    border-color: var(--text-strong);
+    color: var(--text-strong);
 }
 
 .scans-note {

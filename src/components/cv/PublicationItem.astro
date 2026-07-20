@@ -54,11 +54,11 @@ function linkText(url: string): string {
 ---
 
 <article class="publication-entry">
-    <p class="entry-meta">
-        {meta(pub)}
+    <p class="entry-meta dot-row">
+        <span>{meta(pub)}</span>
         {
             pub.index && (
-                <span class="index-badge">{t(lang, indexKey[pub.index])}</span>
+                <span class="dot-sep">{t(lang, indexKey[pub.index])}</span>
             )
         }
     </p>

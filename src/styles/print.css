@@ -97,10 +97,10 @@
         border: 1px solid var(--border);
     }
 
-    /* Indexing badges (ВАК / РИНЦ) are meaningful on paper - keep them, but
-       outline instead of fill (page backgrounds often do not print). */
-    .index-badge {
-        border: 1px solid var(--border);
+    /* Awards PDF chip - same outline treatment as skill chips on paper
+       (page backgrounds often do not print, so the fill would disappear). */
+    .awards-list .pdf-badge {
+        background-color: transparent;
     }
 
     /* CSS multicol masonry does not survive page fragmentation cross-engine
