@@ -36,8 +36,8 @@
         "eslint-plugin-astro": "^3.0.1",
         "eslint-plugin-jsx-a11y": "^6.10.2",
         "husky": "^9.1.7",
-        "lint-staged": "^17.1.0",
-        "prettier": "^3.9.5",
+        "lint-staged": "^17.1.1",
+        "prettier": "^3.9.6",
         "prettier-plugin-astro": "^0.14.1",
         "typescript": "^6.0.3"
     }
