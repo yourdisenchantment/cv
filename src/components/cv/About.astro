@@ -57,15 +57,5 @@ const photo = photoMeta(about.photo);
             }
         </div>
         <p class="about-summary">{about.summary}</p>
-        {
-            about.research && (
-                <dl class="about-facts about-research">
-                    <div>
-                        <dt>{t(lang, "researchFocus")}:</dt>
-                        <dd>{about.research}</dd>
-                    </div>
-                </dl>
-            )
-        }
     </div>
 </section>

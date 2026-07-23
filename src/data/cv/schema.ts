@@ -20,8 +20,14 @@ const about = z.object({
     birthDate: z.string(), // ISO "YYYY-MM-DD"
     city: z.string(),
     summary: z.string(),
-    research: z.string().optional(), // PhD research focus, accented under summary
     availability: z.string().optional(),
+});
+
+// PhD research block: a topic line plus one summary paragraph, rendered as its
+// own section (before skills). Optional - omit to drop the section.
+const research = z.object({
+    topic: z.string(),
+    summary: z.string(),
 });
 
 // no href -> the value is an email, rendered as a mailto: link.
@@ -100,6 +106,7 @@ export const cvSchema = z.object({
     meta: meta,
     about: about,
     contacts: z.array(contact),
+    research: research.optional(),
     skills: z.array(z.string()),
     experience: z.array(experience),
     education: z.array(education),

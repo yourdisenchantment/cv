@@ -3,6 +3,7 @@ import type { Cv } from "../../data/cv/schema";
 import { type Locale } from "../../lib/format";
 import About from "./About.astro";
 import Contacts from "./Contacts.astro";
+import Research from "./Research.astro";
 import Skills from "./Skills.astro";
 import Experience from "./Experience.astro";
 import Education from "./Education.astro";
@@ -23,6 +24,7 @@ const { lang, data } = Astro.props;
 const {
     about,
     contacts,
+    research,
     skills,
     experience,
     education,
@@ -37,6 +39,7 @@ const {
     <main class="main">
         <About lang={lang} about={about} />
         <Contacts lang={lang} contacts={contacts} />
+        {research && <Research lang={lang} research={research} />}
         <Skills lang={lang} skills={skills} />
         <Experience lang={lang} experience={experience} />
         <Education lang={lang} education={education} />

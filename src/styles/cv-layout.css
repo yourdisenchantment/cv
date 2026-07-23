@@ -152,19 +152,6 @@ section {
     color: var(--text-strong);
 }
 
-/* PhD research focus: a "label: value" row reusing the .about-facts pattern
-   (bold gray mono label, body-color value), placed as an accent under the
-   summary - so only its own top spacing is set here. The label stays on one
-   line (nowrap) so it does not fray into a narrow column beside the value. */
-.about-research {
-    margin-top: var(--space-block-gap);
-    color: var(--text-strong);
-}
-
-.about-research dt {
-    white-space: nowrap;
-}
-
 /* Photo: float right on the wrapper (which carries the tooltip), fixed height,
    width by proportion. Wrapped by the about-info and summary text. */
 .about-photo {
@@ -177,6 +164,23 @@ section {
     height: var(--photo-height);
     width: auto;
     border-radius: var(--radius-sm);
+}
+
+/* --- Research --- */
+/* A short block: a bold topic line leading a single summary paragraph. */
+#research .section-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-block-gap);
+}
+
+.research-topic {
+    font-weight: bold;
+    color: var(--text-strong);
+}
+
+.research-summary {
+    color: var(--text-strong);
 }
 
 /* --- Contacts --- */
@@ -235,6 +239,14 @@ section {
 .archived {
     font-size: var(--fs-meta);
     color: var(--text-muted);
+}
+
+/* Private phone row: hidden on screen, shown only in print (see print.css).
+   The selector is class-qualified so it outranks `.contact-group > div`
+   (which would otherwise force display:flex); the row still inherits that
+   rule's layout/typography, only display is toggled per medium. */
+.contact-group > .contact-print-only {
+    display: none;
 }
 
 /* --- Skills --- */

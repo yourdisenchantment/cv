@@ -46,6 +46,13 @@ Astro content collection (`src/content.config.ts` -> zod-схема в
 коллекцию и валидируется сборкой, но страницами не используется. Страницы
 грузят запись через `getEntry("cv", lang)`:
 
+Приватные данные (телефон) - в `src/data/private.json` (**gitignored**, вне
+коллекции `cv/`; шаблон - `private.example.json`). `Contacts.astro` читает его
+через `import.meta.glob` (нет файла -> `{}` -> номер не рендерится), строка
+телефона - **print-only**. Итог: в задеплоенной сборке/репозитории номера нет,
+он попадает только в локально сгенерированный PDF. Печатать с номером - из
+локальной сборки, не с публичного сайта.
+
 - `src/pages/index.astro` -> en (корневой роут `/`).
 - `src/pages/ru/index.astro` -> ru (`/ru/`).
 - `src/layouts/BaseLayout.astro` - каркас `html`/`head`, инлайн-скрипты темы

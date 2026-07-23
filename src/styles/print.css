@@ -116,6 +116,12 @@
         margin-top: 0;
     }
 
+    /* The private phone row is print-only - reveal it here (it inherits the
+       contact-row layout from .contact-group > div). */
+    .contact-group > .contact-print-only {
+        display: flex;
+    }
+
     /* Skill chips - outlined (border instead of gray fill), saves ink. */
     .skill-list li {
         border: 1px solid var(--border);

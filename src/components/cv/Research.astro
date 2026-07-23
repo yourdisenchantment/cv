@@ -1,0 +1,22 @@
+---
+import type { Cv } from "../../data/cv/schema";
+import { type Locale } from "../../lib/format";
+import { t } from "../../lib/i18n";
+
+interface Props {
+    lang: Locale;
+    research: NonNullable<Cv["research"]>;
+}
+
+const { lang, research } = Astro.props;
+---
+
+<section aria-labelledby="research-heading" id="research">
+    <h2 class="section-heading" id="research-heading">
+        {t(lang, "research")}
+    </h2>
+    <div class="section-body">
+        <p class="research-topic">{research.topic}</p>
+        <p class="research-summary">{research.summary}</p>
+    </div>
+</section>

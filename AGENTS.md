@@ -57,6 +57,13 @@ in `src/data/cv/schema.ts`). Components consume the inferred `Cv` type.
 it enters the collection and gets validated by the build, but no page uses
 it. Pages load the entry via `getEntry("cv", lang)`:
 
+Private data (phone) lives in `src/data/private.json` (**gitignored**, outside
+the `cv/` collection; template: `private.example.json`). `Contacts.astro` reads
+it via `import.meta.glob` (no file -> `{}` -> number not rendered), and the
+phone row is **print-only**. So the deployed build/repo never contain the
+number - it only reaches a locally generated PDF. Print with the number from a
+local build, not the public site.
+
 - `src/pages/index.astro` -> en (root route)
 - `src/pages/ru/index.astro` -> ru
 

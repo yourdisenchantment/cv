@@ -9,8 +9,7 @@
         "role": "Machine Learning Engineer / Data Scientist",
         "birthDate": "2002-11-06",
         "city": "Simferopol, Russia",
-        "summary": "ML/DS engineer with an applied-mathematics foundation and a backend background. My edge is combining research with production: an original clustering algorithm (Intelliant, on PyPI) and data-centric VLM fine-tuning on one side, pipelines over hundreds of thousands of records and FastAPI services on the other. Research-minded; preparing for a PhD in ML.",
-        "research": "graph-based clustering of embeddings via ant colony optimization (ACO): finding dense semantic cores and multilevel hierarchical clustering"
+        "summary": "ML/DS engineer with an applied-mathematics foundation and a backend background. My edge is combining research with production: an original clustering algorithm (Intelliant, on PyPI) and data-centric VLM fine-tuning on one side, pipelines over hundreds of thousands of records and FastAPI services on the other. Research-minded; preparing for a PhD in ML."
     },
     "contacts": [
         {
@@ -55,6 +54,10 @@
             "group": "resource"
         }
     ],
+    "research": {
+        "topic": "Graph-based clustering of embeddings via ant colony optimization (ACO): finding dense semantic cores and multilevel hierarchical clustering",
+        "summary": "I am developing a clustering algorithm for high-dimensional embeddings that, instead of drawing boundaries in space, turns the data into a k-nearest-neighbor graph and locates dense semantic cores with an ant colony optimization (ACO) metaheuristic. The approach is dimension-independent and, on sparse matrices, processes hundreds of thousands of objects in seconds. Its planned development is a multilevel, hierarchical scheme: recursively coarsening the graph yields several products from a single run - fine cores, coarse macro-topics, a hierarchy - a structural advantage over flat density-based methods such as HDBSCAN."
+    },
     "skills": [
         "Python",
         "PyTorch",

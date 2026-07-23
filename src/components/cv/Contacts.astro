@@ -10,6 +10,18 @@ interface Props {
 
 const { lang, contacts } = Astro.props;
 
+// Private phone, read from a gitignored src/data/private.json (template:
+// private.example.json). import.meta.glob returns {} when the file is absent,
+// so the public/CI build - which does not have it - simply omits the number;
+// a local build picks it up. Rendered print-only (see .contact-print-only),
+// so it lands only in a locally generated PDF, never in the deployed HTML.
+const privateData = import.meta.glob("../../data/private.json", {
+    eager: true,
+    import: "default",
+});
+const phone = (Object.values(privateData)[0] as { phone?: string } | undefined)
+    ?.phone;
+
 // Groups: contact (email/messenger/site) and resource (github/gitlab/...).
 // Archived contacts go to the end of their group.
 const groupOrder: Array<"contact" | "resource"> = ["contact", "resource"];
@@ -34,7 +46,7 @@ const grouped = groupOrder
          Each group is a <dl> of label: value pairs. -->
     <address class="section-body">
         {
-            grouped.map(({ items }) => (
+            grouped.map(({ group, items }) => (
                 <dl class="contact-group">
                     {items.map((c) => (
                         <div>
@@ -73,6 +85,12 @@ const grouped = groupOrder
                             </dd>
                         </div>
                     ))}
+                    {group === "contact" && phone && (
+                        <div class="contact-print-only">
+                            <dt>{t(lang, "phone")}:</dt>
+                            <dd>{phone}</dd>
+                        </div>
+                    )}
                 </dl>
             ))
         }

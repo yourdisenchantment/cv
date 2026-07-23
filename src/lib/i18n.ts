@@ -9,6 +9,7 @@ type Dict = {
     // section headings
     about: string;
     contacts: string;
+    research: string;
     skills: string;
     experience: string;
     education: string;
@@ -24,10 +25,10 @@ type Dict = {
     // "About" block labels
     birthDate: string;
     city: string;
-    // about: PhD research focus label (value comes from about.research)
-    researchFocus: string;
     // contacts
     archived: string;
+    // contacts: print-only phone label (value from local private.json)
+    phone: string;
     // contacts: mailto link tooltip
     sendEmail: string;
     // external link tooltip (hover)
@@ -66,6 +67,7 @@ const ui: Record<Locale, Dict> = {
     ru: {
         about: "О себе",
         contacts: "Контакты",
+        research: "Научное исследование",
         skills: "Навыки",
         experience: "Опыт работы",
         education: "Образование",
@@ -77,8 +79,8 @@ const ui: Record<Locale, Dict> = {
         pdfLink: "PDF",
         birthDate: "Дата рождения",
         city: "Город",
-        researchFocus: "Тема исследования для аспирантуры",
         archived: "archived",
+        phone: "Телефон",
         sendEmail: "Написать на почту",
         openInNewTab: "Открыть в новой вкладке",
         kindArticle: "Статья",
@@ -105,6 +107,7 @@ const ui: Record<Locale, Dict> = {
     en: {
         about: "About",
         contacts: "Contacts",
+        research: "Research",
         skills: "Skills",
         experience: "Experience",
         education: "Education",
@@ -117,8 +120,8 @@ const ui: Record<Locale, Dict> = {
         pdfLink: "PDF",
         birthDate: "Date of birth",
         city: "City",
-        researchFocus: "PhD research focus",
         archived: "archived",
+        phone: "Phone",
         sendEmail: "Send email",
         openInNewTab: "Open in a new tab",
         kindArticle: "Article",

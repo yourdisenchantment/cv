@@ -10,7 +10,6 @@
         "birthDate": "2000-01-15",
         "city": "Sample City, Country",
         "summary": "One or two sentences positioning the candidate: strongest skills, what kind of work they are after.",
-        "research": "Optional PhD research focus, shown as an accent line under the summary",
         "availability": "Open to remote work"
     },
     "contacts": [
@@ -39,6 +38,10 @@
             "group": "resource"
         }
     ],
+    "research": {
+        "topic": "Optional PhD research topic - one line, shown as its own section before skills",
+        "summary": "One short paragraph on the research direction: problem, approach, and what makes it novel."
+    },
     "skills": ["Python", "PyTorch", "FastAPI", "Docker", "Git"],
     "experience": [
         {

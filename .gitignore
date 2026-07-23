@@ -15,6 +15,10 @@ pnpm-debug.log*
 .env
 .env.production
 
+# Private CV data (e.g. phone) - kept out of the public build/repo, rendered
+# print-only from a local copy. Template: src/data/private.example.json.
+src/data/private.json
+
 .DS_Store
 ._*
 
