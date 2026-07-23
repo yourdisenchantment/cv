@@ -25,6 +25,11 @@
             "group": "contact"
         },
         {
+            "label": "Email",
+            "value": "pavel.mikheyev.611@ya.ru",
+            "group": "contact"
+        },
+        {
             "label": "Telegram",
             "value": "yourdisenchantment",
             "href": "https://t.me/yourdisenchantment",
