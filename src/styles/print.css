@@ -1,9 +1,9 @@
-/* Print: the resume as an A4 document, paginated by the browser's default
-   rules - no break control on purpose (where a page splits is left to the
-   engine). This layer sets up the sheet (A4 page, B/W palette, no screen
-   chrome), strips decoration that wastes ink, and switches page-spanning
-   containers to block flow (see below). Imported last so it overrides tokens
-   and layout. */
+/* Print: the resume as an A4 document, paginated by the browser. Page breaks
+   fall between entries - each entry is kept whole (break-inside: avoid, see
+   below), the choice of which gap to break at is left to the engine. This
+   layer sets up the sheet (A4 page, B/W palette, no screen chrome), strips
+   decoration that wastes ink, and switches page-spanning containers to block
+   flow (see below). Imported last so it overrides tokens and layout. */
 @media print {
     /* Real A4 page with margins. The sheet's inner padding (.main padding 2cm)
        is removed when printing - otherwise margins would double. */
@@ -49,9 +49,10 @@
     /* Block flow for every container that spans page breaks. WebKit cannot
        fragment flex containers: it slices line boxes in half at the page edge
        and drops content past the overflow (Blink/Gecko fragment flex fine).
-       Leaf flex boxes (entries, chip rows) are left as is - they fit within a
-       page and at worst move to the next one whole. gap does not apply to
-       block flow, so it is replaced with margins between children. */
+       Leaf flex boxes (entries, chip rows) stay flex - break-inside: avoid
+       (below) makes each move to the next page whole rather than being sliced.
+       gap does not apply to block flow, so it is replaced with margins between
+       children. */
     .main {
         display: block;
         max-width: none;
@@ -72,6 +73,22 @@
 
     .section-heading {
         margin-bottom: var(--space-block-gap);
+        /* A heading must not be stranded at the foot of a page - keep it with
+           the content that follows. */
+        break-after: avoid;
+    }
+
+    /* Keep each entry whole across page breaks: the engine moves it to the next
+       page instead of slicing it (WebKit drops the sliced-off remainder, so a
+       split entry silently loses its tail - bullets/chips orphaned without a
+       date or heading). Projects already do this via .project-entry (base
+       layer); this covers every other repeating unit. */
+    .dated-entry,
+    .publication-entry,
+    .awards-list li,
+    .contact-group > div,
+    .skill-list li {
+        break-inside: avoid;
     }
 
     .section-body {
@@ -87,9 +104,16 @@
     }
 
     /* Contacts keep the two groups side by side: the block is short, fits
-       within a page, so flex is safe here. */
+       within a page, so flex is safe here. The generic .section-body child
+       margin above would push the second group (resources) down and break the
+       top alignment of the two columns - the flex gap already spaces them, so
+       drop it here. */
     #contacts .section-body {
         display: flex;
+    }
+
+    #contacts .section-body > * + * {
+        margin-top: 0;
     }
 
     /* Skill chips - outlined (border instead of gray fill), saves ink. */
