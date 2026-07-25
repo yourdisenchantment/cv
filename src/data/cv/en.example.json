@@ -99,6 +99,7 @@
         {
             "kind": "article",
             "title": "Sample Article Title",
+            "year": 2025,
             "index": "vak",
             "urls": [
                 "https://doi.org/10.0000/sample",
@@ -108,11 +109,13 @@
         {
             "kind": "dataset",
             "title": "Sample Published Dataset",
+            "year": 2024,
             "urls": ["https://doi.org/10.0000/dataset"]
         },
         {
             "kind": "vkr",
             "title": "Sample Graduation Thesis",
+            "year": 2023,
             "level": "master",
             "course": 2,
             "urls": ["https://example.edu/thesis.pdf"]

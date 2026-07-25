@@ -84,6 +84,8 @@ const achievement = z.union([
     }),
 ]);
 
+// year - publication year; required because the section is sorted by it
+// (newest first), so a missing one would be an undefined position.
 // level/course - only for kind: "vkr" (bachelor's/master's graduation thesis).
 const publication = z.object({
     kind: z.enum([
@@ -96,6 +98,7 @@ const publication = z.object({
         "journal",
     ]),
     title: z.string(),
+    year: z.number(),
     level: z.enum(["bachelor", "master"]).optional(),
     course: z.number().optional(),
     index: z.enum(["vak", "rinc"]).optional(), // indexing badge (elibrary status)

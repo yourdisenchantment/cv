@@ -273,6 +273,7 @@
         {
             "kind": "article",
             "title": "Использование нейронной сети для генерирования изображений при обучении студентов разработке альтернативного текста",
+            "year": 2024,
             "index": "vak",
             "urls": [
                 "https://doi.org/10.21686/1818-4243-2024-1-9-20",
@@ -283,35 +284,41 @@
         {
             "kind": "thesis",
             "title": "Разработка альтернативного текста с использованием нейронных сетей для генерации изображений",
+            "year": 2024,
             "index": "rinc",
             "urls": ["https://elibrary.ru/item.asp?id=67952551"]
         },
         {
             "kind": "thesis",
             "title": "Использование мультимодальных нейронных сетей для создания альтернативного текста к изображениям: сравнительный анализ подходов",
+            "year": 2025,
             "index": "rinc",
             "urls": ["https://elibrary.ru/item.asp?id=82476665"]
         },
         {
             "kind": "collection",
             "title": "Математика, информатика, компьютерные науки, моделирование, образование (МИКМО-2025)",
+            "year": 2025,
             "index": "rinc",
             "urls": ["https://www.elibrary.ru/item.asp?id=82443605"]
         },
         {
             "kind": "dataset",
             "title": "CC3M Semantic Subset with WCAG 2.2 Captions (Russian)",
+            "year": 2026,
             "urls": ["https://doi.org/10.6084/m9.figshare.32258007"]
         },
         {
             "kind": "patent",
             "title": "Программа для ЭВМ \"ThermalVis of Indoor Environments\"",
+            "year": 2025,
             "index": "rinc",
             "urls": ["https://elibrary.ru/item.asp?id=80653653"]
         },
         {
             "kind": "article",
             "title": "Междисциплинарные аспекты развития трансформационных технологий",
+            "year": 2025,
             "index": "rinc",
             "urls": [
                 "https://publishing.intelgr.com/index.php/component/content/article.html?id=1002",
@@ -319,14 +326,19 @@
             ]
         },
         {
-            "kind": "journal",
-            "title": "Строительное производство",
+            "kind": "article",
+            "title": "Применение современного программного обеспечения при оценке микроклимата на примере православных храмов",
+            "year": 2025,
             "index": "vak",
-            "urls": ["https://elibrary.ru/title_about_new.asp?id=73740"]
+            "urls": [
+                "https://doi.org/10.54950/26585340_2025_3_76",
+                "https://elibrary.ru/item.asp?id=83241020"
+            ]
         },
         {
             "kind": "vkr",
             "title": "Разработка альтернативного текста для незрячих пользователей с использованием нейронных сетей",
+            "year": 2024,
             "level": "bachelor",
             "urls": [
                 "https://drive.google.com/drive/folders/1i2vL2TaXcO8BqrWcIU7o9WCZsannGDEB"
@@ -335,6 +347,7 @@
         {
             "kind": "vkr",
             "title": "Разработка нейронной сети для генерации альтернативного текста к изображениям",
+            "year": 2026,
             "level": "master",
             "urls": [
                 "https://drive.google.com/drive/folders/1r0yBQ5TlCrQ-29R-wYSrz8CzdGz_ULGC"

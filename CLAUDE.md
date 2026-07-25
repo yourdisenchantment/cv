@@ -82,7 +82,8 @@ Astro content collection (`src/content.config.ts` -> zod-схема в
 ### Важные инварианты
 
 - **Держи оба locale-JSON в одинаковой форме.** `experience`, `education`,
-  `courses` сортируются по дате в коде - порядок записей в JSON не важен.
+  `courses` сортируются по дате, `publications` - по полю `year` (новые
+  сверху); порядок записей в JSON не важен.
 - `base: "/cv/"` действует и в dev. `import.meta.env.BASE_URL` отдается ровно
   как `/cv/` (с конечным слешем) - на это опираются строковые склейки путей
   (favicon, фото, языковой префикс в `jsonld.ts`). Слеш не убирать.

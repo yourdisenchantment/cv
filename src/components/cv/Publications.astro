@@ -10,6 +10,10 @@ interface Props {
 }
 
 const { lang, publications } = Astro.props;
+
+// Newest on top: sort by year descending. Same-year entries keep their JSON
+// order (Array.prototype.sort is stable), so JSON order does not matter.
+const sorted = [...publications].sort((a, b) => b.year - a.year);
 ---
 
 <section aria-labelledby="publications-heading" id="publications">
@@ -17,6 +21,6 @@ const { lang, publications } = Astro.props;
         {t(lang, "publications")}
     </h2>
     <div class="section-body">
-        {publications.map((pub) => <PublicationItem pub={pub} lang={lang} />)}
+        {sorted.map((pub) => <PublicationItem pub={pub} lang={lang} />)}
     </div>
 </section>

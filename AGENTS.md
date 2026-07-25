@@ -73,8 +73,8 @@ local build, not the public site.
   its dock link is DEV-only too. Route is `/stylebook`, not `/__stylebook` -
   Astro drops underscore-prefixed paths from routing.
 - **Keep both locale JSON files in the same shape.** `experience`,
-  `education`, `courses` are sorted by date in code, so entry order in JSON
-  does not matter.
+  `education`, `courses` are sorted by date and `publications` by their
+  `year` field (newest first) in code, so entry order in JSON does not matter.
 - UI strings: flat dictionary in `src/lib/i18n.ts`, accessed via
   `t(lang, key)`. `t()` falls back to `ru` when the `en` value is empty.
 - Date/link formatting: `src/lib/format.ts`. Periods use `"YYYY-MM"` with
