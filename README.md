@@ -41,7 +41,7 @@ src/
 │   └── private.json   # gitignored: print-only phone (see below)
 ├── layouts/           # BaseLayout (html/head, theme + tooltip scripts)
 ├── lib/               # i18n, date/link formatting, JSON-LD builder
-├── pages/             # routes: / (en), /ru/ (ru)
+├── pages/             # routes: / (en), /ru/ (ru), stylebook (dev only)
 └── styles/            # tokens (variables.css), layout, print, fonts
 public/                # static assets (favicon, images, document scans)
 ```
@@ -53,6 +53,11 @@ on build by the zod schema in `src/data/cv/schema.ts`. Keep both locale files in
 the same shape. Experience, education and courses are sorted by date and
 publications by their `year` field (newest first) in code, so entry order in
 JSON does not matter. `en.example.json` is a template covering every field.
+
+The resume is a kit: every section is optional (only `meta` and `about` are
+required). Drop a key and the section is left out; an empty array leaves it out
+too, but shows a red `[error]` marker in dev, since an empty array means the
+section was declared and never filled.
 
 ### Private data
 
@@ -74,6 +79,18 @@ site.
 | `bunx astro check` | Type-check `.astro`/TS templates     |
 | `bun run lint`     | ESLint (astro + jsx-a11y)            |
 | `bun run format`   | Format with Prettier                 |
+
+## Development
+
+`/cv/stylebook` is a DEV-only page - the Dock links to it in dev, and its
+`getStaticPaths` returns nothing in production, so it never ships. It shows the
+design tokens (colours, type scale, spacing) next to live samples of every
+resume section, rendered from self-contained dummy data, so a component can be
+checked without touching real content.
+
+In dev the `<body>` also carries `debug-boxes`, which outlines the hovered
+element to reveal box edges; turn it off in devtools with
+`document.body.classList.remove('debug-boxes')`.
 
 ## Deployment
 

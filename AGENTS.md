@@ -75,6 +75,12 @@ local build, not the public site.
 - **Keep both locale JSON files in the same shape.** `experience`,
   `education`, `courses` are sorted by date and `publications` by their
   `year` field (newest first) in code, so entry order in JSON does not matter.
+- **The resume is a kit: every section is optional** (only `meta` and `about`
+  are required - they are the document identity). A missing key means the
+  section is not part of this CV and renders nothing. An empty array renders
+  nothing either, but leaves a red `[error]` marker in DEV
+  (`DevError.astro`): an empty array means "declared and left unfilled", and
+  silence would hide it.
 - UI strings: flat dictionary in `src/lib/i18n.ts`, accessed via
   `t(lang, key)`. `t()` falls back to `ru` when the `en` value is empty.
 - Date/link formatting: `src/lib/format.ts`. Periods use `"YYYY-MM"` with
