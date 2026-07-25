@@ -6,7 +6,7 @@ import PublicationItem from "./PublicationItem.astro";
 
 interface Props {
     lang: Locale;
-    publications: Cv["publications"];
+    publications: NonNullable<Cv["publications"]>;
 }
 
 const { lang, publications } = Astro.props;

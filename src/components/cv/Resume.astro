@@ -11,6 +11,7 @@ import Awards from "./Awards.astro";
 import Courses from "./Courses.astro";
 import Projects from "./Projects.astro";
 import Publications from "./Publications.astro";
+import DevError from "./DevError.astro";
 
 // Resume body (wrapper + sections) for both locales. The pages (/ and /ru/)
 // load their own entry and pass cv.data; metadata (title/description) is
@@ -37,15 +38,78 @@ const {
 
 <div class="wrapper">
     <main class="main">
+        <!-- The resume is a kit: every section below is optional and follows
+             one rule. Key absent -> the section is not part of this CV, render
+             nothing. Key present but empty -> render nothing either, but leave
+             a red DEV marker: the section was declared and left empty, which is
+             a slip the build cannot catch, and omitting it silently would make
+             it invisible. Filled -> render (zod validates the contents).
+             About is exempt: it is the document identity, not a section. -->
         <About lang={lang} about={about} />
-        <Contacts lang={lang} contacts={contacts} />
+        {
+            contacts &&
+                (contacts.length > 0 ? (
+                    <Contacts lang={lang} contacts={contacts} />
+                ) : (
+                    <DevError what="contacts: пустой массив" />
+                ))
+        }
         {research && <Research lang={lang} research={research} />}
-        <Skills lang={lang} skills={skills} />
-        <Experience lang={lang} experience={experience} />
-        <Education lang={lang} education={education} />
-        <Awards lang={lang} achievements={achievements} />
-        <Courses lang={lang} courses={courses} />
-        <Publications lang={lang} publications={publications} />
-        <Projects lang={lang} projects={projects} />
+        {
+            skills &&
+                (skills.length > 0 ? (
+                    <Skills lang={lang} skills={skills} />
+                ) : (
+                    <DevError what="skills: пустой массив" />
+                ))
+        }
+        {
+            experience &&
+                (experience.length > 0 ? (
+                    <Experience lang={lang} experience={experience} />
+                ) : (
+                    <DevError what="experience: пустой массив" />
+                ))
+        }
+        {
+            education &&
+                (education.length > 0 ? (
+                    <Education lang={lang} education={education} />
+                ) : (
+                    <DevError what="education: пустой массив" />
+                ))
+        }
+        {
+            achievements &&
+                (achievements.length > 0 ? (
+                    <Awards lang={lang} achievements={achievements} />
+                ) : (
+                    <DevError what="achievements: пустой массив" />
+                ))
+        }
+        {
+            courses &&
+                (courses.length > 0 ? (
+                    <Courses lang={lang} courses={courses} />
+                ) : (
+                    <DevError what="courses: пустой массив" />
+                ))
+        }
+        {
+            publications &&
+                (publications.length > 0 ? (
+                    <Publications lang={lang} publications={publications} />
+                ) : (
+                    <DevError what="publications: пустой массив" />
+                ))
+        }
+        {
+            projects &&
+                (projects.length > 0 ? (
+                    <Projects lang={lang} projects={projects} />
+                ) : (
+                    <DevError what="projects: пустой массив" />
+                ))
+        }
     </main>
 </div>

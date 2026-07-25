@@ -4,7 +4,7 @@ import { formatPeriod, type Locale } from "../../lib/format";
 
 interface Props {
     lang: Locale;
-    edu: Cv["education"][number];
+    edu: NonNullable<Cv["education"]>[number];
 }
 
 const { lang, edu } = Astro.props;

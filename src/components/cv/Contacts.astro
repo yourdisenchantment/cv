@@ -5,7 +5,7 @@ import { t } from "../../lib/i18n";
 
 interface Props {
     lang: Locale;
-    contacts: Cv["contacts"];
+    contacts: NonNullable<Cv["contacts"]>;
 }
 
 const { lang, contacts } = Astro.props;

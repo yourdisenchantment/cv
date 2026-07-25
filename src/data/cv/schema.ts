@@ -105,18 +105,23 @@ const publication = z.object({
     urls: z.array(z.url()),
 });
 
+// The resume is a kit: every section is optional, so a CV can be assembled
+// from any subset. meta and about stay required - they are the document's
+// identity (page title, name, role), not a section one can drop.
+// Omit a key to leave the section out entirely; an empty array means the
+// section was declared and left empty, which Resume.astro flags in DEV.
 export const cvSchema = z.object({
     meta: meta,
     about: about,
-    contacts: z.array(contact),
+    contacts: z.array(contact).optional(),
     research: research.optional(),
-    skills: z.array(z.string()),
-    experience: z.array(experience),
-    education: z.array(education),
-    courses: z.array(course),
-    projects: z.array(project),
-    publications: z.array(publication),
-    achievements: z.array(achievement),
+    skills: z.array(z.string()).optional(),
+    experience: z.array(experience).optional(),
+    education: z.array(education).optional(),
+    courses: z.array(course).optional(),
+    projects: z.array(project).optional(),
+    publications: z.array(publication).optional(),
+    achievements: z.array(achievement).optional(),
 });
 
 export type Cv = z.infer<typeof cvSchema>;

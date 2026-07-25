@@ -20,6 +20,7 @@ import type { Cv } from "../../data/cv/schema";
 import { type Locale } from "../../lib/format";
 import About from "../../components/cv/About.astro";
 import Contacts from "../../components/cv/Contacts.astro";
+import Research from "../../components/cv/Research.astro";
 import Skills from "../../components/cv/Skills.astro";
 import Experience from "../../components/cv/Experience.astro";
 import Education from "../../components/cv/Education.astro";
@@ -104,7 +105,10 @@ const spaceAliases: Array<{ token: string; label: string }> = [
 // real resume content. Covers every section type with minimal but realistic
 // fields (archived contact, honors, department, vkr level/course, project
 // stack, publication kinds/urls).
-const dummyCv: Cv = {
+// `satisfies` rather than `: Cv` - every section is optional in Cv, but this
+// sample fills them all, and satisfies keeps the literal (non-optional) types
+// so the section components can take the fields directly.
+const dummyCv = {
     meta: { title: "Stylebook", description: "DEV stylebook" },
     about: {
         photo: "/images/my-face.jpg",
@@ -138,6 +142,11 @@ const dummyCv: Cv = {
             group: "resource",
         },
     ],
+    research: {
+        topic: "Sample research topic in one line",
+        summary:
+            "One paragraph on the research direction: the problem, the approach taken, and what makes it novel.",
+    },
     skills: ["Python", "TypeScript", "PyTorch", "Astro", "Docker"],
     experience: [
         {
@@ -206,7 +215,7 @@ const dummyCv: Cv = {
             urls: ["https://example.edu/thesis.pdf"],
         },
     ],
-};
+} satisfies Cv;
 ---
 
 <!doctype html>
@@ -492,6 +501,7 @@ const dummyCv: Cv = {
                     <main class="main">
                         <About lang={lang} about={dummyCv.about} />
                         <Contacts lang={lang} contacts={dummyCv.contacts} />
+                        <Research lang={lang} research={dummyCv.research} />
                         <Skills lang={lang} skills={dummyCv.skills} />
                         <Experience
                             lang={lang}

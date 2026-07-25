@@ -5,7 +5,7 @@ import { t } from "../../lib/i18n";
 
 interface Props {
     lang: Locale;
-    pub: Cv["publications"][number];
+    pub: NonNullable<Cv["publications"]>[number];
 }
 
 const { lang, pub } = Astro.props;
@@ -32,7 +32,7 @@ const indexKey = {
 // Publication label: for a graduation thesis - "ВКР (Магистратура), 2 курс" /
 // "Graduation thesis (Master), Year 2"; otherwise just the kind. The position
 // of the "year" word depends on locale: ru "2 курс", en "Year 2".
-function meta(pub: Cv["publications"][number]): string {
+function meta(pub: NonNullable<Cv["publications"]>[number]): string {
     const kind = t(lang, kindKey[pub.kind]);
     if (pub.kind === "vkr" && pub.level) {
         const level = t(lang, levelKey[pub.level]);

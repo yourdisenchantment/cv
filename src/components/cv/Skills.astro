@@ -5,7 +5,7 @@ import { t } from "../../lib/i18n";
 
 interface Props {
     lang: Locale;
-    skills: Cv["skills"];
+    skills: NonNullable<Cv["skills"]>;
 }
 
 const { lang, skills } = Astro.props;

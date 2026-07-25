@@ -6,7 +6,7 @@ import ExperienceItem from "./ExperienceItem.astro";
 
 interface Props {
     lang: Locale;
-    experience: Cv["experience"];
+    experience: NonNullable<Cv["experience"]>;
 }
 
 const { lang, experience } = Astro.props;

@@ -18,7 +18,8 @@ export function personSchema(
 ) {
     const root = site ? new URL(base, site).href.replace(/\/?$/, "/") : base;
     const url = lang === "en" ? root : `${root}${lang}/`;
-    const sameAs = data.contacts
+    // contacts is an optional section - no contacts means no sameAs profiles.
+    const sameAs = (data.contacts ?? [])
         .filter((c) => c.href && !c.archived)
         .map((c) => c.href as string);
 

@@ -1,0 +1,15 @@
+---
+// DEV-only data marker. Flags content that passes the zod schema but renders
+// blank (an empty array or string) - the build cannot catch that, and for a
+// guarded section it leaves no trace at all: the section is simply omitted,
+// so an accidentally emptied one is invisible without this marker.
+// Renders nothing in production, so the published CV never shows it.
+// Styling: .dev-error in styles/debug.css.
+interface Props {
+    what: string;
+}
+
+const { what } = Astro.props;
+---
+
+{import.meta.env.DEV && <p class="dev-error">[error] {what}</p>}

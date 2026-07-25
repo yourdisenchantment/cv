@@ -6,7 +6,7 @@ import EducationItem from "./EducationItem.astro";
 
 interface Props {
     lang: Locale;
-    education: Cv["education"];
+    education: NonNullable<Cv["education"]>;
 }
 
 const { lang, education } = Astro.props;

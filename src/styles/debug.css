@@ -7,3 +7,13 @@
     outline: 1px solid red;
     outline-offset: 0;
 }
+
+/* DEV-only data marker (see components/cv/DevError.astro): loud red so an
+   empty field or a dropped section cannot be missed while editing. The
+   component renders nothing in production, so this never applies there. */
+.dev-error {
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    font-weight: bold;
+    color: #d32f2f;
+}
