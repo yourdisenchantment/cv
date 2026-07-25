@@ -54,14 +54,16 @@ function linkText(url: string): string {
 ---
 
 <article class="publication-entry">
+    <!-- Year leads the meta line: the section is sorted by it (newest first),
+         so a leading year makes that order scannable down the column. -->
     <p class="entry-meta dot-row">
-        <span>{meta(pub)}</span>
+        <span>{pub.year}</span>
+        <span class="dot-sep">{meta(pub)}</span>
         {
             pub.index && (
                 <span class="dot-sep">{t(lang, indexKey[pub.index])}</span>
             )
         }
-        <span class="dot-sep">{pub.year}</span>
     </p>
     <h3 class="entry-title">{pub.title}</h3>
     <ul class="entry-links">

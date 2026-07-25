@@ -36,20 +36,32 @@ src/
 ├── components/
 │   ├── cv/            # resume sections (About, Experience, Projects, ...)
 │   └── Dock.astro     # floating control bar (theme, language, print, source)
-├── data/cv/           # resume content: en.json / ru.json + zod schema
+├── data/
+│   ├── cv/            # resume content: en.json / ru.json + zod schema
+│   └── private.json   # gitignored: print-only phone (see below)
 ├── layouts/           # BaseLayout (html/head, theme + tooltip scripts)
 ├── lib/               # i18n, date/link formatting, JSON-LD builder
 ├── pages/             # routes: / (en), /ru/ (ru)
 └── styles/            # tokens (variables.css), layout, print, fonts
-public/                # static assets (favicon, images, fonts)
+public/                # static assets (favicon, images, document scans)
 ```
 
 ## Editing content
 
 Resume content is in `src/data/cv/en.json` and `src/data/cv/ru.json`, validated
 on build by the zod schema in `src/data/cv/schema.ts`. Keep both locale files in
-the same shape. Experience, education and courses are sorted by date in code, so
-entry order in JSON does not matter.
+the same shape. Experience, education and courses are sorted by date and
+publications by their `year` field (newest first) in code, so entry order in
+JSON does not matter. `en.example.json` is a template covering every field.
+
+### Private data
+
+The phone number lives in `src/data/private.json`, which is gitignored (copy
+`private.example.json` and fill it in). The contacts block reads it at build
+time and renders it print-only, so the number reaches a locally generated PDF
+but never the deployed HTML or this repository. To print a PDF with the number,
+build locally (`bun run build && bun run preview`) rather than using the public
+site.
 
 ## Commands
 
