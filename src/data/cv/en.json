@@ -1,12 +1,12 @@
 {
     "meta": {
         "title": "Pavel Mikheyev - CV",
-        "description": "CV of Pavel Mikheyev, Machine Learning Engineer and Data Scientist."
+        "description": "CV of Pavel Mikheyev, ML R&D Engineer and Applied Scientist."
     },
     "about": {
         "photo": "/images/my-face.jpg",
         "name": "Mikheyev Pavel Olegovich",
-        "role": "Machine Learning Engineer / Data Scientist",
+        "role": "ML R&D Engineer / Applied Scientist",
         "birthDate": "2002-11-06",
         "city": "Simferopol, Russia",
         "summary": "ML/DS engineer with an applied-mathematics foundation and a backend background. My edge is combining research with production: an original clustering algorithm (Intelliant, on PyPI) and data-centric VLM fine-tuning on one side, pipelines over hundreds of thousands of records and FastAPI services on the other. Research-minded; preparing for a PhD in ML."
@@ -108,8 +108,10 @@
             "role": "Full-Stack Developer",
             "achievements": [
                 "Independently led two internal projects in parallel with my master's studies",
-                "Real estate aggregator: parsing and processing of 300k+ listings, location hierarchy, recommendations, served via FastAPI",
-                "Initiated the migration from Pandas to Polars (memory and speed on large tables)",
+                "Italian real estate aggregator: 300k+ listings collected across every province, ~40 fields out of nested JSON, served via FastAPI",
+                "Location reference of ~10.7k nodes across five levels (region - province - city - macrozone - microzone); a listing attaches to the deepest matching node",
+                "Listing versioning: four lifecycle tables rotated by record age - current, changed, inactive, archived",
+                "Moved version diffing from Pandas to Polars: the per-group row comparison that ran out of memory became an anti-join; staged writes to disk decoupled peak memory from the size of the history",
                 "End-to-end SAM 3D Body pipeline: from dissecting the model to video adaptation and a Gradio interface",
                 "Desktop viewer for SAM 3D Body results on Rerun and PySide; shown to investors, used by the team"
             ],
@@ -160,19 +162,6 @@
                 "ResNet",
                 "Hugging Face"
             ]
-        },
-        {
-            "period": {
-                "start": "2023-04",
-                "end": "2023-06"
-            },
-            "company": "Voda Kryma",
-            "role": "Intern",
-            "achievements": [
-                "Editing the corporate map of Simferopol on Yandex Maps: infrastructure objects",
-                "Annotation via the Yandex Maps API and a Python script, partly by hand"
-            ],
-            "skills": ["Python", "JavaScript", "Yandex Maps API"]
         }
     ],
     "education": [
@@ -202,15 +191,6 @@
         }
     ],
     "courses": [
-        {
-            "period": {
-                "start": "2023-12",
-                "end": "2024-04"
-            },
-            "institution": "V.I. Vernadsky Crimean Federal University",
-            "course": "Mathematics and Computer Science Teacher",
-            "skills": ["Python", "Algorithms and data structures"]
-        },
         {
             "period": {
                 "start": "2022-12",
@@ -250,34 +230,10 @@
             "stack": ["Python", "NumPy", "SciPy"]
         },
         {
-            "name": "Simple Pizza",
-            "url": "https://github.com/yourdisenchantment/simple-pizza",
-            "description": "Console app for managing a pizzeria: menu, ingredients, recipes and orders, with automatic stock deduction and pizza visibility control.",
-            "stack": ["Python", "SQLite"]
-        },
-        {
-            "name": "Untitled Text Game",
-            "url": "https://github.com/azzalie/Untitled-Text-Game",
-            "description": "A text-based game in Java: moving between locations, items, inventory, and NPC interaction.",
-            "stack": ["Java"]
-        },
-        {
             "name": "SAM 3D Body",
             "url": "https://github.com/yourdisenchantment/sam-3d-body",
             "description": "Tooling for running the SAM 3D Body model (Meta) locally: CLI for batch dataset processing, a Gradio demo, and setup/debug scripts. Fork of the original repo.",
             "stack": ["Python", "PyTorch", "trimesh", "Gradio", "OpenCV"]
-        },
-        {
-            "name": "Logic and architecture of compute environments",
-            "url": "https://github.com/yourdisenchantment/logic-compute-env",
-            "description": "Course tasks on parallel computing in C/C++: single- and multi-threaded matrix multiplication, producer-consumer synchronization, recursive parallelism.",
-            "stack": ["C/C++"]
-        },
-        {
-            "name": "Computer Networks",
-            "url": "https://github.com/azzalie/computer-networks",
-            "description": "Course tasks on networking and concurrency in Java: quadratic equations, UDP sockets, chat, and client-server applications.",
-            "stack": ["Java"]
         },
         {
             "name": "SAM 3D Viewer",
@@ -326,12 +282,6 @@
             "urls": ["https://www.elibrary.ru/item.asp?id=82443605"]
         },
         {
-            "kind": "dataset",
-            "title": "CC3M Semantic Subset with WCAG 2.2 Captions (Russian)",
-            "year": 2026,
-            "urls": ["https://doi.org/10.6084/m9.figshare.32258007"]
-        },
-        {
             "kind": "patent",
             "title": "Программа для ЭВМ \"ThermalVis of Indoor Environments\"",
             "year": 2025,
@@ -357,24 +307,6 @@
                 "https://doi.org/10.54950/26585340_2025_3_76",
                 "https://elibrary.ru/item.asp?id=83241020"
             ]
-        },
-        {
-            "kind": "vkr",
-            "title": "Разработка альтернативного текста для незрячих пользователей с использованием нейронных сетей",
-            "year": 2024,
-            "level": "bachelor",
-            "urls": [
-                "https://drive.google.com/drive/folders/1i2vL2TaXcO8BqrWcIU7o9WCZsannGDEB"
-            ]
-        },
-        {
-            "kind": "vkr",
-            "title": "Разработка нейронной сети для генерации альтернативного текста к изображениям",
-            "year": 2026,
-            "level": "master",
-            "urls": [
-                "https://drive.google.com/drive/folders/1r0yBQ5TlCrQ-29R-wYSrz8CzdGz_ULGC"
-            ]
         }
     ],
     "achievements": [
@@ -398,10 +330,6 @@
         {
             "text": "Participant of the \"LLM Scaling Week\" online intensive, Yandex School of Data Analysis, 2025",
             "file": "/documents/yandex-llm-scaling-week.pdf"
-        },
-        {
-            "text": "Participant of the \"Kadry.Krym: Start in Public Service\" educational intensive (Meganom Academy, 2026)",
-            "file": "/documents/kadry-krym-certificate.pdf"
         }
     ]
 }
