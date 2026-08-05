@@ -206,8 +206,14 @@
         margin-top: 0;
     }
 
+    /* The padding insets the card content from its border; with no border it
+       is just whitespace, and doubled at every seam (bottom of one card, top
+       of the next) it left the list looking twice as loose as every other
+       section. Drop it and let margin-bottom alone set the rhythm, at the
+       same entry gap the rest of the resume uses. */
     .project-entry {
         border: none;
+        padding: 0;
     }
 
     .project-entry .entry-head a {
