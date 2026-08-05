@@ -23,11 +23,24 @@ const about = z.object({
     availability: z.string().optional(),
 });
 
-// PhD research block: a topic line plus one summary paragraph, rendered as its
-// own section (before skills). Optional - omit to drop the section.
+// PhD research block: a topic line, an essence paragraph, an optional
+// "path" (one or more paragraphs on past/current/future stages), and
+// optional links to related projects/repos. Rendered as its own section
+// (before skills). Optional - omit to drop the section.
+// summary and path are plain text: links live only in the "links" array
+// below, as a scannable list under the prose - same as every other section
+// (PublicationItem.astro, Projects.astro), and it saves the reader hunting
+// for links by dragging the mouse across a paragraph.
+const researchLink = z.object({
+    label: z.string(),
+    url: z.url(),
+});
+
 const research = z.object({
     topic: z.string(),
     summary: z.string(),
+    path: z.array(z.string()).optional(),
+    links: z.array(researchLink).optional(),
 });
 
 // no href -> the value is an email, rendered as a mailto: link.

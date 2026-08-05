@@ -40,7 +40,16 @@
     ],
     "research": {
         "topic": "Optional PhD research topic - one line, shown as its own section before skills",
-        "summary": "One short paragraph on the research direction: problem, approach, and what makes it novel."
+        "summary": "One short paragraph on the research direction: problem, approach, and what makes it novel.",
+        "path": [
+            "Optional: one or more extra paragraphs tracing the work's path - past stages completed, the current stage, and what's planned next. Plain text only - links go in the list below."
+        ],
+        "links": [
+            {
+                "label": "Optional link label, e.g. a related repo or package name",
+                "url": "https://example.com"
+            }
+        ]
     },
     "skills": ["Python", "PyTorch", "FastAPI", "Docker", "Git"],
     "experience": [

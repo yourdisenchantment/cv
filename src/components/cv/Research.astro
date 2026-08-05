@@ -18,5 +18,32 @@ const { lang, research } = Astro.props;
     <div class="section-body">
         <p class="research-topic">{research.topic}</p>
         <p class="research-summary">{research.summary}</p>
+        {
+            research.path?.map((paragraph) => (
+                <p class="research-summary">{paragraph}</p>
+            ))
+        }
+        {
+            research.links && research.links.length > 0 && (
+                <ul class="entry-links">
+                    {research.links.map((link) => (
+                        <li>
+                            <a
+                                class="animated-link"
+                                href={link.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-tooltip={t(lang, "openInNewTab")}
+                            >
+                                {link.label}
+                                <span class="visually-hidden">
+                                    ({t(lang, "openInNewTab")})
+                                </span>
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            )
+        }
     </div>
 </section>
