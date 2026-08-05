@@ -121,6 +121,32 @@ otherwise the change reinstates an option that was already rejected.
   once its parent resolves the fix is optional tidying, not a chore: check
   by deleting the line, running `bun install && bun audit`, and keeping the
   deletion only if the result is still clean.
+- **Scans in `public/documents/` are published on deploy** and reachable by
+  direct URL, indexable, with no link from the page needed. The phone number
+  lives in `private.json` and prints only on paper precisely so it stays off
+  the public web - a scan that carries it on a letterhead would put it back.
+  Read a document before adding it, and redact what the site is not meant to
+  carry.
+
+## Settled - do not re-open
+
+Decisions already made and measured. Reversing one is a content call for
+the user, not a cleanup.
+
+- **Per-entry skill chips do not print.** `section:not(#skills) .skill-list`
+  hides them; the standalone Skills section keeps its own. They repeated the
+  same vocabulary a dozen times and cost most of a page. Screen is unchanged.
+- **Research paragraphs are unbreakable in print**, unlike dated entries. A
+  paragraph is 2-4cm, so the worst case is a short tail; a job entry is half
+  a page, which is why the same rule was wrong there.
+- **Page count is quantized by ~3cm unbreakable blocks.** Shaving words does
+  not remove a page - measured three times, plus hiding duplicate
+  publication URLs; the saving just moves to the next page. Only removing a
+  whole block (a card, an entry) changes the count.
+- **Numbers in the CV come from the code, not from memory.** The Thrive.io
+  ETL bullets state mechanisms (anti-join replacing a per-group row
+  comparison) and counts taken from notebook output. A speedup percentage
+  nobody measured does not go in.
 
 ## Migration reference (legacy/)
 
