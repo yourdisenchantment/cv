@@ -1,7 +1,9 @@
 # AGENTS.md
 
-Guidance for AI agents working in this repo. Verify against the executable
-sources (package.json, astro.config.mjs, hooks) before trusting prose.
+Guidance for AI agents working in this repo, and the only source of truth
+for it - `CLAUDE.md` is a pointer here and holds no instructions of its own,
+so edit this file alone. Verify against the executable sources
+(package.json, astro.config.mjs, hooks) before trusting prose.
 
 ## Project
 
@@ -111,9 +113,14 @@ otherwise the change reinstates an option that was already rejected.
   creates a 4-5cm unbreakable block, the exact problem that made dated
   entries fragmentable. Re-check in Firefox after any print change.
 - **`overrides` in `package.json`** pin patched versions of transitive
-  dependencies (`bun audit` -> clean). They are transitional: drop an entry
-  once its parent package resolves the fix on its own, rather than letting
-  them accumulate.
+  dependencies (`bun audit` -> clean). Nothing here needs babysitting: the
+  ranges are carets, so `bun update` floats them upward on its own, and
+  Dependabot keeps the parents current. They exist because Dependabot does
+  **not** do security updates for the bun ecosystem - only version updates -
+  so this block is what actually closes the advisories. Dropping an entry
+  once its parent resolves the fix is optional tidying, not a chore: check
+  by deleting the line, running `bun install && bun audit`, and keeping the
+  deletion only if the result is still clean.
 
 ## Migration reference (legacy/)
 
