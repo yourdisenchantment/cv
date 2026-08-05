@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "cv-next",
+      "name": "cv",
       "dependencies": {
         "astro": "^7.1.6",
         "zod": "^4.4.3",
