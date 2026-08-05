@@ -9,11 +9,23 @@ updates:
       directory: "/"
       schedule:
           interval: "weekly"
+      # PR-ы идут в dev: main - деплойная ветка, merge в нее сразу публикует
+      # сайт, минуя проверку в рабочей ветке.
+      target-branch: "dev"
       # Один PR на все dev-зависимости вместо десятка отдельных.
       groups:
           dev-tooling:
               dependency-type: "development"
       open-pull-requests-limit: 5
+      ignore:
+          # TypeScript 7 - нативный компилятор, у которого пакет `typescript`
+          # больше не отдает JS-API (два экспорта вместо 2248). На нем падают
+          # `astro check` (языковой сервер зовет ts.sys) и `eslint`. Сборка при
+          # этом зеленая, поэтому CI такой PR не отклонит - отсюда запрет.
+          # Снять, когда @astrojs/check и typescript-eslint объявят поддержку;
+          # подробности в AGENTS.md, раздел Needs checking.
+          - dependency-name: "typescript"
+            versions: [">=7.0.0"]
 
     # Версии экшенов в deploy.yml - иначе они тихо устаревают до тех пор,
     # пока раннер не выключит их окончательно (как случилось с Node 20).
@@ -21,3 +33,4 @@ updates:
       directory: "/"
       schedule:
           interval: "monthly"
+      target-branch: "dev"
