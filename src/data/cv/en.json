@@ -107,7 +107,7 @@
             "company": "Thrive.io",
             "role": "Full-Stack Developer",
             "achievements": [
-                "Independently led two internal projects in parallel with my master's studies",
+                "Sole developer on both internal projects",
                 "Italian real estate aggregator: 300k+ listings collected across every province, ~40 fields out of nested JSON, served via FastAPI",
                 "Location reference of ~10.7k nodes across five levels (region - province - city - macrozone - microzone); a listing attaches to the deepest matching node",
                 "Listing versioning: four lifecycle tables rotated by record age - current, changed, inactive, archived",
