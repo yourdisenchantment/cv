@@ -1,0 +1,23 @@
+version: 2
+
+# Обновления приезжают сами, PR-ами - вручную ничего проверять не нужно.
+# Security-обновления Dependabot для bun НЕ делает (только version-обновления),
+# поэтому дыры в транзитивных пакетах закрывает блок `overrides` в
+# package.json, а не этот файл.
+updates:
+    - package-ecosystem: "bun"
+      directory: "/"
+      schedule:
+          interval: "weekly"
+      # Один PR на все dev-зависимости вместо десятка отдельных.
+      groups:
+          dev-tooling:
+              dependency-type: "development"
+      open-pull-requests-limit: 5
+
+    # Версии экшенов в deploy.yml - иначе они тихо устаревают до тех пор,
+    # пока раннер не выключит их окончательно (как случилось с Node 20).
+    - package-ecosystem: "github-actions"
+      directory: "/"
+      schedule:
+          interval: "monthly"
