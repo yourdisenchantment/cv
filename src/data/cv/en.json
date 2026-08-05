@@ -9,7 +9,7 @@
         "role": "ML R&D Engineer / Applied Scientist",
         "birthDate": "2002-11-06",
         "city": "Simferopol, Russia",
-        "summary": "ML/DS engineer with an applied-mathematics foundation and a backend background. My edge is combining research with production: an original clustering algorithm (Intelliant, on PyPI) and data-centric VLM fine-tuning on one side, pipelines over hundreds of thousands of records and FastAPI services on the other. Research-minded; preparing for a PhD in ML."
+        "summary": "An applied-mathematics foundation with a backend background. My edge is combining research with production: an original clustering algorithm (Intelliant, on PyPI) and data-centric VLM fine-tuning on one side, pipelines over hundreds of thousands of records and FastAPI services on the other. Preparing for a PhD in ML."
     },
     "contacts": [
         {
