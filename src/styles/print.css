@@ -97,8 +97,8 @@
        column switch to block flow; the date keeps its right-aligned column as
        a float, and flow-root contains that float so a short entry cannot let
        it bleed into the next one. Both gaps become margins, since block flow
-       ignores gap. The smallest units still stay whole - a bullet or a chip
-       row split across the page edge is unreadable. */
+       ignores gap. The smallest units still stay whole - a bullet split
+       across the page edge is unreadable. */
     .dated-entry {
         display: flow-root;
     }
@@ -122,14 +122,6 @@
         break-inside: avoid;
     }
 
-    /* The chip row that closes an entry is kept whole too: split between chip
-       lines it leaves a single stray chip at the top of the next page with
-       nothing to attach it to. It is ~2cm, so moving it costs little. The
-       standalone skills section keeps breaking normally - it is not a tail. */
-    .entry-info .skill-list {
-        break-inside: avoid;
-    }
-
     .section-body {
         display: block;
     }
@@ -150,6 +142,16 @@
         margin-top: var(--space-block-gap);
     }
 
+    /* Each research paragraph stays whole. It is the one section a reader goes
+       through start to finish, and a sentence cut by the page edge costs more
+       than the couple of centimetres of tail it saves. Safe to keep whole
+       here, unlike .dated-entry above: a paragraph is 2-4cm, not half a page,
+       so the worst case is a small gap rather than a blank sheet. */
+    .research-topic,
+    .research-summary {
+        break-inside: avoid;
+    }
+
     /* Contacts keep the two groups side by side: the block is short, fits
        within a page, so flex is safe here. The generic .section-body child
        margin above would push the second group (resources) down and break the
@@ -167,6 +169,15 @@
        contact-row layout from .contact-group > div). */
     .contact-group > .contact-print-only {
         display: flex;
+    }
+
+    /* Per-entry chip rows are dropped on paper. They repeat the vocabulary
+       the standalone Skills section already lists - useful on screen, where
+       they sit next to the entry a reader is looking at, but on paper the
+       same names print a dozen times over and cost most of a page. The
+       Skills section itself stays: it is the one place the stack is stated. */
+    section:not(#skills) .skill-list {
+        display: none;
     }
 
     /* Skill chips - outlined (border instead of gray fill), saves ink. */
