@@ -102,6 +102,17 @@ edit or commit it.
 
 ## Workflow
 
+- **The dev server is a relay - only one owner of port 4321 at a time.**
+  The user shuts theirs down before handing over a task; the agent starts
+  its own (`cv-dev` in `.claude/launch.json`). When done, the agent **stops
+  its server** and reminds the user to start theirs again for their own
+  checking. If 4321 is held by someone else's process, do not start a second
+  server on another port and do not kill theirs - tell the user it is still
+  up.
+- Check what is holding the port: `astro dev` serves live source with HMR,
+  `astro preview` serves the built `dist/`, so edits are invisible there
+  until `bun run build`. If a style change "does not apply", check this
+  first (`ps -o command= -p <pid>`) before hunting for a CSS bug.
 - Session helper files (`ROADMAP.md`, `TASK.md`, `OVERVIEW.md`, etc.) live
   in `tmp/` (gitignored) and are recreated per session - they do not go into
   the repo.
