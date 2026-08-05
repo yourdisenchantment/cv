@@ -44,7 +44,9 @@ type Dict = {
     // publications: level (graduation thesis only)
     levelBachelor: string;
     levelMaster: string;
-    // publications: indexing badge (elibrary status)
+    // publications: indexing badge (elibrary status). ru keeps the local
+    // names (ВАК / РИНЦ); en says what they mean to a reader who has never
+    // heard of either registry, since the acronyms carry nothing abroad.
     indexVak: string;
     indexRinc: string;
     // publications: the word "year" (for thesis: "2 курс" / "Year 2")
@@ -124,17 +126,17 @@ const ui: Record<Locale, Dict> = {
         phone: "Phone",
         sendEmail: "Send email",
         openInNewTab: "Open in a new tab",
-        kindArticle: "Article",
+        kindArticle: "Journal article",
         kindThesis: "Conference paper",
         kindPatent: "Patent",
         kindVkr: "Graduation thesis",
         kindDataset: "Dataset",
-        kindCollection: "Collection",
+        kindCollection: "Conference proceedings",
         kindJournal: "Journal",
         levelBachelor: "Bachelor",
         levelMaster: "Master",
-        indexVak: "VAK",
-        indexRinc: "RSCI",
+        indexVak: "Peer-reviewed",
+        indexRinc: "RSCI-indexed",
         course: "Year",
         sourceLink: "Code",
         dockNav: "Resume controls",
