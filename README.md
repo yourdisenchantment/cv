@@ -23,7 +23,7 @@ Live: https://yourdisenchantment.github.io/cv/
 
 ## Stack
 
-- [Astro](https://astro.build/) 6 (static output, SSG), TypeScript (strict).
+- [Astro](https://astro.build/) 7 (static output, SSG), TypeScript (strict).
 - Package manager: **bun**. Node `>=22.12.0`.
 - [zod](https://zod.dev/) for the resume data schema.
 - ESLint (astro + jsx-a11y) and Prettier; git hooks via husky + lint-staged;
