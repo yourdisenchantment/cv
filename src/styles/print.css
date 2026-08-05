@@ -83,11 +83,50 @@
        split entry silently loses its tail - bullets/chips orphaned without a
        date or heading). Projects already do this via .project-entry (base
        layer); this covers every other repeating unit. */
-    .dated-entry,
     .publication-entry,
     .awards-list li,
     .contact-group > div,
     .skill-list li {
+        break-inside: avoid;
+    }
+
+    /* Dated entries are the exception: a job entry runs 10-12cm, half a page,
+       so keeping it whole leaves half a sheet blank whenever it does not fit.
+       It is allowed to fragment instead - which means it cannot stay flex
+       (WebKit slices flex line boxes and drops the remainder). Entry and info
+       column switch to block flow; the date keeps its right-aligned column as
+       a float, and flow-root contains that float so a short entry cannot let
+       it bleed into the next one. Both gaps become margins, since block flow
+       ignores gap. The smallest units still stay whole - a bullet or a chip
+       row split across the page edge is unreadable. */
+    .dated-entry {
+        display: flow-root;
+    }
+
+    .entry-period {
+        float: left;
+        width: 28ch;
+    }
+
+    .entry-info {
+        display: block;
+        margin-left: calc(28ch + var(--space-entry-internal-gap));
+    }
+
+    .entry-info > * + * {
+        margin-top: var(--space-item-gap);
+    }
+
+    .achievements li,
+    .entry-head {
+        break-inside: avoid;
+    }
+
+    /* The chip row that closes an entry is kept whole too: split between chip
+       lines it leaves a single stray chip at the top of the next page with
+       nothing to attach it to. It is ~2cm, so moving it costs little. The
+       standalone skills section keeps breaking normally - it is not a tail. */
+    .entry-info .skill-list {
         break-inside: avoid;
     }
 
@@ -100,6 +139,14 @@
     }
 
     #achievements .section-body > * + * {
+        margin-top: var(--space-block-gap);
+    }
+
+    /* Research is prose: its children are paragraphs of one continuous text,
+       not separate entries. The screen layout spaces them at the block gap
+       (via flex gap, which block flow drops) - restore that here, otherwise
+       the entry gap above pulls the paragraphs apart on paper. */
+    #research .section-body > * + * {
         margin-top: var(--space-block-gap);
     }
 
