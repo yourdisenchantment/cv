@@ -93,6 +93,28 @@ local build, not the public site.
 - Styles are plain CSS in `src/styles/` (variables/tokens, layout, print,
   fonts). `print.css` forces black-on-white A4 output regardless of theme.
 
+## Needs checking (known, do not "fix" blindly)
+
+Open questions deliberately left open. Ask before changing any of them -
+otherwise the change reinstates an option that was already rejected.
+
+- **`#about` print gap.** The `about-summary` paragraph sits at 10px on
+  screen and 24px in print (the generic `.section-body > * + *` rule).
+  `#research` got an override, `#about` did not: there it is a single gap
+  between the info block and a paragraph, so the wider spacing may be
+  intentional. Check it on paper before evening it out.
+- **Stranded section headings in Firefox print.** Firefox does not
+  implement `break-after: avoid` for paged media, so a heading can be left
+  at the foot of a page without its section (seen on Experience and
+  Publications; Chrome is fine). No CSS fixes it. Wrapping the heading and
+  the first entry in one `break-inside: avoid` container is not a fix - it
+  creates a 4-5cm unbreakable block, the exact problem that made dated
+  entries fragmentable. Re-check in Firefox after any print change.
+- **`overrides` in `package.json`** pin patched versions of transitive
+  dependencies (`bun audit` -> clean). They are transitional: drop an entry
+  once its parent package resolves the fix on its own, rather than letting
+  them accumulate.
+
 ## Migration reference (legacy/)
 
 `legacy/` holds the original static HTML/CSS/JS site as a **local-only
