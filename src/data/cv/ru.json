@@ -311,6 +311,10 @@
     ],
     "achievements": [
         {
+            "text": "Стипендия Президента Российской Федерации, 2025/2026 учебный год",
+            "file": "/documents/president-scholarship.pdf"
+        },
+        {
             "text": "Стипендия Государственного Совета Республики Крым им. И.В. Курчатова",
             "file": "/documents/kurchatov-scholarship.pdf"
         },

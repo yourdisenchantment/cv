@@ -311,6 +311,10 @@
     ],
     "achievements": [
         {
+            "text": "Scholarship of the President of the Russian Federation, 2025/26 academic year",
+            "file": "/documents/president-scholarship.pdf"
+        },
+        {
             "text": "I.V. Kurchatov scholarship of the State Council of the Republic of Crimea",
             "file": "/documents/kurchatov-scholarship.pdf"
         },
