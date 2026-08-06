@@ -118,9 +118,15 @@ Cloudflare is deploying to, so recreating the Pages project under a different
 name needs no code change. Note that on Cloudflare it is the deployment's own
 URL, hash prefix and all - it feeds only the JSON-LD photo, never the canonical.
 
-Both builds pin their toolchain: `.nvmrc` and `.bun-version` for Cloudflare,
-explicit versions in the workflow for Actions. Without the pin Cloudflare takes
-`bun@latest`, and the two deploys drift apart over time.
+Both builds pin bun to the same version, but by different means, because
+Cloudflare pins bun only through an environment variable - there is no
+`.bun-version` file support, unlike `.nvmrc` for Node:
+
+- Actions: `bun-version` in the workflow.
+- Cloudflare: a `BUN_VERSION` variable in the project settings.
+
+Keep the two in step when bumping bun. Left unpinned, Cloudflare installs
+`bun@latest` and the deploys drift apart over time.
 
 Check both branches after touching either one:
 
