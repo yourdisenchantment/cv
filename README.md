@@ -3,8 +3,8 @@
 Personal resume built with [Astro](https://astro.build/) as a static site,
 deployed to GitHub Pages and Cloudflare Pages from the same source.
 
-Live: https://yourdisenchantment.github.io/cv/ (canonical)
-Mirror: https://mpavel-cv.pages.dev/
+Live: https://mpavel-cv.pages.dev/ (canonical)
+Mirror: https://yourdisenchantment.github.io/cv/
 
 ## Features
 
@@ -137,9 +137,12 @@ bun run build && CF_PAGES=1 bun run build
 ```
 
 Both deployments serve identical pages, so every page declares a canonical URL
-pointing at one of them. That choice lives in `src/lib/canonical.ts` and is
-deliberately independent of `base`/`site` - flip the origin there to move the
-canonical.
+pointing at one of them - Cloudflare. That choice lives in
+`src/lib/canonical.ts`, deliberately independent of `base`/`site`, and it is
+the only file that decides; both `<link rel="canonical">` and the JSON-LD `url`
+read from it. It is also the only place a `*.pages.dev` hostname is written
+down, so recreating the Pages project means editing it and the site contact in
+`src/data/cv/{ru,en}.json`.
 
 Repository setting required once: **Settings -> Pages -> Source = GitHub
 Actions**.

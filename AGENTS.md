@@ -51,7 +51,11 @@ There is no test suite. Verify changes with: `bun run lint` ->
   the canonical has to name the same one whichever platform built it. That
   file is the single place that decides which deployment search engines
   count; `personSchema` takes the same value so JSON-LD cannot disagree
-  with `<link rel="canonical">`.
+  with `<link rel="canonical">`. Cloudflare is the canonical one, so this
+  file is also the only spot holding a `*.pages.dev` hostname - deliberately,
+  since `astro.config.mjs` avoids one on purpose. Recreating the Pages project
+  under a new name means editing this constant **and** the site contact in
+  `src/data/cv/{ru,en}.json`; the config itself needs nothing.
 - Commit style is enforced by a `commit-msg` hook (commitlint, Conventional
   Commits). Use a message **file** (`git commit -F <file>`), not multi-line
   `-m` - quotes break in the shell. English, imperative subject, no period.
