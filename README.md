@@ -1,9 +1,10 @@
 # CV - Pavel Mikheyev
 
-Personal resume built with [Astro](https://astro.build/) as a static site and
-deployed to GitHub Pages.
+Personal resume built with [Astro](https://astro.build/) as a static site,
+deployed to GitHub Pages and Cloudflare Pages from the same source.
 
-Live: https://yourdisenchantment.github.io/cv/
+Live: https://yourdisenchantment.github.io/cv/ (canonical)
+Mirror: https://cv-325.pages.dev/
 
 ## Features
 
@@ -94,9 +95,31 @@ element to reveal box edges; turn it off in devtools with
 
 ## Deployment
 
-A GitHub Actions workflow (`.github/workflows/deploy.yml`) builds the site with
-bun and publishes it to GitHub Pages on every push to `main`. The site is served
-as a project page under `/cv/`, set via `base` in `astro.config.mjs`.
+The site is published twice from the same commit on every push to `main`:
+
+- **GitHub Pages** - a workflow (`.github/workflows/deploy.yml`) builds with bun
+  and publishes it. Served as a project page under `/cv/`.
+- **Cloudflare Pages** - builds the repository directly, no workflow here.
+  Served at the root of `cv-325.pages.dev`.
+
+The only difference between them is whether the site sits at the origin root, so
+`base` (and `site`) switch on `CF_PAGES`, which Cloudflare sets on every build:
+
+```js
+const onCloudflare = Boolean(process.env.CF_PAGES);
+base: onCloudflare ? "/" : "/cv/";
+```
+
+Check both branches after touching either one:
+
+```bash
+bun run build && CF_PAGES=1 bun run build
+```
+
+Both deployments serve identical pages, so every page declares a canonical URL
+pointing at one of them. That choice lives in `src/lib/canonical.ts` and is
+deliberately independent of `base`/`site` - flip the origin there to move the
+canonical.
 
 Repository setting required once: **Settings -> Pages -> Source = GitHub
 Actions**.

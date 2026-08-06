@@ -7,8 +7,9 @@ so edit this file alone. Verify against the executable sources
 
 ## Project
 
-Personal CV of Pavel Mikheyev, a static Astro site deployed to GitHub Pages
-as a project page under `/cv/`. Bilingual: English at `/`, Russian at `/ru/`
+Personal CV of Pavel Mikheyev, a static Astro site deployed twice from one
+source: GitHub Pages as a project page under `/cv/`, and Cloudflare Pages at
+the root of `cv-325.pages.dev`. Bilingual: English at `/`, Russian at `/ru/`
 (Astro i18n model B - `prefixDefaultLocale: false`). `main` is the deployed
 branch; `dev` is the working branch and is **not** deployed.
 
@@ -33,10 +34,24 @@ There is no test suite. Verify changes with: `bun run lint` ->
 
 ## Gotchas
 
-- The dev server is at `localhost:4321/cv/`, not `/`. `base: "/cv/"`
-  applies in dev too. `import.meta.env.BASE_URL` is exactly `/cv/` and
-  must keep its trailing slash - string path concatenations rely on it
-  (favicon, photo, lang prefix in `src/lib/jsonld.ts`).
+- The dev server is at `localhost:4321/cv/`, not `/`. `base` applies in dev
+  too, and dev follows the GitHub Pages branch (`CF_PAGES` unset), so it is
+  `/cv/`. `import.meta.env.BASE_URL` is exactly `/cv/` and must keep its
+  trailing slash - string path concatenations rely on it (favicon, photo,
+  lang prefix in `src/components/Dock.astro`). `"/cv"` without the slash
+  yields `/cvru/`.
+- `base` and `site` switch on `process.env.CF_PAGES` in `astro.config.mjs`:
+  Cloudflare sets it on every build and nothing else does. Do not reach for
+  `NODE_ENV` here - Astro does not guarantee its value when the config is
+  read, so the condition can collapse the wrong way silently. Verify a change
+  to either branch by building both: `bun run build` and
+  `CF_PAGES=1 bun run build`, then grep `dist/index.html` for the asset paths.
+- The canonical URL is **not** derived from `base`/`site`. It is hardcoded in
+  `src/lib/canonical.ts`, because both deployments serve identical pages and
+  the canonical has to name the same one whichever platform built it. That
+  file is the single place that decides which deployment search engines
+  count; `personSchema` takes the same value so JSON-LD cannot disagree
+  with `<link rel="canonical">`.
 - Commit style is enforced by a `commit-msg` hook (commitlint, Conventional
   Commits). Use a message **file** (`git commit -F <file>`), not multi-line
   `-m` - quotes break in the shell. English, imperative subject, no period.
@@ -88,7 +103,9 @@ local build, not the public site.
 - Date/link formatting: `src/lib/format.ts`. Periods use `"YYYY-MM"` with
   `end: null` meaning "present"; birth date is `"YYYY-MM-DD"`.
 - JSON-LD `schema.org/Person` is built in `src/lib/jsonld.ts` from the CV
-  entry + `Astro.site` + `BASE_URL`.
+  entry + `Astro.site` + the page's canonical URL. `Astro.site` is only used
+  to absolutize the photo, which must stay on the origin that built the page;
+  the `url` field is the canonical one, so it matches `<link rel="canonical">`.
 - Theme: `data-theme` on `<html>`, persisted in `localStorage`, applied
   pre-paint by an inline script in `BaseLayout.astro`. Theme toggle and
   print live in `src/components/Dock.astro`.
@@ -174,6 +191,13 @@ edit or commit it.
 - The user handles git themselves; do not run mutating git commands. To
   propose a commit, write the message to a file (e.g. `/tmp/cv-commit-msg.txt`)
   and hand over `git add` + `git commit -F` commands.
-- Deploy is GitHub Actions (`.github/workflows/deploy.yml`) on push to
-  `main` only, via `oven-sh/setup-bun@2` (pinned bun `1.3.14`) ->
-  `bun install --frozen-lockfile` -> `bun run build` -> Pages deploy.
+- Two deploys, both on push to `main`, both from the same commit:
+    - GitHub Actions (`.github/workflows/deploy.yml`) via `oven-sh/setup-bun@2`
+      (pinned bun `1.3.14`) -> `bun install --frozen-lockfile` ->
+      `bun run build` -> Pages deploy. Serves `/cv/`.
+    - Cloudflare Pages builds the repo itself, no workflow in this repo. It
+      sets `CF_PAGES`, which is what flips `base` to `/`. Serves the root of
+      `cv-325.pages.dev`. Its build settings live in the Cloudflare dashboard,
+      not here - if a build breaks there and not in Actions, look there first.
+    - The `*.pages.dev` hostname is fixed at project creation and cannot be
+      renamed; changing it means deleting and recreating the Pages project.
