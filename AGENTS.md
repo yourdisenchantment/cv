@@ -200,13 +200,15 @@ edit or commit it.
       its own `*.pages.dev` host. Build command and output directory live in
       the Cloudflare dashboard, not here - if a build breaks there and not in
       Actions, look there first.
-    - **bun is pinned in two places that are not both in this repo.** Actions
-      takes it from `bun-version` in the workflow. Cloudflare takes it from a
-      `BUN_VERSION` variable in the project settings - it supports **no**
-      `.bun-version` file, only the environment variable (`.nvmrc` works for
-      Node, which is why the asymmetry is easy to miss). Bumping bun means
-      editing the workflow _and_ the Cloudflare dashboard; unpinned there, it
-      installs `bun@latest` and the deploys slowly stop matching.
+    - **bun is deliberately unpinned on both.** The workflow passes no
+      `bun-version` (and `package.json` carries neither `packageManager` nor
+      `engines.bun` for `setup-bun` to read, so it lands on latest); Cloudflare
+      has `BUN_VERSION=latest`. Reproducibility comes from `bun.lock` plus
+      `--frozen-lockfile`, not from the runtime version - so do not "fix" this
+      by pinning one side, which would only make the two differ. To pin, pin
+      both: `bun-version` in the workflow **and** `BUN_VERSION` in the
+      Cloudflare dashboard, which reads no `.bun-version` file (`.nvmrc` works
+      for Node, which is why that asymmetry is easy to trip over).
     - **No `*.pages.dev` hostname is hardcoded anywhere.** The `site` for that
       branch comes from `CF_PAGES_URL`, the URL Cloudflare is deploying to -
       in practice the deployment's own hashed URL, not the project alias. It

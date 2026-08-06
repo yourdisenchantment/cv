@@ -118,15 +118,17 @@ Cloudflare is deploying to, so recreating the Pages project under a different
 name needs no code change. Note that on Cloudflare it is the deployment's own
 URL, hash prefix and all - it feeds only the JSON-LD photo, never the canonical.
 
-Both builds pin bun to the same version, but by different means, because
-Cloudflare pins bun only through an environment variable - there is no
-`.bun-version` file support, unlike `.nvmrc` for Node:
+Neither build pins bun - both take the latest release, deliberately. What keeps
+the two outputs identical is `bun.lock` plus `--frozen-lockfile`, not the
+version of the runtime: the lockfile fixes the dependency tree, and the flag
+makes a build fail loudly rather than quietly resolve something else. The
+trade is that a bad bun release can break both deploys at once; the cost of
+that is a stale site until it is fixed, since a failed build never replaces
+what is already published.
 
-- Actions: `bun-version` in the workflow.
-- Cloudflare: a `BUN_VERSION` variable in the project settings.
-
-Keep the two in step when bumping bun. Left unpinned, Cloudflare installs
-`bun@latest` and the deploys drift apart over time.
+To pin after all, both sides need doing: `bun-version` in the workflow, and a
+`BUN_VERSION` variable in the Cloudflare project settings - Cloudflare reads no
+`.bun-version` file, unlike `.nvmrc` for Node.
 
 Check both branches after touching either one:
 
