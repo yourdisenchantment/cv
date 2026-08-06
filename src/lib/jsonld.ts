@@ -1,23 +1,28 @@
 // JSON-LD schema.org/Person for <head>. Data comes from the local CV JSON,
 // so the object is already localized (role/url depend on the page language).
 import type { Cv } from "../data/cv/schema";
-import type { Locale } from "./format";
 
-// Builds the Person object for the markup. site - Astro.site (origin), base -
-// import.meta.env.BASE_URL ("/cv/"). root = origin+base (e.g. .../cv/); url
-// follows model B (en at root, ru at root+"ru/"). imagePath - the optimized
-// photo URL from astro:assets (already includes base), absolutized against
-// site. sameAs - external profiles (contacts with href), excluding lost ones
+// Builds the Person object for the markup.
+//
+// pageUrl - the page's canonical URL (see lib/canonical.ts). Passed in rather
+// than derived from site+base, so that it agrees with <link rel="canonical">:
+// the resume ships from two origins, and the two signals must not disagree
+// about which one is the page.
+//
+// site - Astro.site, the origin this build is going to. Used only to
+// absolutize imagePath, which is why it stays the deploy origin and not the
+// canonical one: imagePath comes from astro:assets already carrying this
+// build's base, so resolving it against another origin would point at a file
+// that is not there.
+//
+// sameAs - external profiles (contacts with href), excluding lost ones
 // (archived).
 export function personSchema(
     data: Cv,
-    lang: Locale,
     site: URL | undefined,
-    base: string,
     imagePath: string,
+    pageUrl: string,
 ) {
-    const root = site ? new URL(base, site).href.replace(/\/?$/, "/") : base;
-    const url = lang === "en" ? root : `${root}${lang}/`;
     // contacts is an optional section - no contacts means no sameAs profiles.
     const sameAs = (data.contacts ?? [])
         .filter((c) => c.href && !c.archived)
@@ -28,7 +33,7 @@ export function personSchema(
         "@type": "Person",
         name: data.about.name,
         jobTitle: data.about.role,
-        url,
+        url: pageUrl,
         image: site ? new URL(imagePath, site).href : imagePath,
         sameAs,
     };

@@ -3,6 +3,7 @@ import { getImage } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Resume from "../../components/cv/Resume.astro";
 import { personSchema } from "../../lib/jsonld";
+import { canonicalUrl } from "../../lib/canonical";
 import { photoMeta } from "../../lib/photo";
 import { getEntry } from "astro:content";
 
@@ -21,13 +22,8 @@ const photoUrl = (
     })
 ).src;
 
-const jsonLd = personSchema(
-    cv.data,
-    lang,
-    Astro.site,
-    import.meta.env.BASE_URL,
-    photoUrl,
-);
+const canonical = canonicalUrl(lang);
+const jsonLd = personSchema(cv.data, Astro.site, photoUrl, canonical);
 ---
 
 <BaseLayout
@@ -35,6 +31,7 @@ const jsonLd = personSchema(
     title={cv.data.meta.title}
     description={cv.data.meta.description}
     jsonLd={jsonLd}
+    canonical={canonical}
 >
     <Resume lang={lang} data={cv.data} />
 </BaseLayout>

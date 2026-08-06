@@ -15,9 +15,22 @@ interface Props {
     jsonLd?: Record<string, unknown>;
     // Easter-egg pages: excluded from search indexing.
     noindex?: boolean;
+    // Absolute URL of this page on the canonical deployment. The resume is
+    // served from two origins (GitHub Pages and Cloudflare Pages) with
+    // identical content, so without this a crawler sees two copies of the
+    // site and picks a winner on its own. Omitted on pages that are noindex
+    // or DEV-only - there is nothing to disambiguate.
+    canonical?: string;
 }
 
-const { lang, title, description, jsonLd, noindex = false } = Astro.props;
+const {
+    lang,
+    title,
+    description,
+    jsonLd,
+    noindex = false,
+    canonical,
+} = Astro.props;
 
 // debug-boxes - dev only: red outline on hover (see debug.css).
 const isDev = import.meta.env.DEV;
@@ -32,6 +45,7 @@ const base = import.meta.env.BASE_URL;
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content={description ?? ""} />
+        {canonical && <link rel="canonical" href={canonical} />}
         {noindex && <meta name="robots" content="noindex" />}
         {
             jsonLd && (
