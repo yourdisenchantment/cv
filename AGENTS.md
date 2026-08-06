@@ -200,8 +200,15 @@ edit or commit it.
       its own `*.pages.dev` host. Build command and output directory live in
       the Cloudflare dashboard, not here - if a build breaks there and not in
       Actions, look there first.
+    - Toolchain versions are pinned on both: `.nvmrc` + `.bun-version` are
+      what Cloudflare reads, `bun-version` in the workflow is what Actions
+      reads. Unpinned, Cloudflare picks `bun@latest` and the two deploys
+      slowly stop producing the same output.
     - **No `*.pages.dev` hostname is hardcoded anywhere.** The `site` for that
-      branch comes from `CF_PAGES_URL`, the URL Cloudflare is deploying to.
+      branch comes from `CF_PAGES_URL`, the URL Cloudflare is deploying to -
+      in practice the deployment's own hashed URL, not the project alias. It
+      feeds only the JSON-LD photo, so the churn is invisible; the canonical
+      URL is decided elsewhere and never moves.
       That matters because the hostname is fixed when the Pages project is
       created and cannot be renamed - changing it means deleting the project
       and making a new one, and a hardcoded host would have to be chased

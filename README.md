@@ -4,6 +4,7 @@ Personal resume built with [Astro](https://astro.build/) as a static site,
 deployed to GitHub Pages and Cloudflare Pages from the same source.
 
 Live: https://yourdisenchantment.github.io/cv/ (canonical)
+Mirror: https://mpavel-cv.pages.dev/
 
 ## Features
 
@@ -114,7 +115,12 @@ base: onCloudflare ? "/" : "/cv/",
 
 No `*.pages.dev` hostname appears in the source: `CF_PAGES_URL` is the URL
 Cloudflare is deploying to, so recreating the Pages project under a different
-name needs no code change.
+name needs no code change. Note that on Cloudflare it is the deployment's own
+URL, hash prefix and all - it feeds only the JSON-LD photo, never the canonical.
+
+Both builds pin their toolchain: `.nvmrc` and `.bun-version` for Cloudflare,
+explicit versions in the workflow for Actions. Without the pin Cloudflare takes
+`bun@latest`, and the two deploys drift apart over time.
 
 Check both branches after touching either one:
 
