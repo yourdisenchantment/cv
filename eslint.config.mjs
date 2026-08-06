@@ -12,6 +12,18 @@ export default [
     },
     // Базовые правила для JS-файлов (.js/.mjs/.cjs).
     js.configs.recommended,
+    // Конфиги в корне исполняются в Node на этапе сборки, а не в браузере:
+    // astro.config.mjs читает process.env.CF_PAGES, чтобы отличить сборку на
+    // Cloudflare Pages от сборки на GitHub Pages. Объявляем process для no-undef
+    // точечно - только для файлов конфигурации, а не для всего проекта.
+    {
+        files: ["*.config.mjs", "*.config.js"],
+        languageOptions: {
+            globals: {
+                process: "readonly",
+            },
+        },
+    },
     // Парсинг .astro + правила против ошибок шаблона и клиентских скриптов.
     ...astro.configs["flat/recommended"],
     // Правила доступности для .astro (требует eslint-plugin-jsx-a11y).
