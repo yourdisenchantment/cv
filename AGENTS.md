@@ -9,7 +9,7 @@ so edit this file alone. Verify against the executable sources
 
 Personal CV of Pavel Mikheyev, a static Astro site deployed twice from one
 source: GitHub Pages as a project page under `/cv/`, and Cloudflare Pages at
-the root of `cv-325.pages.dev`. Bilingual: English at `/`, Russian at `/ru/`
+the root of its own `*.pages.dev` host. Bilingual: English at `/`, Russian at `/ru/`
 (Astro i18n model B - `prefixDefaultLocale: false`). `main` is the deployed
 branch; `dev` is the working branch and is **not** deployed.
 
@@ -197,7 +197,13 @@ edit or commit it.
       `bun run build` -> Pages deploy. Serves `/cv/`.
     - Cloudflare Pages builds the repo itself, no workflow in this repo. It
       sets `CF_PAGES`, which is what flips `base` to `/`. Serves the root of
-      `cv-325.pages.dev`. Its build settings live in the Cloudflare dashboard,
-      not here - if a build breaks there and not in Actions, look there first.
-    - The `*.pages.dev` hostname is fixed at project creation and cannot be
-      renamed; changing it means deleting and recreating the Pages project.
+      its own `*.pages.dev` host. Build command and output directory live in
+      the Cloudflare dashboard, not here - if a build breaks there and not in
+      Actions, look there first.
+    - **No `*.pages.dev` hostname is hardcoded anywhere.** The `site` for that
+      branch comes from `CF_PAGES_URL`, the URL Cloudflare is deploying to.
+      That matters because the hostname is fixed when the Pages project is
+      created and cannot be renamed - changing it means deleting the project
+      and making a new one, and a hardcoded host would have to be chased
+      afterwards. Preview deployments get their own preview URL there, which
+      is also correct: that is where their assets actually live.

@@ -4,7 +4,6 @@ Personal resume built with [Astro](https://astro.build/) as a static site,
 deployed to GitHub Pages and Cloudflare Pages from the same source.
 
 Live: https://yourdisenchantment.github.io/cv/ (canonical)
-Mirror: https://cv-325.pages.dev/
 
 ## Features
 
@@ -100,15 +99,22 @@ The site is published twice from the same commit on every push to `main`:
 - **GitHub Pages** - a workflow (`.github/workflows/deploy.yml`) builds with bun
   and publishes it. Served as a project page under `/cv/`.
 - **Cloudflare Pages** - builds the repository directly, no workflow here.
-  Served at the root of `cv-325.pages.dev`.
+  Served at the root of its `*.pages.dev` host. Build command
+  `bun install --frozen-lockfile && bun run build`, output directory `dist`,
+  both set in the Cloudflare dashboard.
 
 The only difference between them is whether the site sits at the origin root, so
-`base` (and `site`) switch on `CF_PAGES`, which Cloudflare sets on every build:
+`base` and `site` switch on `CF_PAGES`, which Cloudflare sets on every build:
 
 ```js
 const onCloudflare = Boolean(process.env.CF_PAGES);
-base: onCloudflare ? "/" : "/cv/";
+site: onCloudflare ? process.env.CF_PAGES_URL : "https://yourdisenchantment.github.io",
+base: onCloudflare ? "/" : "/cv/",
 ```
+
+No `*.pages.dev` hostname appears in the source: `CF_PAGES_URL` is the URL
+Cloudflare is deploying to, so recreating the Pages project under a different
+name needs no code change.
 
 Check both branches after touching either one:
 

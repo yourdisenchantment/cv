@@ -1,6 +1,6 @@
 // Canonical address of the resume. It is deployed twice from the same source -
-// GitHub Pages under <origin>/cv/ and Cloudflare Pages at the root of
-// cv-325.pages.dev - so both serve byte-identical pages. To a crawler that is
+// GitHub Pages under <origin>/cv/ and Cloudflare Pages at the root of its own
+// host - so both serve byte-identical pages. To a crawler that is
 // duplicate content, and it picks a winner on its own unless told which one
 // counts. These constants tell it.
 //

@@ -3,7 +3,7 @@ import { defineConfig } from "astro/config";
 
 // Сайт публикуется в двух местах, и они отличаются только тем, лежит ли он в
 // корне origin'а. GitHub Pages отдает его как project page, <site>/cv/, поэтому
-// base = имя репозитория. Cloudflare Pages отдает его в корне cv-325.pages.dev,
+// base = имя репозитория. Cloudflare Pages отдает его в корне своего домена,
 // и там base обязан быть "/", иначе ассеты уезжают в несуществующий /cv/_astro/.
 //
 // Признак - CF_PAGES: Cloudflare выставляет его на каждой своей сборке и больше
@@ -17,12 +17,20 @@ import { defineConfig } from "astro/config";
 // Слеш в конце base обязателен: import.meta.env.BASE_URL отдается ровно как
 // задано, и на него опираются строковые склейки путей (favicon, фото, lang).
 // "/cv" без слеша дал бы "/cvru/" вместо "/cv/ru/".
+// Хост Cloudflare берется из CF_PAGES_URL ("the URL of the current deployment"),
+// а не хардкодится: имя проекта на pages.dev нельзя переименовать, его меняют
+// пересозданием проекта, и хардкод пришлось бы править следом. Для preview-сборок
+// переменная дает адрес самого превью - это тоже верно, ассеты лежат именно там.
+// site на ветке Cloudflare нужен только чтобы сделать абсолютным путь к фото в
+// JSON-LD; канонический адрес задан отдельно и от платформы не зависит
+// (src/lib/canonical.ts). Если переменной вдруг не окажется, site станет
+// undefined - Astro это допускает, а jsonld.ts отдаст относительный путь.
 const onCloudflare = Boolean(process.env.CF_PAGES);
 
 // https://astro.build/config
 export default defineConfig({
     site: onCloudflare
-        ? "https://cv-325.pages.dev"
+        ? process.env.CF_PAGES_URL
         : "https://yourdisenchantment.github.io",
     base: onCloudflare ? "/" : "/cv/",
     i18n: {
