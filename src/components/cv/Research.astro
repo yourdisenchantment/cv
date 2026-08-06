@@ -1,6 +1,6 @@
 ---
 import type { Cv } from "../../data/cv/schema";
-import { type Locale } from "../../lib/format";
+import { type Locale, linkWithoutScheme } from "../../lib/format";
 import { t } from "../../lib/i18n";
 
 interface Props {
@@ -40,6 +40,14 @@ const { lang, research } = Astro.props;
                                     ({t(lang, "openInNewTab")})
                                 </span>
                             </a>
+                            {/* The address is print-only. On screen the label
+                                is the better link text - short and scannable,
+                                and the address is one click away. On paper
+                                nothing is clickable, so a bare "Датасет" tells
+                                the reader nothing about where it points. */}
+                            <span class="link-address">
+                                {linkWithoutScheme(link.url)}
+                            </span>
                         </li>
                     ))}
                 </ul>

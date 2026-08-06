@@ -171,6 +171,20 @@
         display: flex;
     }
 
+    /* Labelled links print their address too. Publications already put the
+       bare address in the link text; the research list showed only a label,
+       so on paper it read as "Датасет" with no hint of where it points. Reveal
+       the address after the label instead of replacing it - the label still
+       says what the thing is, which the URL alone does not. */
+    .link-address {
+        display: inline;
+        color: var(--text-muted);
+    }
+
+    .link-address::before {
+        content: " - ";
+    }
+
     /* Per-entry chip rows are dropped on paper. They repeat the vocabulary
        the standalone Skills section already lists - useful on screen, where
        they sit next to the entry a reader is looking at, but on paper the

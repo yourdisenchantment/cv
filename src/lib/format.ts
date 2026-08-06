@@ -126,6 +126,26 @@ export function linkHostPath(url: string): string {
 }
 
 /**
+ * URL with only the scheme stripped - the form used as link text wherever the
+ * address itself has to stay readable, above all on paper, where a link is
+ * not clickable and the text is all the reader gets.
+ *
+ * Deliberately not linkHostPath: that one keeps host and path only, which
+ * silently drops the query string. For an address like
+ * elibrary.ru/item.asp?id=82476665 the query *is* the identifier, so cutting
+ * it leaves every publication on that site looking like the same link.
+ *
+ * Args:
+ *   url: an absolute URL.
+ *
+ * Returns:
+ *   The address without "https://" or "http://", otherwise untouched.
+ */
+export function linkWithoutScheme(url: string): string {
+    return url.replace(/^https?:\/\//, "");
+}
+
+/**
  * Birth date from ISO "YYYY-MM-DD" -> "D month YYYY" (genitive case).
  *
  * Args:

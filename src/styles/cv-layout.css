@@ -372,6 +372,13 @@ section {
     color: var(--marker);
 }
 
+/* Address next to a labelled link - hidden on screen, revealed by print.css.
+   It exists for paper, where a link is not clickable and the label alone does
+   not say where it leads. */
+.link-address {
+    display: none;
+}
+
 .achievements li {
     font-size: var(--fs-body-text);
     color: var(--text-strong);
