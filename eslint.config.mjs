@@ -38,14 +38,16 @@ export default [
             },
         },
     },
-    // .ts-файлы (zod-схема и пр., этап 2) парсим TS-парсером. URL - стандартный
-    // веб/Node-глобал (используется в format.ts), объявляем для no-undef.
+    // .ts-файлы (zod-схема и пр., этап 2) парсим TS-парсером. URL и Response -
+    // стандартные веб/Node-глобалы (URL - в format.ts, Response - в эндпоинте
+    // sitemap.xml.ts), объявляем для no-undef.
     {
         files: ["**/*.ts"],
         languageOptions: {
             parser: tsParser,
             globals: {
                 URL: "readonly",
+                Response: "readonly",
             },
         },
     },
