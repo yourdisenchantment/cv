@@ -87,7 +87,20 @@ local build, not the public site.
 
 - `src/pages/index.astro` -> en (root route)
 - `src/pages/ru/index.astro` -> ru
+- `src/pages/sitemap.xml.ts` -> `/sitemap.xml`
 
+- **`sitemap.xml` is an endpoint, not a static file.** Its two `<loc>` entries
+  come from `canonicalUrl()` (`src/lib/canonical.ts`), the same source as
+  `<link rel="canonical">` and the JSON-LD `url`, so the three cannot drift
+  apart. Both builds therefore emit the identical file, naming the Cloudflare
+  URLs regardless of which platform produced it. `/1337` stays out of it via
+  its own `noindex`; `/stylebook` never reaches the prod build. Add a route
+  here when adding an indexable page - nothing enumerates them automatically.
+- **`public/robots.txt` is static** and names the canonical sitemap. On
+  Cloudflare (base `/`) it lands at the origin root, where crawlers look for
+  it. On GitHub Pages (base `/cv/`) it lands at `/cv/robots.txt`, which no
+  crawler fetches - that deployment effectively ships none, and this is
+  accepted, since it is not the canonical one.
 - **Stylebook** (`src/pages/stylebook/[...slug].astro`) is a DEV-only page
   with all design tokens and live section samples. It is excluded from the
   prod build by an empty `getStaticPaths()` under `import.meta.env.PROD`, and
