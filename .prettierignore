@@ -4,3 +4,7 @@ node_modules/
 legacy/
 bun.lock
 .husky/_/
+
+# Google Search Console verification file: served as-is, its bytes are
+# Google's to decide, not ours.
+public/google*.html
