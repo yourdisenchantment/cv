@@ -1,0 +1,17 @@
+# Cloudflare Pages reads this file from the output root and applies the
+# headers to matching responses. Ignored by GitHub Pages, which serves no
+# custom headers at all - so this covers the canonical deployment only.
+
+# The scans in /documents/ are linked from the resume and must stay reachable:
+# a reader clicking "PDF" next to an award has to get the document. They just
+# should not turn up in search on their own - they carry seals, order numbers
+# and personal data that belong in a resume, not in a result page.
+#
+# noindex rather than a robots.txt Disallow on purpose. Disallow blocks the
+# crawl, and a URL that is never crawled but is linked from an indexed page
+# can still be listed - as a bare URL, with no way for us to say otherwise.
+# noindex is only seen if the file IS fetched, so robots.txt keeps allowing
+# it. The two mechanisms cancel each other out; this is the one that removes
+# a document from the index and keeps the link working.
+/documents/*
+  X-Robots-Tag: noindex
