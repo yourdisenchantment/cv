@@ -238,6 +238,22 @@ edit or commit it.
       its own `*.pages.dev` host. Build command and output directory live in
       the Cloudflare dashboard, not here - if a build breaks there and not in
       Actions, look there first.
+    - **A red Cloudflare check does not always mean a broken build**, and this
+      is the trap to know about before debugging one. The free plan runs
+      **one build at a time, counted per account** (500 a month, which this
+      project is nowhere near), so a build that starts while another is
+      running loses the slot and is reported as `Build failed` on the commit.
+      Dependabot pushes several branches within seconds of each other, and
+      **Preview branch control** in the dashboard decides how many of them
+      compete: set to every non-production branch, each bot branch is another
+      contender; narrowed to `dev`, only real work builds. The signature is
+      unmistakable - the failing tree builds clean locally and in Actions,
+      including under the same bun Cloudflare uses
+      (`bun install --frozen-lockfile` then `CF_PAGES=1 bun run build`), and
+      a neighbouring build finished seconds earlier. Check the timestamps of
+      the surrounding deployments before looking for a cause in the diff. The
+      build log is in the dashboard and nowhere else; GitHub only relays the
+      verdict.
     - **bun is deliberately unpinned on both.** The workflow passes no
       `bun-version` (and `package.json` carries neither `packageManager` nor
       `engines.bun` for `setup-bun` to read, so it lands on latest); Cloudflare
