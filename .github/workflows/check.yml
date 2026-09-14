@@ -1,0 +1,41 @@
+name: Checks
+
+# Проверки на PR в dev и на сам dev - то, чего раньше не было вовсе. До этого
+# на PR отзывались только превью-сборка Cloudflare и CodeQL, то есть ловилась
+# одна поломка из четырех: сборка. Линт, форматирование и типы не проверял
+# никто до пуша в main, а именно их ломают обновления инструментов.
+# main проверять незачем: туда попадает только прошедшее здесь, и сборку там
+# все равно повторяет deploy.yml.
+on:
+    pull_request:
+        branches: [dev]
+    push:
+        branches: [dev]
+
+permissions:
+    contents: read
+
+# Один прогон на ветку; новый push отменяет предыдущий незавершенный.
+concurrency:
+    group: checks-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    check:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v7
+            # Без bun-version, как и в deploy.yml: обе площадки собираются
+            # свежим bun, воспроизводимость дает bun.lock плюс --frozen-lockfile.
+            - uses: oven-sh/setup-bun@v2
+            - run: bun install --frozen-lockfile
+            - run: bun run lint
+            - run: bun run format:check
+            - run: bunx astro check
+            - run: bun run build
+            # Не блокирует: advisory появляется само по себе, без связи с этим
+            # PR, и красный чужой PR тут никому не помогает. Но блок `overrides`
+            # в package.json - единственное, что закрывает дыры в транзитивных
+            # пакетах, и обновлять его приходится руками, так что сигнал нужен.
+            - run: bun audit
+              continue-on-error: true
