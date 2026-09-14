@@ -46,70 +46,54 @@ const {
              it invisible. Filled -> render (zod validates the contents).
              About is exempt: it is the document identity, not a section. -->
         <About lang={lang} about={about} />
-        {
-            contacts &&
-                (contacts.length > 0 ? (
-                    <Contacts lang={lang} contacts={contacts} />
-                ) : (
-                    <DevError what="contacts: пустой массив" />
-                ))
-        }
+        {contacts &&
+            (contacts.length > 0 ? (
+                <Contacts lang={lang} contacts={contacts} />
+            ) : (
+                <DevError what="contacts: пустой массив" />
+            ))}
         {research && <Research lang={lang} research={research} />}
-        {
-            skills &&
-                (skills.length > 0 ? (
-                    <Skills lang={lang} skills={skills} />
-                ) : (
-                    <DevError what="skills: пустой массив" />
-                ))
-        }
-        {
-            experience &&
-                (experience.length > 0 ? (
-                    <Experience lang={lang} experience={experience} />
-                ) : (
-                    <DevError what="experience: пустой массив" />
-                ))
-        }
-        {
-            education &&
-                (education.length > 0 ? (
-                    <Education lang={lang} education={education} />
-                ) : (
-                    <DevError what="education: пустой массив" />
-                ))
-        }
-        {
-            achievements &&
-                (achievements.length > 0 ? (
-                    <Awards lang={lang} achievements={achievements} />
-                ) : (
-                    <DevError what="achievements: пустой массив" />
-                ))
-        }
-        {
-            courses &&
-                (courses.length > 0 ? (
-                    <Courses lang={lang} courses={courses} />
-                ) : (
-                    <DevError what="courses: пустой массив" />
-                ))
-        }
-        {
-            publications &&
-                (publications.length > 0 ? (
-                    <Publications lang={lang} publications={publications} />
-                ) : (
-                    <DevError what="publications: пустой массив" />
-                ))
-        }
-        {
-            projects &&
-                (projects.length > 0 ? (
-                    <Projects lang={lang} projects={projects} />
-                ) : (
-                    <DevError what="projects: пустой массив" />
-                ))
-        }
+        {skills &&
+            (skills.length > 0 ? (
+                <Skills lang={lang} skills={skills} />
+            ) : (
+                <DevError what="skills: пустой массив" />
+            ))}
+        {experience &&
+            (experience.length > 0 ? (
+                <Experience lang={lang} experience={experience} />
+            ) : (
+                <DevError what="experience: пустой массив" />
+            ))}
+        {education &&
+            (education.length > 0 ? (
+                <Education lang={lang} education={education} />
+            ) : (
+                <DevError what="education: пустой массив" />
+            ))}
+        {achievements &&
+            (achievements.length > 0 ? (
+                <Awards lang={lang} achievements={achievements} />
+            ) : (
+                <DevError what="achievements: пустой массив" />
+            ))}
+        {courses &&
+            (courses.length > 0 ? (
+                <Courses lang={lang} courses={courses} />
+            ) : (
+                <DevError what="courses: пустой массив" />
+            ))}
+        {publications &&
+            (publications.length > 0 ? (
+                <Publications lang={lang} publications={publications} />
+            ) : (
+                <DevError what="publications: пустой массив" />
+            ))}
+        {projects &&
+            (projects.length > 0 ? (
+                <Projects lang={lang} projects={projects} />
+            ) : (
+                <DevError what="projects: пустой массив" />
+            ))}
     </main>
 </div>

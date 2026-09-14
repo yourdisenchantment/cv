@@ -29,9 +29,9 @@ const langLabel = lang === "en" ? "Русский" : "English";
         data-tooltip={langLabel}
         aria-label={langLabel}
     >
-        <span class="material-symbols-outlined" aria-hidden="true"
-            >language</span
-        >
+        <span class="material-symbols-outlined" aria-hidden="true">
+            language
+        </span>
     </a>
     <button
         class="dock-button"
@@ -40,8 +40,9 @@ const langLabel = lang === "en" ? "Русский" : "English";
         data-tooltip={t(lang, "themeToggle")}
         aria-label={t(lang, "themeToggle")}
     >
-        <span class="material-symbols-outlined" aria-hidden="true">routine</span
-        >
+        <span class="material-symbols-outlined" aria-hidden="true">
+            routine
+        </span>
     </button>
     <button
         class="dock-button"
@@ -50,9 +51,9 @@ const langLabel = lang === "en" ? "Русский" : "English";
         data-tooltip={t(lang, "downloadPdf")}
         aria-label={t(lang, "downloadPdf")}
     >
-        <span class="material-symbols-outlined" aria-hidden="true"
-            >download</span
-        >
+        <span class="material-symbols-outlined" aria-hidden="true">
+            download
+        </span>
     </button>
     <button
         class="dock-button"
@@ -61,7 +62,9 @@ const langLabel = lang === "en" ? "Русский" : "English";
         data-tooltip={t(lang, "print")}
         aria-label={t(lang, "print")}
     >
-        <span class="material-symbols-outlined" aria-hidden="true">print</span>
+        <span class="material-symbols-outlined" aria-hidden="true">
+            print
+        </span>
     </button>
     <a
         class="dock-button"
@@ -71,22 +74,22 @@ const langLabel = lang === "en" ? "Русский" : "English";
         data-tooltip={t(lang, "sourceCode")}
         aria-label={`${t(lang, "sourceCode")} (${t(lang, "openInNewTab")})`}
     >
-        <span class="material-symbols-outlined" aria-hidden="true">code</span>
+        <span class="material-symbols-outlined" aria-hidden="true">
+            code
+        </span>
     </a>
-    {
-        import.meta.env.DEV && (
-            <a
-                class="dock-button"
-                href={`${base}stylebook`}
-                data-tooltip={t(lang, "stylebook")}
-                aria-label={t(lang, "stylebook")}
-            >
-                <span class="material-symbols-outlined" aria-hidden="true">
-                    color_lens
-                </span>
-            </a>
-        )
-    }
+    {import.meta.env.DEV && (
+        <a
+            class="dock-button"
+            href={`${base}stylebook`}
+            data-tooltip={t(lang, "stylebook")}
+            aria-label={t(lang, "stylebook")}
+        >
+            <span class="material-symbols-outlined" aria-hidden="true">
+                color_lens
+            </span>
+        </a>
+    )}
 </nav>
 
 <!-- Theme toggle: flips data-theme on <html>, writes to localStorage. The

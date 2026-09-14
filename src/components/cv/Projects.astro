@@ -16,35 +16,33 @@ const { lang, projects } = Astro.props;
         {t(lang, "projects")}
     </h2>
     <div class="section-body">
-        {
-            projects.map((p) => (
-                <article class="project-entry">
-                    <div class="entry-head">
-                        <h3 class="entry-title">{p.name}</h3>
-                        {/* aria-label disambiguates the repeated "Code" link
+        {projects.map((p) => (
+            <article class="project-entry">
+                <div class="entry-head">
+                    <h3 class="entry-title">{p.name}</h3>
+                    {/* aria-label disambiguates the repeated "Code" link
                             text (WCAG 2.4.4), starts with the visible label
                             (WCAG 2.5.3) and announces the new tab. */}
-                        <a
-                            class="animated-link"
-                            href={p.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`${t(lang, "sourceLink")}: ${p.name} (${t(lang, "openInNewTab")})`}
-                            data-tooltip={t(lang, "openInNewTab")}
-                        >
-                            {t(lang, "sourceLink")}
-                        </a>
-                    </div>
-                    {p.description && <p class="entry-text">{p.description}</p>}
-                    {p.stack && (
-                        <ul class="skill-list">
-                            {p.stack.map((s) => (
-                                <li>{s}</li>
-                            ))}
-                        </ul>
-                    )}
-                </article>
-            ))
-        }
+                    <a
+                        class="animated-link"
+                        href={p.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${t(lang, "sourceLink")}: ${p.name} (${t(lang, "openInNewTab")})`}
+                        data-tooltip={t(lang, "openInNewTab")}
+                    >
+                        {t(lang, "sourceLink")}
+                    </a>
+                </div>
+                {p.description && <p class="entry-text">{p.description}</p>}
+                {p.stack && (
+                    <ul class="skill-list">
+                        {p.stack.map((s) => (
+                            <li>{s}</li>
+                        ))}
+                    </ul>
+                )}
+            </article>
+        ))}
     </div>
 </section>

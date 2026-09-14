@@ -25,27 +25,25 @@ const items = achievements.map((a) =>
     </h2>
     <div class="section-body">
         <ul class="awards-list">
-            {
-                items.map((a) => (
-                    <li>
-                        {a.text}
-                        {a.file && (
-                            <a
-                                class="pdf-badge"
-                                href={base + a.file.replace(/^\//, "")}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                data-tooltip={t(lang, "openInNewTab")}
-                            >
-                                {t(lang, "pdfLink")}
-                                <span class="visually-hidden">
-                                    ({t(lang, "openInNewTab")})
-                                </span>
-                            </a>
-                        )}
-                    </li>
-                ))
-            }
+            {items.map((a) => (
+                <li>
+                    {a.text}
+                    {a.file && (
+                        <a
+                            class="pdf-badge"
+                            href={base + a.file.replace(/^\//, "")}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            data-tooltip={t(lang, "openInNewTab")}
+                        >
+                            {t(lang, "pdfLink")}
+                            <span class="visually-hidden">
+                                ({t(lang, "openInNewTab")})
+                            </span>
+                        </a>
+                    )}
+                </li>
+            ))}
         </ul>
         <p class="scans-note">{t(lang, "scansOnRequest")}</p>
     </div>

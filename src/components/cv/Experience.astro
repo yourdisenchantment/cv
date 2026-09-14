@@ -23,6 +23,8 @@ const sorted = [...experience].sort((a, b) =>
         {t(lang, "experience")}
     </h2>
     <div class="section-body">
-        {sorted.map((job) => <ExperienceItem job={job} lang={lang} />)}
+        {sorted.map((job) => (
+            <ExperienceItem job={job} lang={lang} />
+        ))}
     </div>
 </section>

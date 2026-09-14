@@ -249,8 +249,8 @@ const dummyCv = {
                     resume section. Toggle the theme with the dock.
                 </p>
                 <p class="sb-intro">
-                    Route: <code>/stylebook</code> (prod build excludes this page).
-                    Spec asked for
+                    Route: <code>/stylebook</code> (prod build excludes this
+                    page). Spec asked for
                     <code>/__stylebook</code>, but Astro skips
                     underscore-prefixed routes.
                 </p>
@@ -265,37 +265,29 @@ const dummyCv = {
                     <div class="sb-theme-col">
                         <h3 class="sb-subtitle">Light</h3>
                         <ul class="sb-swatches">
-                            {
-                                colorTokens.map((name) => (
-                                    <li class="sb-swatch">
-                                        <span
-                                            class="sb-chip"
-                                            style={`background: var(--${name});`}
-                                        />
-                                        <span class="sb-swatch-label">
-                                            {name}
-                                        </span>
-                                    </li>
-                                ))
-                            }
+                            {colorTokens.map((name) => (
+                                <li class="sb-swatch">
+                                    <span
+                                        class="sb-chip"
+                                        style={`background: var(--${name});`}
+                                    />
+                                    <span class="sb-swatch-label">{name}</span>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                     <div class="sb-theme-col" data-theme="dark">
                         <h3 class="sb-subtitle">Dark</h3>
                         <ul class="sb-swatches">
-                            {
-                                colorTokens.map((name) => (
-                                    <li class="sb-swatch">
-                                        <span
-                                            class="sb-chip"
-                                            style={`background: var(--${name});`}
-                                        />
-                                        <span class="sb-swatch-label">
-                                            {name}
-                                        </span>
-                                    </li>
-                                ))
-                            }
+                            {colorTokens.map((name) => (
+                                <li class="sb-swatch">
+                                    <span
+                                        class="sb-chip"
+                                        style={`background: var(--${name});`}
+                                    />
+                                    <span class="sb-swatch-label">{name}</span>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </div>
@@ -306,19 +298,17 @@ const dummyCv = {
             <section class="sb-block">
                 <h2 class="sb-title">Typography</h2>
                 <ul class="sb-type">
-                    {
-                        scaleRoles.map(({ token, label }) => (
-                            <li class="sb-type-row">
-                                <span
-                                    class="sb-type-sample"
-                                    style={`font-size: var(${token});`}
-                                >
-                                    The quick brown fox 0123
-                                </span>
-                                <span class="sb-type-label">{label}</span>
-                            </li>
-                        ))
-                    }
+                    {scaleRoles.map(({ token, label }) => (
+                        <li class="sb-type-row">
+                            <span
+                                class="sb-type-sample"
+                                style={`font-size: var(${token});`}
+                            >
+                                The quick brown fox 0123
+                            </span>
+                            <span class="sb-type-label">{label}</span>
+                        </li>
+                    ))}
                 </ul>
             </section>
 
@@ -328,30 +318,26 @@ const dummyCv = {
                 <h2 class="sb-title">Spacing</h2>
                 <h3 class="sb-subtitle">Scale</h3>
                 <ul class="sb-space">
-                    {
-                        spaceScale.map(({ token, label }) => (
-                            <li class="sb-space-row">
-                                <span
-                                    class="sb-space-bar"
-                                    style={`width: var(${token});`}
-                                />
-                                <span class="sb-space-label">
-                                    {label} ({token})
-                                </span>
-                            </li>
-                        ))
-                    }
+                    {spaceScale.map(({ token, label }) => (
+                        <li class="sb-space-row">
+                            <span
+                                class="sb-space-bar"
+                                style={`width: var(${token});`}
+                            />
+                            <span class="sb-space-label">
+                                {label} ({token})
+                            </span>
+                        </li>
+                    ))}
                 </ul>
                 <h3 class="sb-subtitle">Aliases</h3>
                 <ul class="sb-aliases">
-                    {
-                        spaceAliases.map(({ token, label }) => (
-                            <li>
-                                <code>{token}</code>
-                                <span class="sb-alias-label">{label}</span>
-                            </li>
-                        ))
-                    }
+                    {spaceAliases.map(({ token, label }) => (
+                        <li>
+                            <code>{token}</code>
+                            <span class="sb-alias-label">{label}</span>
+                        </li>
+                    ))}
                 </ul>
             </section>
 
@@ -445,8 +431,10 @@ const dummyCv = {
                     <button class="dock-button" type="button">
                         <span
                             class="material-symbols-outlined"
-                            aria-hidden="true">routine</span
+                            aria-hidden="true"
                         >
+                            routine
+                        </span>
                     </button>
                 </p>
                 <h3 class="sb-subtitle">.skill-list li</h3>
@@ -541,9 +529,9 @@ const dummyCv = {
                 data-tooltip="Back to resume"
                 aria-label="Back to resume"
             >
-                <span class="material-symbols-outlined" aria-hidden="true"
-                    >home</span
-                >
+                <span class="material-symbols-outlined" aria-hidden="true">
+                    home
+                </span>
             </a>
         </nav>
     </body>

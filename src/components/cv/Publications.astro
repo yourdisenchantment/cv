@@ -21,6 +21,8 @@ const sorted = [...publications].sort((a, b) => b.year - a.year);
         {t(lang, "publications")}
     </h2>
     <div class="section-body">
-        {sorted.map((pub) => <PublicationItem pub={pub} lang={lang} />)}
+        {sorted.map((pub) => (
+            <PublicationItem pub={pub} lang={lang} />
+        ))}
     </div>
 </section>

@@ -16,7 +16,9 @@ const { lang, course } = Astro.props;
         <h3 class="entry-title">{course.institution}</h3>
         <p class="entry-subtitle">{course.course}</p>
         <ul class="skill-list">
-            {course.skills.map((s) => <li>{s}</li>)}
+            {course.skills.map((s) => (
+                <li>{s}</li>
+            ))}
         </ul>
     </div>
 </article>

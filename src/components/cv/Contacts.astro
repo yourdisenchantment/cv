@@ -45,54 +45,52 @@ const grouped = groupOrder
     <!-- <address>: the element for the page author's contact information.
          Each group is a <dl> of label: value pairs. -->
     <address class="section-body">
-        {
-            grouped.map(({ group, items }) => (
-                <dl class="contact-group">
-                    {items.map((c) => (
-                        <div>
-                            <dt>{c.label}:</dt>
-                            <dd>
-                                {c.href ? (
-                                    <a
-                                        class="animated-link"
-                                        href={c.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        data-tooltip={t(lang, "openInNewTab")}
-                                    >
-                                        {linkHostPath(c.href)}
-                                        {/* The tooltip is visual only - this
+        {grouped.map(({ group, items }) => (
+            <dl class="contact-group">
+                {items.map((c) => (
+                    <div>
+                        <dt>{c.label}:</dt>
+                        <dd>
+                            {c.href ? (
+                                <a
+                                    class="animated-link"
+                                    href={c.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    data-tooltip={t(lang, "openInNewTab")}
+                                >
+                                    {linkHostPath(c.href)}
+                                    {/* The tooltip is visual only - this
                                             line announces the new tab to
                                             screen readers. */}
-                                        <span class="visually-hidden">
-                                            ({t(lang, "openInNewTab")})
-                                        </span>
-                                    </a>
-                                ) : (
-                                    <a
-                                        class="animated-link"
-                                        href={`mailto:${c.value}`}
-                                        data-tooltip={t(lang, "sendEmail")}
-                                    >
-                                        {c.value}
-                                    </a>
-                                )}
-                                {c.archived && (
-                                    <span class="archived">
-                                        ({t(lang, "archived")})
+                                    <span class="visually-hidden">
+                                        ({t(lang, "openInNewTab")})
                                     </span>
-                                )}
-                            </dd>
-                        </div>
-                    ))}
-                    {group === "contact" && phone && (
-                        <div class="contact-print-only">
-                            <dt>{t(lang, "phone")}:</dt>
-                            <dd>{phone}</dd>
-                        </div>
-                    )}
-                </dl>
-            ))
-        }
+                                </a>
+                            ) : (
+                                <a
+                                    class="animated-link"
+                                    href={`mailto:${c.value}`}
+                                    data-tooltip={t(lang, "sendEmail")}
+                                >
+                                    {c.value}
+                                </a>
+                            )}
+                            {c.archived && (
+                                <span class="archived">
+                                    ({t(lang, "archived")})
+                                </span>
+                            )}
+                        </dd>
+                    </div>
+                ))}
+                {group === "contact" && phone && (
+                    <div class="contact-print-only">
+                        <dt>{t(lang, "phone")}:</dt>
+                        <dd>{phone}</dd>
+                    </div>
+                )}
+            </dl>
+        ))}
     </address>
 </section>

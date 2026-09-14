@@ -12,10 +12,14 @@ const { lang, skills } = Astro.props;
 ---
 
 <section aria-labelledby="skills-heading" id="skills">
-    <h2 class="section-heading" id="skills-heading">{t(lang, "skills")}</h2>
+    <h2 class="section-heading" id="skills-heading">
+        {t(lang, "skills")}
+    </h2>
     <div class="section-body">
         <ul class="skill-list">
-            {skills.map((s) => <li>{s}</li>)}
+            {skills.map((s) => (
+                <li>{s}</li>
+            ))}
         </ul>
     </div>
 </section>

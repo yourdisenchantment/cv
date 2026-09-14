@@ -21,7 +21,9 @@ const photo = photoMeta(about.photo);
     <h1 class="visually-hidden">{t(lang, "resumeTitle")}</h1>
     <!-- The section label is a hidden "About" heading: the visible name is a
          person, not a section title, so it stays a styled paragraph. -->
-    <h2 class="visually-hidden" id="about-heading">{t(lang, "about")}</h2>
+    <h2 class="visually-hidden" id="about-heading">
+        {t(lang, "about")}
+    </h2>
     <div class="section-body">
         <div
             class="about-photo"
@@ -50,11 +52,9 @@ const photo = photoMeta(about.photo);
                     <dd>{about.city}</dd>
                 </div>
             </dl>
-            {
-                about.availability && (
-                    <p class="availability">{about.availability}</p>
-                )
-            }
+            {about.availability && (
+                <p class="availability">{about.availability}</p>
+            )}
         </div>
         <p class="about-summary">{about.summary}</p>
     </div>
