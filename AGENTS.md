@@ -160,6 +160,16 @@ otherwise the change reinstates an option that was already rejected.
   Dropping an entry once its parent resolves the fix is optional tidying, not
   a chore: check by deleting the line, running `bun install && bun audit`, and
   keeping the deletion only if the result is still clean.
+- **TypeScript 7 is blocked, and the block is still correct.** Re-checked
+  against 7.0.2: `astro check` refuses outright - the native compiler does
+  not ship the programmatic API the language server calls, and it says so
+  itself, pointing at withastro/roadmap discussion 1321 - and `eslint` dies
+  loading its config. `bun run build` stays green through both, which is the
+  whole reason the ban is an `ignore` entry in `.github/dependabot.yml`
+  rather than something CI would have caught on its own; `check.yml` now runs
+  the two that fail, so a PR proposing it would go red honestly. Lift the
+  entry when `@astrojs/check` and `typescript-eslint` say they support it -
+  and verify by installing it, not by reading a changelog.
 - **Scans in `public/documents/` are published on deploy** and reachable by
   direct URL, indexable, with no link from the page needed. The phone number
   lives in `private.json` and prints only on paper precisely so it stays off
