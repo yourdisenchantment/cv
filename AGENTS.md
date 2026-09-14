@@ -271,14 +271,18 @@ edit or commit it.
         Cloudflare runs. Node escapes it because `node-build` carries its
         version list in git rather than asking an API, which is why `.nvmrc`
         can stay floating while `BUN_VERSION` cannot without this cost.
-        **The remedy is to retry the deployment in the dashboard**, and that is
-        the decision: pinning `BUN_VERSION` would drop the lookup, and it is
-        deliberately not done - see the unpinned-bun bullet below, and pin both
-        sides or neither. Do not go looking at the free plan's
-        one-build-at-a-time limit either; it fits some of the timestamps and is
-        not the cause. The build log lives in the dashboard and nowhere else -
-        GitHub relays only the verdict, so a red check here says nothing about
-        what went wrong.
+        **The remedy is to retry the deployment in the dashboard - but not
+        straight away.** A retry a minute later drew the same 403 (21:29 and
+        21:30 on 2026-09-14): the quota belongs to the runner's IP, not to
+        the run, so it has to lapse first. Leave it an hour, or just let the
+        next push carry the branch. Pinning `BUN_VERSION` would remove the
+        lookup that resolves `latest`, though not provably the other two
+        calls in the log, and it is deliberately not done anyway - see the
+        unpinned-bun bullet below, and pin both sides or neither. Do not go
+        looking at the free plan's one-build-at-a-time limit either; it fits
+        some of the timestamps and is not the cause. The build log lives in
+        the dashboard and nowhere else - GitHub relays only the verdict, so a
+        red check here says nothing about what went wrong.
 
     - **bun is deliberately unpinned on both.** The workflow passes no
       `bun-version` (and `package.json` carries neither `packageManager` nor
