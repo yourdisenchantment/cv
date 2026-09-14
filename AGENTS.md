@@ -223,8 +223,9 @@ edit or commit it.
   propose a commit, write the message to a file (e.g. `/tmp/cv-commit-msg.txt`)
   and hand over `git add` + `git commit -F` commands.
 - CI on `dev` and on pull requests into it: `.github/workflows/check.yml`
-  runs `bun run lint`, `bun run format:check`, `bunx astro check` and
-  `bun run build`, plus a non-blocking `bun audit`. It exists because a
+  runs `bun run lint`, `bun run format:check`, `bunx astro check` and both
+  builds (`bun run build` and `CF_PAGES=1 bun run build`), plus a
+  non-blocking `bun audit`. It exists because a
   dependency PR used to meet only Cloudflare's preview build and CodeQL -
   neither of which runs the linter or the type-checker, which is exactly what
   a tooling bump breaks. `main` has no checks of its own: nothing reaches it

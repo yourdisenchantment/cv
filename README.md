@@ -96,8 +96,8 @@ element to reveal box edges; turn it off in devtools with
 ## Checks and deployment
 
 Pull requests into `dev`, and pushes to `dev` itself, run
-`.github/workflows/check.yml`: lint, formatting, `astro check`, a build, and a
-non-blocking `bun audit`. Before it existed the only checks on a dependency PR
+`.github/workflows/check.yml`: lint, formatting, `astro check`, both builds
+(with and without `CF_PAGES`), and a non-blocking `bun audit`. Before it existed the only checks on a dependency PR
 were Cloudflare's preview build and CodeQL, so a bump that broke the linter or
 the types went unnoticed until it was pushed to `main`.
 

@@ -32,7 +32,14 @@ jobs:
             - run: bun run lint
             - run: bun run format:check
             - run: bunx astro check
+            # Обе ветки конфига, как того требует AGENTS.md: без CF_PAGES
+            # собирается вариант GitHub Pages (base `/cv/`), с ней - вариант
+            # Cloudflare (base `/`, site из CF_PAGES_URL). Из одного исходника
+            # выходят две разные сборки, и зеленая первая ничего не обещает
+            # про вторую. Раньше вторую проверяла только превью-сборка самого
+            # Cloudflare - то есть на ветках, где превью выключено, никто.
             - run: bun run build
+            - run: CF_PAGES=1 bun run build
             # Не блокирует: advisory появляется само по себе, без связи с этим
             # PR, и красный чужой PR тут никому не помогает. Но блок `overrides`
             # в package.json - единственное, что закрывает дыры в транзитивных
