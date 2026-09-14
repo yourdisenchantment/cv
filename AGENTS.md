@@ -147,14 +147,23 @@ otherwise the change reinstates an option that was already rejected.
   creates a 4-5cm unbreakable block, the exact problem that made dated
   entries fragmentable. Re-check in Firefox after any print change.
 - **`overrides` in `package.json`** pin patched versions of transitive
-  dependencies (`bun audit` -> clean). Nothing here needs babysitting: the
-  ranges are carets, so `bun update` floats them upward on its own, and
-  Dependabot keeps the parents current. They exist because Dependabot does
+  dependencies (`bun audit` -> clean). They exist because Dependabot does
   **not** do security updates for the bun ecosystem - only version updates -
-  so this block is what actually closes the advisories. Dropping an entry
-  once its parent resolves the fix is optional tidying, not a chore: check
-  by deleting the line, running `bun install && bun audit`, and keeping the
-  deletion only if the result is still clean.
+  so this block is what actually closes the advisories. **It does need
+  babysitting**, contrary to what this file used to claim: the ranges are
+  carets, but `bun update` keeps the resolution already written into
+  `bun.lock` and reports "no changes", so a pin stays at whatever was patched
+  the day it was added. Four advisories drifted back open underneath these
+  ranges in under a month that way. The fix is to raise the floor by hand -
+  edit the version in `overrides`, then `bun install && bun audit`. The
+  non-blocking `bun audit` step in `check.yml` is there to make that visible.
+  Dropping an entry once its parent resolves the fix is optional tidying, not
+  a chore: check by deleting the line, running `bun install && bun audit`, and
+  keeping the deletion only if the result is still clean.
+- **`bun update` rewrites version ranges it was not asked to touch.** It
+  turned the deliberate `typescript` range `>=6.0.0 <7.0.0` into `^6.0.3`
+  (same upper bound, but the intent stops being readable). Re-read the
+  `package.json` diff after any `bun update`, not just the lockfile.
 - **Scans in `public/documents/` are published on deploy** and reachable by
   direct URL, indexable, with no link from the page needed. The phone number
   lives in `private.json` and prints only on paper precisely so it stays off
@@ -208,10 +217,17 @@ edit or commit it.
 - The user handles git themselves; do not run mutating git commands. To
   propose a commit, write the message to a file (e.g. `/tmp/cv-commit-msg.txt`)
   and hand over `git add` + `git commit -F` commands.
+- CI on `dev` and on pull requests into it: `.github/workflows/check.yml`
+  runs `bun run lint`, `bun run format:check`, `bunx astro check` and
+  `bun run build`, plus a non-blocking `bun audit`. It exists because a
+  dependency PR used to meet only Cloudflare's preview build and CodeQL -
+  neither of which runs the linter or the type-checker, which is exactly what
+  a tooling bump breaks. `main` has no checks of its own: nothing reaches it
+  that has not passed here, and `deploy.yml` builds it again anyway.
 - Two deploys, both on push to `main`, both from the same commit:
     - GitHub Actions (`.github/workflows/deploy.yml`) via `oven-sh/setup-bun@2`
-      (pinned bun `1.3.14`) -> `bun install --frozen-lockfile` ->
-      `bun run build` -> Pages deploy. Serves `/cv/`.
+      -> `bun install --frozen-lockfile` -> `bun run build` -> Pages deploy.
+      Serves `/cv/`.
     - Cloudflare Pages builds the repo itself, no workflow in this repo. It
       sets `CF_PAGES`, which is what flips `base` to `/`. Serves the root of
       its own `*.pages.dev` host. Build command and output directory live in
