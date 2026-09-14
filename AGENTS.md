@@ -160,10 +160,6 @@ otherwise the change reinstates an option that was already rejected.
   Dropping an entry once its parent resolves the fix is optional tidying, not
   a chore: check by deleting the line, running `bun install && bun audit`, and
   keeping the deletion only if the result is still clean.
-- **`bun update` rewrites version ranges it was not asked to touch.** It
-  turned the deliberate `typescript` range `>=6.0.0 <7.0.0` into `^6.0.3`
-  (same upper bound, but the intent stops being readable). Re-read the
-  `package.json` diff after any `bun update`, not just the lockfile.
 - **Scans in `public/documents/` are published on deploy** and reachable by
   direct URL, indexable, with no link from the page needed. The phone number
   lives in `private.json` and prints only on paper precisely so it stays off
@@ -190,6 +186,15 @@ the user, not a cleanup.
   ETL bullets state mechanisms (anti-join replacing a per-group row
   comparison) and counts taken from notebook output. A speedup percentage
   nobody measured does not go in.
+- **Version ranges in `package.json` are whatever `bun update` leaves.** It
+  rewrites ranges it was not asked to touch - it turned the hand-written
+  `typescript` range `>=6.0.0 <7.0.0` into `^6.0.3` - and the ranges follow
+  it rather than being restored afterwards. Nothing is lost by that: `^6.0.3`
+  stops below 7 just as the long form did, and the TypeScript 7 ban is
+  enforced by the `ignore` entry in `.github/dependabot.yml`, not by the
+  range. Do not hand-edit a range back; the one thing to watch is that
+  `package.json` and `bun.lock` go into the same commit, since bun writes
+  both and neither complains when they disagree.
 
 ## Migration reference (legacy/)
 
