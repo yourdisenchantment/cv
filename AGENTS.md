@@ -238,22 +238,37 @@ edit or commit it.
       its own `*.pages.dev` host. Build command and output directory live in
       the Cloudflare dashboard, not here - if a build breaks there and not in
       Actions, look there first.
-    - **A red Cloudflare check does not always mean a broken build**, and this
-      is the trap to know about before debugging one. The free plan runs
-      **one build at a time, counted per account** (500 a month, which this
-      project is nowhere near), so a build that starts while another is
-      running loses the slot and is reported as `Build failed` on the commit.
-      Dependabot pushes several branches within seconds of each other, and
-      **Preview branch control** in the dashboard decides how many of them
-      compete: set to every non-production branch, each bot branch is another
-      contender; narrowed to `dev`, only real work builds. The signature is
-      unmistakable - the failing tree builds clean locally and in Actions,
-      including under the same bun Cloudflare uses
-      (`bun install --frozen-lockfile` then `CF_PAGES=1 bun run build`), and
-      a neighbouring build finished seconds earlier. Check the timestamps of
-      the surrounding deployments before looking for a cause in the diff. The
-      build log is in the dashboard and nowhere else; GitHub only relays the
-      verdict.
+    - **A red Cloudflare check usually means the build never started.** Read
+      the log before looking for a cause in the diff - the failure is above
+      the build command, not in it:
+
+        ```
+        Installing bun latest
+        Plugin bun's list-all callback script failed with output:
+        curl: (22) The requested URL returned error: 403
+        Error: Exit with error code: 1
+        ```
+
+        `BUN_VERSION=latest` has to be resolved to a real version, and the asdf
+        bun plugin resolves it over the network - the unauthenticated list of
+        bun releases, fetched from build runners whose IPs are shared across
+        Cloudflare's customers. Once that IP has spent its hourly quota the
+        answer is 403, nothing resolves, and the run exits before
+        `bun install` is ever reached. So the failures are random, unrelated to
+        the commit (a docs-only push hit one), and unreproducible: the same
+        tree builds clean locally and in Actions, including under the exact bun
+        Cloudflare runs. Node escapes it because `node-build` carries its
+        version list in git rather than asking an API, which is why `.nvmrc`
+        can stay floating while `BUN_VERSION` cannot without this cost.
+        **The remedy is to retry the deployment in the dashboard**, and that is
+        the decision: pinning `BUN_VERSION` would drop the lookup, and it is
+        deliberately not done - see the unpinned-bun bullet below, and pin both
+        sides or neither. Do not go looking at the free plan's
+        one-build-at-a-time limit either; it fits some of the timestamps and is
+        not the cause. The build log lives in the dashboard and nowhere else -
+        GitHub relays only the verdict, so a red check here says nothing about
+        what went wrong.
+
     - **bun is deliberately unpinned on both.** The workflow passes no
       `bun-version` (and `package.json` carries neither `packageManager` nor
       `engines.bun` for `setup-bun` to read, so it lands on latest); Cloudflare
@@ -262,7 +277,9 @@ edit or commit it.
       by pinning one side, which would only make the two differ. To pin, pin
       both: `bun-version` in the workflow **and** `BUN_VERSION` in the
       Cloudflare dashboard, which reads no `.bun-version` file (`.nvmrc` works
-      for Node, which is why that asymmetry is easy to trip over).
+      for Node, which is why that asymmetry is easy to trip over). The price
+      of staying unpinned is known and accepted: on Cloudflare it is the 403
+      above, so some deployments have to be retried by hand.
     - **No `*.pages.dev` hostname is hardcoded anywhere.** The `site` for that
       branch comes from `CF_PAGES_URL`, the URL Cloudflare is deploying to -
       in practice the deployment's own hashed URL, not the project alias. It

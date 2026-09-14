@@ -130,7 +130,11 @@ version of the runtime: the lockfile fixes the dependency tree, and the flag
 makes a build fail loudly rather than quietly resolve something else. The
 trade is that a bad bun release can break both deploys at once; the cost of
 that is a stale site until it is fixed, since a failed build never replaces
-what is already published.
+what is already published. On Cloudflare there is a second, routine cost:
+resolving `latest` is a network call to an unauthenticated release list, and
+from build runners on shared IPs it intermittently answers 403, killing the
+run before the build command. Such a deployment is retried by hand from the
+dashboard - see AGENTS.md for the log signature.
 
 To pin after all, both sides need doing: `bun-version` in the workflow, and a
 `BUN_VERSION` variable in the Cloudflare project settings - Cloudflare reads no
