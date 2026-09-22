@@ -42,6 +42,12 @@
             "group": "resource"
         },
         {
+            "label": "Habr Career",
+            "value": "yourdisenchantment",
+            "href": "https://career.habr.com/yourdisenchantment",
+            "group": "resource"
+        },
+        {
             "label": "GitHub",
             "value": "azzalie",
             "href": "https://github.com/azzalie",
@@ -135,7 +141,7 @@
                 "Location hierarchy and its reconciliation across sources for autocomplete and recommendations",
                 "Filtering, parsing, and analysis of dataframes in Pandas (project was sold)"
             ],
-            "skills": ["Python", "Pandas", "FastAPI", "Git"]
+            "skills": ["Python", "Pandas", "FastAPI", "Selenium", "Git"]
         },
         {
             "period": {
@@ -168,6 +174,7 @@
             "institution": "V.I. Vernadsky Crimean Federal University",
             "faculty": "Faculty of Mathematics and Informatics",
             "department": "Department of Applied Mathematics",
+            "specialization": "Mathematical Modeling and Information Technology",
             "code": "01.04.04",
             "degree": "Master's",
             "honors": "With honors"
@@ -180,6 +187,7 @@
             "institution": "V.I. Vernadsky Crimean Federal University",
             "faculty": "Faculty of Mathematics and Informatics",
             "department": "Department of Applied Mathematics",
+            "specialization": "Mathematical Modeling and Information Technology",
             "code": "01.03.04",
             "degree": "Bachelor's",
             "honors": "With honors"
@@ -194,6 +202,15 @@
             "institution": "V.I. Vernadsky Crimean Federal University",
             "course": "AI and data analysis technologies",
             "skills": ["Python", "Data analysis", "Machine learning"]
+        },
+        {
+            "period": {
+                "start": "2023-12",
+                "end": "2024-04"
+            },
+            "institution": "V.I. Vernadsky Crimean Federal University",
+            "course": "Mathematics and computer science teacher",
+            "skills": ["Python", "Algorithms and data structures"]
         }
     ],
     "projects": [

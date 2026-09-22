@@ -67,6 +67,9 @@ const education = z.object({
     institution: z.string(),
     faculty: z.string(),
     department: z.string().optional(), // e.g. "Кафедра прикладной математики"
+    // Programme inside the field of study, as the diploma names it - narrower
+    // than `faculty`/`department` and not implied by `code`.
+    specialization: z.string().optional(),
     code: z.string().optional(), // field-of-study code, e.g. "01.03.04"
     degree: z.string(),
     honors: z.string().optional(), // e.g. "Красный диплом" (honors degree)

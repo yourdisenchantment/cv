@@ -76,6 +76,7 @@
             "institution": "Sample University",
             "faculty": "Faculty of Applied Mathematics",
             "department": "Department of Something",
+            "specialization": "Sample Specialization",
             "code": "00.00.00",
             "degree": "Bachelor's",
             "honors": "With honors"
