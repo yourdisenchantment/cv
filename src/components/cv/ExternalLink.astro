@@ -1,0 +1,44 @@
+---
+import { type Locale } from "../../lib/format";
+import { t } from "../../lib/i18n";
+
+// An outbound link, with the whole "opens in a new tab" apparatus in one
+// place: the security rel, the hover tooltip, and the announcement for
+// screen readers. Five sections were spelling this out by hand.
+//
+// The announcement comes in two shapes, and which one is right depends on
+// the link text:
+//
+//   - Link text unique on the page (a URL, a project name)? Append the
+//     announcement in a visually-hidden span, leaving the visible text as
+//     the accessible name.
+//   - Link text repeated across entries ("Code" under every project)? That
+//     text alone does not say where the link goes, which WCAG 2.4.4 asks it
+//     to. Pass `label`: it becomes an aria-label that names the target and
+//     then announces the tab. It starts with the visible text, as WCAG 2.5.3
+//     requires of any accessible name that replaces one.
+//
+// aria-label replaces the accessible name rather than extending it, which is
+// why it is not simply always used.
+interface Props {
+    lang: Locale;
+    href: string;
+    label?: string;
+    class?: string;
+}
+
+const { lang, href, label, class: className = "animated-link" } = Astro.props;
+const newTab = t(lang, "openInNewTab");
+---
+
+<a
+    class={className}
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={label ? `${label} (${newTab})` : undefined}
+    data-tooltip={newTab}
+>
+    <slot />
+    {!label && <span class="visually-hidden">({newTab})</span>}
+</a>

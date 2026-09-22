@@ -109,6 +109,28 @@ export function formatPeriod(
 }
 
 /**
+ * Comparator putting the most recent entry first.
+ *
+ * Periods are "YYYY-MM", so comparing them as strings already matches
+ * chronological order - no Date parsing needed. Array.prototype.sort is
+ * stable, so entries sharing a start month keep their JSON order, which is
+ * why JSON order never has to be curated.
+ *
+ * Args:
+ *   a: an entry carrying a period.
+ *   b: the entry to compare it against.
+ *
+ * Returns:
+ *   Negative, zero or positive, as Array.prototype.sort expects.
+ */
+export function byPeriodDesc(
+    a: { period: { start: string } },
+    b: { period: { start: string } },
+): number {
+    return b.period.start.localeCompare(a.period.start);
+}
+
+/**
  * Link without protocol: host + path, without "https://" and trailing "/".
  * For print: a bare handle without a domain is unclear, so we show "host/path"
  * (e.g. "t.me/yourdisenchantment", "github.com/yourdisenchantment").

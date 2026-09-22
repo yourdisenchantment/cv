@@ -1,7 +1,7 @@
 ---
 import type { Cv } from "../../data/cv/schema";
 import { type Locale } from "../../lib/format";
-import { t } from "../../lib/i18n";
+import Section from "./Section.astro";
 
 interface Props {
     lang: Locale;
@@ -11,15 +11,10 @@ interface Props {
 const { lang, skills } = Astro.props;
 ---
 
-<section aria-labelledby="skills-heading" id="skills">
-    <h2 class="section-heading" id="skills-heading">
-        {t(lang, "skills")}
-    </h2>
-    <div class="section-body">
-        <ul class="skill-list">
-            {skills.map((s) => (
-                <li>{s}</li>
-            ))}
-        </ul>
-    </div>
-</section>
+<Section lang={lang} id="skills">
+    <ul class="skill-list">
+        {skills.map((s) => (
+            <li>{s}</li>
+        ))}
+    </ul>
+</Section>

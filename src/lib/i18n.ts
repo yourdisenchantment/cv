@@ -160,7 +160,9 @@ const ui: Record<Locale, Dict> = {
  * Returns:
  *   The localized string.
  */
-export function t(lang: Locale, key: keyof Dict): string {
+export type UiKey = keyof Dict;
+
+export function t(lang: Locale, key: UiKey): string {
     const value = ui[lang][key];
     return value || ui.ru[key];
 }

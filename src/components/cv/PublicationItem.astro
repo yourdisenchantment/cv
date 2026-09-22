@@ -2,6 +2,7 @@
 import type { Cv } from "../../data/cv/schema";
 import { type Locale, linkWithoutScheme } from "../../lib/format";
 import { t } from "../../lib/i18n";
+import ExternalLink from "./ExternalLink.astro";
 
 interface Props {
     lang: Locale;
@@ -61,20 +62,9 @@ function meta(pub: NonNullable<Cv["publications"]>[number]): string {
     <ul class="entry-links">
         {pub.urls.map((u) => (
             <li>
-                <a
-                    class="animated-link"
-                    href={u}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-tooltip={t(lang, "openInNewTab")}
-                >
+                <ExternalLink lang={lang} href={u}>
                     {linkWithoutScheme(u)}
-                    {/* Screen-reader announcement of the new tab (the
-                            tooltip is visual only). */}
-                    <span class="visually-hidden">
-                        ({t(lang, "openInNewTab")})
-                    </span>
-                </a>
+                </ExternalLink>
             </li>
         ))}
     </ul>

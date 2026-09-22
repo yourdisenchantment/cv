@@ -1,0 +1,20 @@
+---
+import DevError from "./DevError.astro";
+
+// The empty half of the "resume is a kit" rule. The caller still checks for
+// the key itself, because the two cases mean different things and reading
+// both off one guard would blur them: an absent key means the section is not
+// part of this CV, an empty array means it was declared and left unfilled.
+// The first renders nothing and says nothing; the second renders nothing but
+// leaves a DEV marker, since a section that silently vanishes is a slip no
+// build can catch.
+interface Props {
+    items: readonly unknown[];
+    // Key name as it appears in the JSON - shown in the DEV marker.
+    name: string;
+}
+
+const { items, name } = Astro.props;
+---
+
+{items.length > 0 ? <slot /> : <DevError what={`${name}: пустой массив`} />}

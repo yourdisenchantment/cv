@@ -11,7 +11,7 @@ import Awards from "./Awards.astro";
 import Courses from "./Courses.astro";
 import Projects from "./Projects.astro";
 import Publications from "./Publications.astro";
-import DevError from "./DevError.astro";
+import OptionalSection from "./OptionalSection.astro";
 
 // Resume body (wrapper + sections) for both locales. The pages (/ and /ru/)
 // load their own entry and pass cv.data; metadata (title/description) is
@@ -46,54 +46,46 @@ const {
              it invisible. Filled -> render (zod validates the contents).
              About is exempt: it is the document identity, not a section. -->
         <About lang={lang} about={about} />
-        {contacts &&
-            (contacts.length > 0 ? (
+        {contacts && (
+            <OptionalSection items={contacts} name="contacts">
                 <Contacts lang={lang} contacts={contacts} />
-            ) : (
-                <DevError what="contacts: пустой массив" />
-            ))}
+            </OptionalSection>
+        )}
         {research && <Research lang={lang} research={research} />}
-        {skills &&
-            (skills.length > 0 ? (
+        {skills && (
+            <OptionalSection items={skills} name="skills">
                 <Skills lang={lang} skills={skills} />
-            ) : (
-                <DevError what="skills: пустой массив" />
-            ))}
-        {experience &&
-            (experience.length > 0 ? (
+            </OptionalSection>
+        )}
+        {experience && (
+            <OptionalSection items={experience} name="experience">
                 <Experience lang={lang} experience={experience} />
-            ) : (
-                <DevError what="experience: пустой массив" />
-            ))}
-        {education &&
-            (education.length > 0 ? (
+            </OptionalSection>
+        )}
+        {education && (
+            <OptionalSection items={education} name="education">
                 <Education lang={lang} education={education} />
-            ) : (
-                <DevError what="education: пустой массив" />
-            ))}
-        {achievements &&
-            (achievements.length > 0 ? (
+            </OptionalSection>
+        )}
+        {achievements && (
+            <OptionalSection items={achievements} name="achievements">
                 <Awards lang={lang} achievements={achievements} />
-            ) : (
-                <DevError what="achievements: пустой массив" />
-            ))}
-        {courses &&
-            (courses.length > 0 ? (
+            </OptionalSection>
+        )}
+        {courses && (
+            <OptionalSection items={courses} name="courses">
                 <Courses lang={lang} courses={courses} />
-            ) : (
-                <DevError what="courses: пустой массив" />
-            ))}
-        {publications &&
-            (publications.length > 0 ? (
+            </OptionalSection>
+        )}
+        {publications && (
+            <OptionalSection items={publications} name="publications">
                 <Publications lang={lang} publications={publications} />
-            ) : (
-                <DevError what="publications: пустой массив" />
-            ))}
-        {projects &&
-            (projects.length > 0 ? (
+            </OptionalSection>
+        )}
+        {projects && (
+            <OptionalSection items={projects} name="projects">
                 <Projects lang={lang} projects={projects} />
-            ) : (
-                <DevError what="projects: пустой массив" />
-            ))}
+            </OptionalSection>
+        )}
     </main>
 </div>

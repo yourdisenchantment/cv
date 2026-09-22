@@ -1,8 +1,8 @@
 ---
 import type { Cv } from "../../data/cv/schema";
 import { type Locale } from "../../lib/format";
-import { t } from "../../lib/i18n";
 import PublicationItem from "./PublicationItem.astro";
+import Section from "./Section.astro";
 
 interface Props {
     lang: Locale;
@@ -16,13 +16,8 @@ const { lang, publications } = Astro.props;
 const sorted = [...publications].sort((a, b) => b.year - a.year);
 ---
 
-<section aria-labelledby="publications-heading" id="publications">
-    <h2 class="section-heading" id="publications-heading">
-        {t(lang, "publications")}
-    </h2>
-    <div class="section-body">
-        {sorted.map((pub) => (
-            <PublicationItem pub={pub} lang={lang} />
-        ))}
-    </div>
-</section>
+<Section lang={lang} id="publications">
+    {sorted.map((pub) => (
+        <PublicationItem pub={pub} lang={lang} />
+    ))}
+</Section>

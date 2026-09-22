@@ -2,6 +2,8 @@
 import type { Cv } from "../../data/cv/schema";
 import { type Locale } from "../../lib/format";
 import { t } from "../../lib/i18n";
+import Section from "./Section.astro";
+import ExternalLink from "./ExternalLink.astro";
 
 interface Props {
     lang: Locale;
@@ -11,38 +13,29 @@ interface Props {
 const { lang, projects } = Astro.props;
 ---
 
-<section aria-labelledby="projects-heading" id="projects">
-    <h2 class="section-heading" id="projects-heading">
-        {t(lang, "projects")}
-    </h2>
-    <div class="section-body">
-        {projects.map((p) => (
-            <article class="project-entry">
-                <div class="entry-head">
-                    <h3 class="entry-title">{p.name}</h3>
-                    {/* aria-label disambiguates the repeated "Code" link
-                            text (WCAG 2.4.4), starts with the visible label
-                            (WCAG 2.5.3) and announces the new tab. */}
-                    <a
-                        class="animated-link"
-                        href={p.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`${t(lang, "sourceLink")}: ${p.name} (${t(lang, "openInNewTab")})`}
-                        data-tooltip={t(lang, "openInNewTab")}
-                    >
-                        {t(lang, "sourceLink")}
-                    </a>
-                </div>
-                {p.description && <p class="entry-text">{p.description}</p>}
-                {p.stack && (
-                    <ul class="skill-list">
-                        {p.stack.map((s) => (
-                            <li>{s}</li>
-                        ))}
-                    </ul>
-                )}
-            </article>
-        ))}
-    </div>
-</section>
+<Section lang={lang} id="projects">
+    {projects.map((p) => (
+        <article class="project-entry">
+            <div class="entry-head">
+                <h3 class="entry-title">{p.name}</h3>
+                {/* "Code" repeats under every project, so the label form
+                        is the right one here - see ExternalLink. */}
+                <ExternalLink
+                    lang={lang}
+                    href={p.url}
+                    label={`${t(lang, "sourceLink")}: ${p.name}`}
+                >
+                    {t(lang, "sourceLink")}
+                </ExternalLink>
+            </div>
+            {p.description && <p class="entry-text">{p.description}</p>}
+            {p.stack && (
+                <ul class="skill-list">
+                    {p.stack.map((s) => (
+                        <li>{s}</li>
+                    ))}
+                </ul>
+            )}
+        </article>
+    ))}
+</Section>

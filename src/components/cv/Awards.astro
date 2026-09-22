@@ -2,6 +2,8 @@
 import type { Cv } from "../../data/cv/schema";
 import { type Locale } from "../../lib/format";
 import { t } from "../../lib/i18n";
+import Section from "./Section.astro";
+import ExternalLink from "./ExternalLink.astro";
 
 interface Props {
     lang: Locale;
@@ -19,32 +21,22 @@ const items = achievements.map((a) =>
 );
 ---
 
-<section aria-labelledby="achievements-heading" id="achievements">
-    <h2 class="section-heading" id="achievements-heading">
-        {t(lang, "achievements")}
-    </h2>
-    <div class="section-body">
-        <ul class="awards-list">
-            {items.map((a) => (
-                <li>
-                    {a.text}
-                    {a.file && (
-                        <a
-                            class="pdf-badge"
-                            href={base + a.file.replace(/^\//, "")}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            data-tooltip={t(lang, "openInNewTab")}
-                        >
-                            {t(lang, "pdfLink")}
-                            <span class="visually-hidden">
-                                ({t(lang, "openInNewTab")})
-                            </span>
-                        </a>
-                    )}
-                </li>
-            ))}
-        </ul>
-        <p class="scans-note">{t(lang, "scansOnRequest")}</p>
-    </div>
-</section>
+<Section lang={lang} id="achievements">
+    <ul class="awards-list">
+        {items.map((a) => (
+            <li>
+                {a.text}
+                {a.file && (
+                    <ExternalLink
+                        lang={lang}
+                        href={base + a.file.replace(/^\//, "")}
+                        class="pdf-badge"
+                    >
+                        {t(lang, "pdfLink")}
+                    </ExternalLink>
+                )}
+            </li>
+        ))}
+    </ul>
+    <p class="scans-note">{t(lang, "scansOnRequest")}</p>
+</Section>
