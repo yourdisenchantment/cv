@@ -51,7 +51,7 @@
     ],
     "research": {
         "topic": "Graph clustering via ant colony optimization (ACO)",
-        "summary": "The data becomes a graph of nearest neighbors, ants deposit pheromone on its edges with no optimization objective, and clusters emerge by cutting the weak edges. Running since December 2025: calibration on synthetic data now, comparison against established clustering algorithms on real data next.",
+        "summary": "The data becomes a nearest-neighbor graph, ants deposit pheromone on its edges with no objective function, and clusters emerge by cutting the weak edges at a threshold chosen automatically from the field's own histogram (Otsu's method). The mechanism is not new - it has been independently rediscovered since 2005; my part is the calibration and a protocol that measures the result against what the bare kNN graph gives before any ant has walked it.",
         "links": [
             {
                 "label": "intelliant-core",
