@@ -49,8 +49,8 @@ function meta(pub: NonNullable<Cv["publications"]>[number]): string {
 ---
 
 <article class="publication-entry">
-    <!-- Year leads the meta line: the section is sorted by it (newest first),
-         so a leading year makes that order scannable down the column. -->
+    {/* Year leads the meta line: the section is sorted by it (newest first),
+         so a leading year makes that order scannable down the column. */}
     <p class="entry-meta dot-row">
         <span>{pub.year}</span>
         <span class="dot-sep">{meta(pub)}</span>

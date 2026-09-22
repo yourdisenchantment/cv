@@ -38,13 +38,13 @@ const {
 
 <div class="wrapper">
     <main class="main">
-        <!-- The resume is a kit: every section below is optional and follows
+        {/* The resume is a kit: every section below is optional and follows
              one rule. Key absent -> the section is not part of this CV, render
              nothing. Key present but empty -> render nothing either, but leave
              a red DEV marker: the section was declared and left empty, which is
              a slip the build cannot catch, and omitting it silently would make
              it invisible. Filled -> render (zod validates the contents).
-             About is exempt: it is the document identity, not a section. -->
+             About is exempt: it is the document identity, not a section. */}
         <About lang={lang} about={about} />
         {contacts && (
             <OptionalSection items={contacts} name="contacts">

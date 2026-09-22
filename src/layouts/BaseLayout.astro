@@ -54,9 +54,9 @@ const base = import.meta.env.BASE_URL;
                 set:html={JSON.stringify(jsonLd)}
             ></script>
         )}
-        <!-- Applies the theme before first paint to avoid a flash of the light
+        {/* Applies the theme before first paint to avoid a flash of the light
              theme (FOUC). Without JS the fallback is :root (light). The toggle
-             button and the localStorage write live in the Dock. -->
+             button and the localStorage write live in the Dock. */}
         <script is:inline>
             (function () {
                 var saved = localStorage.getItem("theme");
@@ -74,8 +74,8 @@ const base = import.meta.env.BASE_URL;
     <body class:list={[isDev && "debug-boxes"]}>
         <slot />
         <Dock lang={lang} />
-        <!-- Tooltips (data-tooltip) are dismissible via Escape: set a class on
-             <html>, drop it on pointer move / focus change. CSS in styles.css. -->
+        {/* Tooltips (data-tooltip) are dismissible via Escape: set a class on
+             <html>, drop it on pointer move / focus change. CSS in styles.css. */}
         <script is:inline>
             (function () {
                 var root = document.documentElement;

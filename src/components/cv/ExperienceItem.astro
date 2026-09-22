@@ -13,8 +13,8 @@ const { lang, job } = Astro.props;
 <article class="dated-entry">
     <p class="entry-period">{formatPeriod(job.period, lang)}</p>
     <div class="entry-info">
-        <!-- hgroup: a heading with its subtitle. The role is a paragraph, not
-             a lower heading - it labels the same entry, not a subsection. -->
+        {/* hgroup: a heading with its subtitle. The role is a paragraph, not
+             a lower heading - it labels the same entry, not a subsection. */}
         <hgroup class="entry-head dot-row">
             <h3 class="entry-title">{job.company}</h3>
             <p class="entry-subtitle dot-sep">{job.role}</p>

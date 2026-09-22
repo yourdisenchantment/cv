@@ -92,9 +92,9 @@ const langLabel = lang === "en" ? "Русский" : "English";
     )}
 </nav>
 
-<!-- Theme toggle: flips data-theme on <html>, writes to localStorage. The
+{/* Theme toggle: flips data-theme on <html>, writes to localStorage. The
      inline script in BaseLayout already applied the theme before paint; here
-     it is only toggled on click. -->
+     it is only toggled on click. */}
 <script is:inline>
     (function () {
         var btn = document.querySelector('.dock-button[data-action="theme"]');
@@ -109,8 +109,8 @@ const langLabel = lang === "en" ? "Русский" : "English";
     })();
 </script>
 
-<!-- Print and PDF download: both call window.print() (browser dialog, "Save
-     as PDF"). Print styling lives in print.css (@page A4). -->
+{/* Print and PDF download: both call window.print() (browser dialog, "Save
+     as PDF"). Print styling lives in print.css (@page A4). */}
 <script is:inline>
     (function () {
         var buttons = document.querySelectorAll(

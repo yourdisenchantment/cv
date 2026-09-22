@@ -17,10 +17,10 @@ if (!cv) throw new Error(`CV entry '${lang}' not found in collection 'cv'`);
     description={cv.data.meta.description}
     noindex
 >
-    <!-- Sets [data-leet] before the resume below is painted (the script runs
+    {/* Sets [data-leet] before the resume below is painted (the script runs
          during body parsing) and leetifies all text once the DOM is ready.
          Material Symbols are skipped: the icons are ligatures of their names,
-         "pr1n7" would break the glyph. -->
+         "pr1n7" would break the glyph. */}
     <script is:inline>
         (function () {
             document.documentElement.setAttribute("data-leet", "");

@@ -40,8 +40,8 @@ const grouped = groupOrder
     .filter((g) => g.items.length > 0);
 ---
 
-<!-- <address>: the element for the page author's contact information.
-     Each group is a <dl> of label: value pairs. -->
+{/* <address>: the element for the page author's contact information.
+     Each group is a <dl> of label: value pairs. */}
 <Section lang={lang} id="contacts" bodyTag="address">
     {grouped.map(({ group, items }) => (
         <dl class="contact-group">
