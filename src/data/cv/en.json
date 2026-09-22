@@ -9,7 +9,7 @@
         "role": "ML R&D Engineer / Applied Scientist",
         "birthDate": "2002-11-06",
         "city": "Simferopol, Russia",
-        "summary": "An applied-mathematics foundation with a backend background. My edge is combining research with production: an original clustering algorithm (Intelliant, on PyPI) and data-centric VLM fine-tuning on one side, pipelines over hundreds of thousands of records and FastAPI services on the other. Preparing for a PhD in ML."
+        "summary": "An applied-mathematics foundation with a backend background. My edge is combining research with production: an original clustering algorithm (Intelliant, on PyPI) and data-centric VLM fine-tuning on one side, pipelines over hundreds of thousands of records and FastAPI services on the other."
     },
     "contacts": [
         {
@@ -50,13 +50,8 @@
         }
     ],
     "research": {
-        "topic": "Graph-based clustering via ant colony optimization (ACO): finding semantic cores and multilevel hierarchical clustering",
-        "summary": "I'm developing a clustering method: the data becomes a graph of nearest neighbors, ants deposit pheromone on its edges with no optimization objective, and clusters emerge by cutting the weak edges. The idea isn't new, but whether it works well as a standalone clustering tool - and for which data - is a question I'm interested in answering for myself. I've been running the project since December 2025. The goal is to reach quality comparable to established clustering algorithms.",
-        "path": [
-            "The first stage was a prototype built for my thesis: I compressed a large dataset of image captions down to a representative sample and used it to fine-tune an image-captioning model.",
-            "The current stage turns that prototype into a proper pipeline - graph construction, a pheromone field, and clustering as three independent steps - and is now being calibrated on synthetic and training data; comparing it against established clustering methods on real data comes next.",
-            "The next stage is multilevel hierarchical clustering: instead of clustering once, the clusters found so far are collapsed into absorbing points that resist merging with their neighbors, and the same mechanism is reapplied to the coarser graph, so structure emerges at several scales rather than one."
-        ],
+        "topic": "Graph clustering via ant colony optimization (ACO)",
+        "summary": "The data becomes a graph of nearest neighbors, ants deposit pheromone on its edges with no optimization objective, and clusters emerge by cutting the weak edges. Running since December 2025: calibration on synthetic data now, comparison against established clustering algorithms on real data next.",
         "links": [
             {
                 "label": "intelliant-core",
@@ -211,7 +206,7 @@
         {
             "name": "Intelliant",
             "url": "https://github.com/yourdisenchantment/intelliant",
-            "description": "An original ant-colony clustering algorithm: a KNN graph over embeddings, search for dense semantic cores. Numba and sparse matrices, published on PyPI, 56 tests. The basis of my master's thesis and planned PhD work.",
+            "description": "An original ant-colony clustering algorithm: a KNN graph over embeddings, search for dense semantic cores. Numba and sparse matrices, published on PyPI, 56 tests. The basis of my master's thesis.",
             "stack": ["Python", "NumPy", "SciPy", "scikit-learn", "Numba"]
         },
         {

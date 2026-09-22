@@ -23,7 +23,7 @@ const about = z.object({
     availability: z.string().optional(),
 });
 
-// PhD research block: a topic line, an essence paragraph, an optional
+// Research block: a topic line, an essence paragraph, an optional
 // "path" (one or more paragraphs on past/current/future stages), and
 // optional links to related projects/repos. Rendered as its own section
 // (before skills). Optional - omit to drop the section.
