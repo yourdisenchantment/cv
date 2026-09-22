@@ -42,18 +42,6 @@
             "group": "resource"
         },
         {
-            "label": "Habr Career",
-            "value": "yourdisenchantment",
-            "href": "https://career.habr.com/yourdisenchantment",
-            "group": "resource"
-        },
-        {
-            "label": "hh.ru",
-            "value": "ML Engineer / Data Scientist",
-            "href": "https://hh.ru/resume/21776a73ff111172ec0039ed1f6e6e74505353",
-            "group": "resource"
-        },
-        {
             "label": "GitHub",
             "value": "azzalie",
             "href": "https://github.com/azzalie",
