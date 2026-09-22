@@ -48,6 +48,12 @@
             "group": "resource"
         },
         {
+            "label": "hh.ru",
+            "value": "ML Engineer / Data Scientist",
+            "href": "https://hh.ru/resume/21776a73ff111172ec0039ed1f6e6e74505353",
+            "group": "resource"
+        },
+        {
             "label": "GitHub",
             "value": "azzalie",
             "href": "https://github.com/azzalie",
@@ -113,7 +119,7 @@
                 "Location reference of ~10.7k nodes across five levels (region - province - city - macrozone - microzone); a listing attaches to the deepest matching node",
                 "Listing versioning: four lifecycle tables rotated by record age - current, changed, inactive, archived",
                 "Moved version diffing from Pandas to Polars: the per-group row comparison that ran out of memory became an anti-join; staged writes to disk decoupled peak memory from the size of the history",
-                "End-to-end SAM 3D Body pipeline: from dissecting the model to video adaptation and a Gradio interface",
+                "End-to-end SAM 3D Body pipeline: from dissecting the model and extracting joints to converting the skeleton to quaternions, video adaptation, and a Gradio interface",
                 "Desktop viewer for SAM 3D Body results on Rerun and PySide; shown to investors, used by the team"
             ],
             "skills": [
