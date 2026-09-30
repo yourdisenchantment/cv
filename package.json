@@ -23,7 +23,7 @@
         "*.{ts,css,json,md}": "prettier --write"
     },
     "dependencies": {
-        "astro": "^7.3.4",
+        "astro": "^7.3.5",
         "zod": "^4.6.5"
     },
     "devDependencies": {
