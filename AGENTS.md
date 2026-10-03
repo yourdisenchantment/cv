@@ -101,6 +101,23 @@ local build, not the public site.
   it. On GitHub Pages (base `/cv/`) it lands at `/cv/robots.txt`, which no
   crawler fetches - that deployment effectively ships none, and this is
   accepted, since it is not the canonical one.
+- **Language alternates and link previews hang off `canonical`.**
+  `BaseLayout` emits `hreflang` links and the Open Graph / Twitter tags only
+  when a page passes `canonical`, the same gate that already keeps `/1337`
+  and DEV pages out of search - a page that opts out of indexing has no
+  business advertising itself. Every address in them is built from
+  `CANONICAL_ROOT`, never from the build's own origin, so both builds emit
+  the same tags. The language list is `LOCALES` in `src/lib/canonical.ts`; the
+  sitemap and the hreflang links both read it. Adding a language means adding
+  it there, plus its JSON, plus a card (below).
+- **The preview cards are static images with the text baked in.**
+  `public/og-<lang>.jpg`, 1200x630, drawn by `scripts/og-images.mjs` from the
+  CV JSON, the photo and the fonts in `src/`. Nothing in the build rebuilds
+  them, so a changed name, role or photo leaves the cards stale until the
+  script is run again and the result committed. The script is not a project
+  dependency (it needs a browser); its header says how to run it. Messengers
+  cache previews hard - after changing a card, the old one can linger in a
+  chat for a long time, and that is on their side.
 - **Stylebook** (`src/pages/stylebook/[...slug].astro`) is a DEV-only page
   with all design tokens and live section samples. It is excluded from the
   prod build by an empty `getStaticPaths()` under `import.meta.env.PROD`, and

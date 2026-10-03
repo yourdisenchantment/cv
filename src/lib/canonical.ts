@@ -18,6 +18,17 @@ import type { Locale } from "./format";
 
 export const CANONICAL_ROOT = "https://mpavel-cv.pages.dev/";
 
+// Every language the resume is published in. The single list for everything
+// that has to enumerate them - the sitemap, the hreflang links - so adding a
+// language is one edit here plus the content, not a hunt through the pages.
+// (astro.config.mjs keeps its own for the router; that one is Astro's.)
+export const LOCALES: readonly Locale[] = ["en", "ru"];
+
+// Size of the link-preview card, in pixels. 1200x630 is the 1.91:1 shape every
+// messenger and social network crops to. public/og-<lang>.jpg is drawn at
+// exactly this size by scripts/og-images.mjs, which reads it from here.
+export const OG_IMAGE = { width: 1200, height: 630 } as const;
+
 /**
  * Absolute URL of a locale's page on the canonical deployment.
  *
@@ -30,4 +41,23 @@ export const CANONICAL_ROOT = "https://mpavel-cv.pages.dev/";
  */
 export function canonicalUrl(lang: Locale): string {
     return lang === "en" ? CANONICAL_ROOT : `${CANONICAL_ROOT}${lang}/`;
+}
+
+/**
+ * Absolute URL of a locale's link-preview image on the canonical deployment.
+ *
+ * Built from CANONICAL_ROOT, not from the build's own origin, for the same
+ * reason the canonical URL is: the page people share is the canonical one,
+ * and the image has to resolve from wherever that page's tags are read. The
+ * file is a static asset in public/, so it sits at the root of the canonical
+ * host.
+ *
+ * Args:
+ *   lang: page language - each locale has its own card.
+ *
+ * Returns:
+ *   The absolute URL of public/og-<lang>.jpg.
+ */
+export function ogImageUrl(lang: Locale): string {
+    return `${CANONICAL_ROOT}og-${lang}.jpg`;
 }
