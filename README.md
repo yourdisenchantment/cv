@@ -97,9 +97,11 @@ element to reveal box edges; turn it off in devtools with
 
 Pull requests into `dev`, and pushes to `dev` itself, run
 `.github/workflows/check.yml`: lint, formatting, `astro check`, both builds
-(with and without `CF_PAGES`), and a non-blocking `bun audit`. Before it existed the only checks on a dependency PR
-were Cloudflare's preview build and CodeQL, so a bump that broke the linter or
-the types went unnoticed until it was pushed to `main`.
+(with and without `CF_PAGES`), and a non-blocking `bun run audit`. A second
+workflow, `audit.yml`, runs the same audit every Monday and opens an issue if
+it finds anything. Before `check.yml` existed the only checks on a dependency
+PR were Cloudflare's preview build and CodeQL, so a bump that broke the linter
+or the types went unnoticed until it was pushed to `main`.
 
 The site is published twice from the same commit on every push to `main`:
 

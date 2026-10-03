@@ -26,6 +26,7 @@ branch; `dev` is the working branch and is **not** deployed.
 | `bun run preview`      | Preview the production build                   |
 | `bunx astro check`     | Type-check `.astro`/TS (the only typecheck)    |
 | `bun run lint`         | ESLint                                         |
+| `bun run audit`        | `bun audit` with the one ignored advisory      |
 | `bun run format`       | Prettier write                                 |
 | `bun run format:check` | Prettier check                                 |
 
@@ -172,8 +173,12 @@ otherwise the change reinstates an option that was already rejected.
   `bun.lock` and reports "no changes", so a pin stays at whatever was patched
   the day it was added. Four advisories drifted back open underneath these
   ranges in under a month that way. The fix is to raise the floor by hand -
-  edit the version in `overrides`, then `bun install && bun audit`. The
-  non-blocking `bun audit` step in `check.yml` is there to make that visible.
+  edit the version in `overrides`, then `bun install && bun audit`. Two
+  things make that visible: the non-blocking `bun run audit` step in
+  `check.yml`, and `audit.yml`, which runs it every Monday on `main` and opens
+  an issue (once, not per run) when it fails. An issue rather than a red run
+  because a failed scheduled run is emailed to whoever last edited its cron
+  line - the commit author, here a noreply address with no GitHub account.
   Dropping an entry once its parent resolves the fix is optional tidying, not
   a chore: check by deleting the line, running `bun install && bun audit`, and
   keeping the deletion only if the result is still clean.
@@ -187,6 +192,18 @@ otherwise the change reinstates an option that was already rejected.
   the two that fail, so a PR proposing it would go red honestly. Lift the
   entry when `@astrojs/check` and `typescript-eslint` say they support it -
   and verify by installing it, not by reading a changelog.
+- **One advisory is ignored on purpose: GHSA-ch52-4w7c-c8xp.** It is
+  `http-cache-semantics` (under astro; "max-stale handling can disclose
+  cross-user cached responses", high). No patched release exists - 4.2.0, the
+  latest, is the last affected one - so raising `overrides` cannot close it.
+  Nothing here reaches it: astro imports the package in one place,
+  `assets/build/remote.js`, the cache for remote images at build time, and
+  this project has no remote images and no `image.remotePatterns`. The flag
+  lives in the `audit` script in package.json, by advisory ID and not by
+  package, so any other advisory against the same package still fails the
+  run. Without it the weekly audit would be red for good and stop meaning
+  anything. Drop `--ignore` once the registry has a release above 4.2.0 and
+  the lockfile has taken it; until then it is a known gap, not a clean bill.
 - **Scans in `public/documents/` are published on deploy** and reachable by
   direct URL, indexable, with no link from the page needed. The phone number
   lives in `private.json` and prints only on paper precisely so it stays off

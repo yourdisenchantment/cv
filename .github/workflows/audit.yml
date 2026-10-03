@@ -1,0 +1,67 @@
+name: Audit
+
+# Раз в неделю проверяет дерево зависимостей на новые advisory и, если что-то
+# нашлось, заводит issue. Отдельно от check.yml, потому что там audit не
+# блокирует и его падение никто не увидит, а advisory появляются сами по себе,
+# без связи с чьим-либо коммитом, бывает по десятку за неделю. Закрывает их
+# только блок `overrides` в package.json, руками.
+#
+# Именно issue, а не красный прогон: письмо о падении планового workflow
+# уходит тому, кто последним менял расписание, то есть автору коммита, а автор
+# здесь - noreply-адрес без аккаунта на GitHub. Issue приходит владельцу
+# репозитория.
+#
+# Плановые запуски GitHub берет из файла на main (расписание из dev не
+# действует), и в публичном репозитории без активности на 60 дней отключает.
+on:
+    schedule:
+        - cron: "0 7 * * 1"
+    workflow_dispatch:
+
+permissions:
+    contents: read
+    issues: write
+
+jobs:
+    audit:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v7
+            - uses: oven-sh/setup-bun@v2
+            - run: bun install --frozen-lockfile
+            # continue-on-error, чтобы следующий шаг прочитал исход и заведет
+            # issue только из-за audit, а не из-за упавшей установки. Падение
+            # job остается на последнем шаге.
+            - id: audit
+              continue-on-error: true
+              shell: bash
+              run: |
+                  bun run audit 2>&1 | tee audit.txt
+                  exit "${PIPESTATUS[0]}"
+            - name: Open an issue
+              if: steps.audit.outcome == 'failure'
+              env:
+                  GH_TOKEN: ${{ github.token }}
+              run: |
+                  title="Dependency audit found advisories"
+                  # Не плодить дубли: пока прошлая issue открыта, новая не нужна.
+                  open=$(gh issue list --state open --json title \
+                      --jq "[.[] | select(.title == \"$title\")] | length")
+                  if [ "$open" = "0" ]; then
+                      {
+                          echo "The weekly \`bun run audit\` reported:"
+                          echo
+                          echo '```'
+                          sed 's/\x1b\[[0-9;]*m//g' audit.txt
+                          echo '```'
+                          echo
+                          echo "Most of these close by raising the matching entry in"
+                          echo "\`overrides\` in package.json and running \`bun install\`;"
+                          echo "see AGENTS.md, \"Needs checking\". An advisory with no"
+                          echo "patched release cannot be closed that way - see the"
+                          echo "ignore note there before deciding."
+                      } > body.md
+                      gh issue create --title "$title" --body-file body.md
+                  fi
+            - if: steps.audit.outcome == 'failure'
+              run: exit 1
