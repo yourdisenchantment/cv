@@ -144,6 +144,13 @@ section {
     color: var(--text-strong);
 }
 
+.status {
+    font-family: var(--font-mono);
+    font-size: var(--fs-body-text);
+    color: var(--text-muted);
+    font-style: italic;
+}
+
 /* summary is a separate paragraph below about-info (outside the flex, wraps the
    photo), so its spacing is set explicitly. */
 .about-summary {

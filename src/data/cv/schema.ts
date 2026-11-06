@@ -21,6 +21,7 @@ const about = z.object({
     city: z.string(),
     summary: z.string(),
     availability: z.string().optional(),
+    status: z.string().optional(),
 });
 
 // Research block: a topic line, an essence paragraph, an optional
