@@ -24,6 +24,21 @@ export default [
             },
         },
     },
+    // Скрипты в scripts/ запускаются в Bun/Node вручную, не в сборке: им нужны
+    // console и process (сообщение об ошибке, выход с кодом) и URL. document
+    // стоит в списке ради колбэков page.evaluate: они исполняются в браузере
+    // Playwright, а не в самом скрипте, но выглядят в его тексте обычным кодом.
+    {
+        files: ["scripts/**/*.mjs"],
+        languageOptions: {
+            globals: {
+                console: "readonly",
+                process: "readonly",
+                URL: "readonly",
+                document: "readonly",
+            },
+        },
+    },
     // Парсинг .astro + правила против ошибок шаблона и клиентских скриптов.
     ...astro.configs["flat/recommended"],
     // Правила доступности для .astro (требует eslint-plugin-jsx-a11y).

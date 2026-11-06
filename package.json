@@ -13,6 +13,7 @@
         "format": "prettier --write .",
         "format:check": "prettier --check .",
         "lint": "eslint .",
+        "audit": "bun audit --ignore=GHSA-ch52-4w7c-c8xp",
         "prepare": "husky"
     },
     "lint-staged": {
