@@ -124,6 +124,9 @@ const base = import.meta.env.BASE_URL;
         <title>{title}</title>
     </head>
     <body class:list={[isDev && "debug-boxes"]}>
+        <a class="skip-link" href="#about">
+            {lang === "ru" ? "Перейти к содержанию" : "Skip to content"}
+        </a>
         <slot />
         <Dock lang={lang} />
         {/* Tooltips (data-tooltip) are dismissible via Escape: set a class on
