@@ -49,6 +49,27 @@ button:focus-visible,
     white-space: nowrap;
 }
 
+/* Skip link: hidden until focused, then positioned top-left with prominent
+   outline. Allows keyboard users to jump past the long section list. */
+.skip-link {
+    position: absolute;
+    inset-block-start: -9999px;
+    inset-inline-start: auto;
+}
+.skip-link:focus {
+    inset-block-start: 0.5rem;
+    inset-inline-start: 0.5rem;
+    z-index: 1000;
+    padding: 0.5rem 1rem;
+    background: var(--bg);
+    color: var(--text-strong);
+    outline: var(--focus-outline-width, 2px) solid
+        var(--focus-ring, var(--text-strong));
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-body-text);
+}
+
 /* --- Tooltip (data-tooltip) --- */
 /* Tooltip via ::before (not ::after): on .animated-link ::after is taken by the
    underline animation, and an element has only one of each pseudo-element.
