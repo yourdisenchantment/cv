@@ -9,7 +9,8 @@
         "role": "ML R&D Engineer / Applied Scientist",
         "birthDate": "2002-11-06",
         "city": "Simferopol, Russia",
-        "summary": "An applied-mathematics foundation with a backend background. My edge is combining research with production: my own implementation of a clustering algorithm (Intelliant, on PyPI) and data-centric VLM fine-tuning on one side, pipelines over hundreds of thousands of records and FastAPI services on the other."
+        "summary": "An applied-mathematics foundation with a backend background. My edge is combining research with production: my own implementation of a clustering algorithm (Intelliant, on PyPI) and data-centric VLM fine-tuning on one side, pipelines over hundreds of thousands of records and FastAPI services on the other.",
+        "status": "In the army"
     },
     "contacts": [
         {
@@ -20,7 +21,7 @@
         },
         {
             "label": "Email",
-            "value": "pavel.mikheyev.611@gmail.com",
+            "value": "p.idisenchantment@gmail.com",
             "group": "contact"
         },
         {
